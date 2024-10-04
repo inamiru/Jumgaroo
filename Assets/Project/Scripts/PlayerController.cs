@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float speedZ;
     public float acceleratorZ;
 
+    int jumpCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +35,7 @@ public class PlayerController : MonoBehaviour
         
         Move();
 
-        movedir.y -= 20f * Time.deltaTime;
+        movedir.y -= 20.0f * Time.deltaTime;
 
         if (characterController.isGrounded)
         {
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         animator.SetTrigger("Jump");
-        movedir.y = 15f;
+        movedir.y = 12.0f;
     }
 
     void Move()
