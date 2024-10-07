@@ -17228,6 +17228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalText: {fileID: 1758133880}
   playerTag: Player
+  playerAnimator: {fileID: 2101883976}
 --- !u!65 &620459020
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17308,7 +17309,7 @@ Transform:
   m_GameObject: {fileID: 620459018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 95}
+  m_LocalPosition: {x: 0, y: 3, z: 16.5}
   m_LocalScale: {x: 7.6168237, y: 4.4522, z: 4.1705093}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37330,7 +37331,7 @@ PrefabInstance:
     - target: {fileID: 7040347204004970700, guid: 6eea20072fd3a4c63bc38856ae2feaa2,
         type: 3}
       propertyPath: maxSpeed
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7040347204004970700, guid: 6eea20072fd3a4c63bc38856ae2feaa2,
         type: 3}
@@ -60571,6 +60572,12 @@ PrefabInstance:
 --- !u!4 &2101883972 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033309062905242, guid: 6eea20072fd3a4c63bc38856ae2feaa2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1310206496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2101883976 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6033309055668848, guid: 6eea20072fd3a4c63bc38856ae2feaa2,
     type: 3}
   m_PrefabInstance: {fileID: 1310206496}
   m_PrefabAsset: {fileID: 0}

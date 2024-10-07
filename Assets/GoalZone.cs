@@ -7,6 +7,8 @@ public class GoalZone : MonoBehaviour
 {
     public TextMeshProUGUI goalText;  // TextMeshProのUIテキスト
     public string playerTag = "Player";  // プレイヤーのタグ
+    private bool goalReached = false;  // ゴールに到達したかのフラグ
+    public Animator playerAnimator;  // プレイヤーのAnimatorコンポーネント
 
     // Start is called before the first frame update
     void Start()
@@ -18,22 +20,33 @@ public class GoalZone : MonoBehaviour
     // プレイヤーが範囲内（トリガー）に入ったら
     void OnTriggerEnter(Collider other)
     {
-        // プレイヤー（タグが一致するオブジェクト）が範囲に入ったとき
-        if (other.CompareTag(playerTag))
+     if (other.CompareTag(playerTag) && !goalReached)
         {
+            // ゴールに到達したフラグを立てる
+            goalReached = true;
+
             // ゴールテキストを表示
             goalText.enabled = true;
-        }
-    }
 
-        // プレイヤーが範囲を離れたらゴールテキストを非表示にする場合
-    void OnTriggerExit(Collider other)
-    {
-        // プレイヤーが範囲から出たとき
-        if (other.CompareTag(playerTag))
-        {
-            // ゴールテキストを非表示
-            goalText.enabled = false;
+            // プレイヤーのアニメーションをゴールに到達したものに切り替える
+            playerAnimator.SetTrigger("GoalReached");
+
+            // プレイヤーのRigidbodyの動きを止める
+            Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
+
+            if (playerRigidbody != null)
+            {
+                // プレイヤーの速度をゼロにする
+                playerRigidbody.velocity = Vector3.zero;
+                playerRigidbody.angularVelocity = Vector3.zero;
+
+                // プレイヤーの入力を無効にする（プレイヤーの移動スクリプトを無効にする）
+                PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
+                if (playerActionScript != null)
+                {
+                    playerActionScript.enabled = false;  // 移動スクリプトを無効化
+                }
+            }
         }
     }
 
