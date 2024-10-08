@@ -15,6 +15,8 @@ public class PlayerAction : MonoBehaviour
     private int jumpCount = 0;          // ジャンプの回数
     public int maxJumps = 2;            // 最大ジャンプ回数（二段ジャンプを許可するため2に設定）
 
+    private bool canMove = false;    // プレイヤーの入力を受け付けるかどうかを制御するフラグ
+
     private Rigidbody rb;
     private Animator animator;
 
@@ -30,11 +32,16 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // アニメーターのパラメータを設定
+        animator.SetBool("isGrounded", isGrounded);
         // レイキャストを使って接地判定を行う
         isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
 
-        // アニメーターのパラメータを設定
-        animator.SetBool("isGrounded", isGrounded);
+        if (!canMove)
+        {
+            // 入力を受け付けない場合、プレイヤーを動かさない
+            return;
+        }
 
         // 接地している場合、ジャンプ回数をリセット
         if (isGrounded)
@@ -58,6 +65,7 @@ public class PlayerAction : MonoBehaviour
             // 最大速度に達したらそれ以上加速しない
             currentSpeed = maxSpeed;
         }
+        
         // Rigidbodyを使って前方に移動
         rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
         // アニメーションのパラメータに速度を渡す
@@ -77,7 +85,13 @@ public class PlayerAction : MonoBehaviour
         jumpCount++;
     }
 
-        // デバッグ用：レイキャストの可視化
+    // 外部から呼び出して入力を有効にするメソッド
+    public void EnableInput()
+    {
+        canMove = true;
+    }
+
+    // デバッグ用：レイキャストの可視化
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
