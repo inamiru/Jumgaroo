@@ -65,7 +65,7 @@ public class PlayerAction : MonoBehaviour
             // 最大速度に達したらそれ以上加速しない
             currentSpeed = maxSpeed;
         }
-        
+
         // Rigidbodyを使って前方に移動
         rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
         // アニメーションのパラメータに速度を渡す
@@ -89,6 +89,11 @@ public class PlayerAction : MonoBehaviour
     public void EnableInput()
     {
         canMove = true;
+    }
+
+    public void DisableInput()
+    {
+        canMove = false;  // プレイヤーの入力を無効にする
     }
 
     // デバッグ用：レイキャストの可視化

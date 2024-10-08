@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;  // TextMeshProを使う場合
 
-public class GameOverController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public int maxCollisions = 3;  // 敵に接触できる最大回数
     private int collisionCount = 0;  // 現在の接触回数
