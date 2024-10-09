@@ -40347,12 +40347,17 @@ PrefabInstance:
     - target: {fileID: 136520957523132458, guid: a6b8ebda7ceb0df4e80a5e6f15d8b486,
         type: 3}
       propertyPath: m_Height
-      value: 3.2870579
+      value: 2.88523
       objectReference: {fileID: 0}
     - target: {fileID: 136520957523132458, guid: a6b8ebda7ceb0df4e80a5e6f15d8b486,
         type: 3}
       propertyPath: m_Radius
       value: 1.1304528
+      objectReference: {fileID: 0}
+    - target: {fileID: 136520957523132458, guid: a6b8ebda7ceb0df4e80a5e6f15d8b486,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 136520957523132458, guid: a6b8ebda7ceb0df4e80a5e6f15d8b486,
         type: 3}
@@ -40362,7 +40367,7 @@ PrefabInstance:
     - target: {fileID: 136520957523132458, guid: a6b8ebda7ceb0df4e80a5e6f15d8b486,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.15028667
+      value: -0.05062723
       objectReference: {fileID: 0}
     - target: {fileID: 3128574094000514739, guid: a6b8ebda7ceb0df4e80a5e6f15d8b486,
         type: 3}
@@ -40417,7 +40422,7 @@ PrefabInstance:
     - target: {fileID: 3128574094000552595, guid: a6b8ebda7ceb0df4e80a5e6f15d8b486,
         type: 3}
       propertyPath: m_Name
-      value: Tiger_LOD0
+      value: Tiger
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61000,6 +61005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCollisions: 3
+  knockbackForce: 10
   gameOverText: {fileID: 904679788}
   playerAction: {fileID: 1310206497}
 --- !u!4 &2101987876 stripped

@@ -4,22 +4,38 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - PostProcessing
+  - UI
+  - Water
+  - Ignore Raycast
+  - GameController
+  - Player
+  - MainCamera
+  - EditorOnly
+  - Finish
+  - Respawn
+  - Untagged
   - Enemy
+  - AlarmingObject
+  - BlueEnemy
+  - RedEnemy
+  - Enemy1
+  - Enemy2
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - ground
+  - Player
   - Water
   - UI
+  - Cover
+  - 
+  - Enemy
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcessing
+  - Obstacle
+  - Ground
   - 
   - 
   - 
