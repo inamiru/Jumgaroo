@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int scoreValue = 10;  // このアイテムが獲得された際に加算するスコア
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        // プレイヤーに接触した場合
+        if (other.CompareTag("Player"))
+        {
+            // スコアを加算
+            ScoreManager.instance.AddScore(scoreValue);
+
+            // アイテムを削除
+            Destroy(gameObject);
+        }
     }
 }
