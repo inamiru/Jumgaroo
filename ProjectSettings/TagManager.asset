@@ -21,6 +21,7 @@ TagManager:
   - RedEnemy
   - Enemy1
   - Enemy2
+  - JumpBoost
   layers:
   - Default
   - TransparentFX

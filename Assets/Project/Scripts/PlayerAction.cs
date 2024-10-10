@@ -9,6 +9,7 @@ public class PlayerAction : MonoBehaviour
     private float currentSpeed = 0.0f; // 現在の速度
 
     public float jumpForce = 5.0f;      // ジャンプ力
+    public float boostJumpForce = 10.0f;     // ジャンプブーストのジャンプ力
     public float rayDistance = 1.1f;    // レイの長さ（キャラクターの足元から少し下まで）
     public LayerMask groundLayer;       // 地面レイヤー
     private bool isGrounded = false;    // 接地しているかどうか
@@ -34,6 +35,7 @@ public class PlayerAction : MonoBehaviour
     {
         // アニメーターのパラメータを設定
         animator.SetBool("isGrounded", isGrounded);
+
         // レイキャストを使って接地判定を行う
         isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
 
@@ -94,6 +96,19 @@ public class PlayerAction : MonoBehaviour
     public void DisableInput()
     {
         canMove = false;  // プレイヤーの入力を無効にする
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // ジャンプブーストの面に接触した場合
+        if (collision.gameObject.CompareTag("JumpBoost"))
+        {
+            // 既存のY方向の速度をリセット
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+            // ブーストジャンプ力を瞬間的に加える
+            rb.AddForce(Vector3.up * boostJumpForce, ForceMode.Impulse);
+        }
     }
 
     // デバッグ用：レイキャストの可視化

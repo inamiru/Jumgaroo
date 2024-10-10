@@ -47,13 +47,20 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyKnockback(Collision collision)
     {
+        // プレイヤーの後ろ方向（-forward）を取得
+        Vector3 knockbackDirection = -transform.forward;
+
+        // 後ろ方向にノックバックを発生させる
+        rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+
+
         // 敵からプレイヤーへの方向を計算
-        Vector3 knockbackDirection = transform.position - collision.transform.position;
-        knockbackDirection.y = 0;  // Y軸のノックバックを制限する（垂直方向には飛ばないようにする）
-        knockbackDirection.Normalize();  // 単位ベクトルに正規化
+        //Vector3 knockbackDirection = transform.position - collision.transform.position;
+        //knockbackDirection.y = 0;  // Y軸のノックバックを制限する（垂直方向には飛ばないようにする）
+        //knockbackDirection.Normalize();  // 単位ベクトルに正規化
 
         // ノックバックの力をRigidbodyに加える
-        rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+        //rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
     }
 
     private void GameOver()
