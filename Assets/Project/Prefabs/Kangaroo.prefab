@@ -8,15 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 136414479390396612, guid: b290fdef4994188489fcd4f9af01b8fb,
+        type: 3}
+      propertyPath: m_Height
+      value: 3.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 136414479390396612, guid: b290fdef4994188489fcd4f9af01b8fb,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.39
+      objectReference: {fileID: 0}
     - target: {fileID: 8298001947420244413, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 28e57606064fa4282b150029df2ecb4c, type: 2}
+      objectReference: {fileID: 9100000, guid: ae1ec9f151c324b18bc724e8a217e8c0, type: 2}
     - target: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       propertyPath: m_Name
-      value: Kangaroo_LOD1 Variant
+      value: Kangaroo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
@@ -26,12 +41,12 @@ PrefabInstance:
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.0949192
       objectReference: {fileID: 0}
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.1203008
       objectReference: {fileID: 0}
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
@@ -80,6 +95,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7040347204004970700}
+    - targetCorrespondingSourceObject: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1920728050869288197}
   m_SourcePrefab: {fileID: 100100000, guid: b290fdef4994188489fcd4f9af01b8fb, type: 3}
 --- !u!1 &6033309062930874 stripped
 GameObject:
@@ -112,7 +131,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 114
   m_CollisionDetection: 0
 --- !u!114 &7040347204004970700
 MonoBehaviour:
@@ -126,4 +145,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feae28fd56e3748deaa204318cec4191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  acceleration: 1
+  maxSpeed: 8
+  jumpForce: 6
+  rayDistance: 1.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  maxJumps: 2
+  boostJumpForce: 10
+  forwardForce: 1
+--- !u!114 &1920728050869288197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033309062930874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5facbed009bb74555a176f4316177c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCollisions: 3
+  knockbackForce: 10
+  gameOverText: {fileID: 0}
+  playerAction: {fileID: 7040347204004970700}

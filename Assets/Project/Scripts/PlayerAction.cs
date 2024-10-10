@@ -9,12 +9,18 @@ public class PlayerAction : MonoBehaviour
     private float currentSpeed = 0.0f; // 現在の速度
 
     public float jumpForce = 5.0f;      // ジャンプ力
-    public float boostJumpForce = 10.0f;     // ジャンプブーストのジャンプ力
     public float rayDistance = 1.1f;    // レイの長さ（キャラクターの足元から少し下まで）
     public LayerMask groundLayer;       // 地面レイヤー
     private bool isGrounded = false;    // 接地しているかどうか
     private int jumpCount = 0;          // ジャンプの回数
     public int maxJumps = 2;            // 最大ジャンプ回数（二段ジャンプを許可するため2に設定）
+
+    public float boostJumpForce = 10.0f;     // ジャンプブーストのジャンプ力
+
+    private bool unlimitedJumps = false;  // ジャンプ回数の無制限フラグ
+    private Coroutine unlimitedJumpCoroutine;  // 無制限ジャンプのコルーチン
+    public float forwardForce = 5f;           // 無限ジャンプ時の前方への力
+
 
     private bool canMove = false;    // プレイヤーの入力を受け付けるかどうかを制御するフラグ
 
@@ -52,9 +58,12 @@ public class PlayerAction : MonoBehaviour
         }
 
         // スペースキーが押され、ジャンプ回数が最大値未満の場合ジャンプ
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
+            if (isGrounded || jumpCount < maxJumps || unlimitedJumps)
+            {
+                Jump();
+            }
         }
 
         // 徐々に加速（現在の速度が最大速度に達するまで）
@@ -76,15 +85,27 @@ public class PlayerAction : MonoBehaviour
 
     void Jump()
     {
+         // ジャンプ時にY方向の速度をリセット（連続ジャンプ時に影響を避けるため）
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
         // 現在の垂直速度をリセットし、上方向にジャンプ
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // 上方向の速度をリセット
+        //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // 上方向の速度をリセット
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        // 無限ジャンプが有効なら、ジャンプと同時に前方に進む力を加える
+        if (unlimitedJumps)
+        {
+            Vector3 forwardMovement = transform.forward * forwardForce;
+            rb.AddForce(forwardMovement, ForceMode.Impulse);
+        }
+        
+        if (!unlimitedJumps)  // 無制限ジャンプでない場合のみジャンプ回数をカウント
+        {
+            jumpCount++;
+        }
 
         // ジャンプアニメーションのトリガーをセット
         animator.SetTrigger("Jump");
-
-        // ジャンプ回数をカウント
-        jumpCount++;
     }
 
     // 外部から呼び出して入力を有効にするメソッド
@@ -109,6 +130,28 @@ public class PlayerAction : MonoBehaviour
             // ブーストジャンプ力を瞬間的に加える
             rb.AddForce(Vector3.up * boostJumpForce, ForceMode.Impulse);
         }
+    }
+
+    // ジャンプ回数を無制限にする
+    public void EnableUnlimitedJumps(float duration)
+    {
+        unlimitedJumps = true;
+
+        // 既にコルーチンが動いていたら止める
+        if (unlimitedJumpCoroutine != null)
+        {
+            StopCoroutine(unlimitedJumpCoroutine);
+        }
+
+        // 無制限ジャンプを指定時間後に解除するコルーチンを開始
+        unlimitedJumpCoroutine = StartCoroutine(DisableUnlimitedJumpsAfterTime(duration));
+    }
+
+    // 指定時間後に無制限ジャンプを解除するコルーチン
+    private IEnumerator DisableUnlimitedJumpsAfterTime(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        unlimitedJumps = false;
     }
 
     // デバッグ用：レイキャストの可視化
