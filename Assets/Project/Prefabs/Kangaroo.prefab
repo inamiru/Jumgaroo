@@ -182,8 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 3
-  knockbackForce: 5
-  takeDamage: {fileID: 5314816904032991305}
+  currentHitCount: 0
 --- !u!114 &5314816904032991305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc248640d57eb47a9aeabfe4ece9a5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 1920728050869288197}
-  playerAction: {fileID: 7040347204004970700}
+  knockbackForce: 5
+  knockbackDuration: 0.5
   gameOverText: {fileID: 0}

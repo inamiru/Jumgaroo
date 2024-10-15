@@ -26,15 +26,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _CloudsTex:
-        m_Texture: {fileID: 8900000, guid: d5d9dd79ad3016943b7f1ff5b201391e, type: 3}
+        m_Texture: {fileID: 8900000, guid: bfa1267ef40a77540ac2cfde9297f199, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MoonTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e894cff36344f5242801ae5fee4eda46, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _StarsTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 8900000, guid: 0b891b1d885eb654ab18d7a3a5fc87e1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _StarsTwinklingTex:
@@ -47,22 +47,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BottomExponent: 2.45
-    - _CloudsHeight: 0.437
+    - _BottomExponent: 1.43
+    - _CloudsHeight: 0.062
     - _CloudsRotation: 0
     - _Exponent: 1
     - _Exposure: 1
     - _MoonHalo: 1
-    - _MoonSize: 0.32
+    - _MoonSize: 0.75
     - _StarsExtinction: 2
     - _StarsTwinklingSpeed: 10
     - _SunHalo: 1
-    - _SunSize: 0.1
-    - _TopExponent: 1.67
+    - _SunSize: 0.75
+    - _TopExponent: 1.39
     m_Colors:
-    - _BottomColor: {r: 0.6669502, g: 0.6556604, b: 1, a: 1}
+    - _BottomColor: {r: 0.016868481, g: 0, b: 0.47794116, a: 1}
     - _CloudsTint: {r: 1, g: 1, b: 1, a: 1}
-    - _MiddleColor: {r: 0.4481132, g: 0.72079355, b: 1, a: 1}
+    - _MiddleColor: {r: 0.3915094, g: 0.65998024, b: 1, a: 1}
     - _MoonTint: {r: 0.491, g: 0.53774476, b: 1, a: 1}
     - _SkyBottomColor: {r: 0.016868481, g: 0, b: 0.47794116, a: 0}
     - _SkyColor: {r: 0.03529412, g: 0.41960788, b: 0.59607846, a: 1}
@@ -72,6 +72,6 @@ Material:
     - _SkyTint: {r: 0.034482475, g: 0, b: 1, a: 1}
     - _SkyTopColor: {r: 0.2794118, g: 0.6421905, b: 1, a: 0}
     - _StarsTint: {r: 1, g: 1, b: 1, a: 1}
-    - _SunTint: {r: 1, g: 0.9814075, b: 0.3443396, a: 1}
-    - _TopColor: {r: 0.8254717, g: 0.9136843, b: 1, a: 1}
+    - _SunTint: {r: 0.703, g: 0.55044055, b: 0.366966, a: 1}
+    - _TopColor: {r: 0.8443396, g: 0.9230158, b: 1, a: 1}
   m_BuildTextureStacks: []
