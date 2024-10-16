@@ -8,12 +8,6 @@ public class DamageArea : MonoBehaviour
 
     // ScriptableObject のインスタンス
     public PlayerStates playerStates;
-    private GameOverController gameOverController;
-
-    void Start()
-    {
-        gameOverController = GetComponent<GameOverController>();
-    }
 
     void OnTriggerEnter(Collider other)
     {
