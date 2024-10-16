@@ -7,7 +7,7 @@ public class PlayerStates : ScriptableObject
     public int currentHitCount;   // 現在の接触回数
     public float knockbackForce = 5f;        // ノックバックの力
     public float knockbackDuration = 0.5f;    // ノックバックの持続時間
-    
+
     // 初期化メソッド
     public void InitializeHP()
     {
@@ -32,7 +32,7 @@ public class PlayerStates : ScriptableObject
     public float maxSpeed = 10.0f;    // 最大速度
 
     public float jumpForce = 5.0f;      // ジャンプ力
-    private int jumpCount = 0;          // ジャンプの回数
+    public int jumpCount = 0;          // ジャンプの回数
     public int maxJumps = 2;            // 最大ジャンプ回数（二段ジャンプを許可するため2に設定）
 
     public float boostJumpForce = 10.0f;     // ジャンプブーストのジャンプ力

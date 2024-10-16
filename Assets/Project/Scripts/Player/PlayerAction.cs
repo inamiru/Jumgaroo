@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
 {
-    public float acceleration = 1.0f; // 加速度
-    public float maxSpeed = 10.0f;    // 最大速度
+    public PlayerStates playerStates;  // ScriptableObject の参照
+
     private float currentSpeed = 0.0f; // 現在の速度
 
-    public float jumpForce = 5.0f;      // ジャンプ力
     public float rayDistance = 1.1f;    // レイの長さ（キャラクターの足元から少し下まで）
     public LayerMask groundLayer;       // 地面レイヤー
     private bool isGrounded = false;    // 接地しているかどうか
-    private int jumpCount = 0;          // ジャンプの回数
-    public int maxJumps = 2;            // 最大ジャンプ回数（二段ジャンプを許可するため2に設定）
-
-    public float boostJumpForce = 10.0f;     // ジャンプブーストのジャンプ力
 
     private bool unlimitedJumps = false;  // ジャンプ回数の無制限フラグ
     private Coroutine unlimitedJumpCoroutine;  // 無制限ジャンプのコルーチン
-    public float forwardForce = 5f;           // 無限ジャンプ時の前方への力
 
 
     private bool canMove = false;    // プレイヤーの入力を受け付けるかどうかを制御するフラグ
@@ -54,27 +48,27 @@ public class PlayerAction : MonoBehaviour
         // 接地している場合、ジャンプ回数をリセット
         if (isGrounded)
         {
-            jumpCount = 0;
+            playerStates.jumpCount = 0;
         }
 
         // スペースキーが押され、ジャンプ回数が最大値未満の場合ジャンプ
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isGrounded || jumpCount < maxJumps || unlimitedJumps)
+            if (isGrounded || playerStates.jumpCount < playerStates.maxJumps || unlimitedJumps)
             {
                 Jump();
             }
         }
 
         // 徐々に加速（現在の速度が最大速度に達するまで）
-        if(currentSpeed < maxSpeed)
+        if(currentSpeed < playerStates.maxSpeed)
         {
-            currentSpeed += acceleration * Time.deltaTime;
+            currentSpeed += playerStates.acceleration * Time.deltaTime;
         }
         else
         {
             // 最大速度に達したらそれ以上加速しない
-            currentSpeed = maxSpeed;
+            currentSpeed = playerStates.maxSpeed;
         }
 
         // Rigidbodyを使って前方に移動
@@ -90,18 +84,18 @@ public class PlayerAction : MonoBehaviour
 
         // 現在の垂直速度をリセットし、上方向にジャンプ
         //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // 上方向の速度をリセット
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * playerStates.jumpForce, ForceMode.Impulse);
 
         // 無限ジャンプが有効なら、ジャンプと同時に前方に進む力を加える
         if (unlimitedJumps)
         {
-            Vector3 forwardMovement = transform.forward * forwardForce;
+            Vector3 forwardMovement = transform.forward * playerStates.forwardForce;
             rb.AddForce(forwardMovement, ForceMode.Impulse);
         }
         
         if (!unlimitedJumps)  // 無制限ジャンプでない場合のみジャンプ回数をカウント
         {
-            jumpCount++;
+            playerStates.jumpCount++;
         }
 
         // ジャンプアニメーションのトリガーをセット
@@ -128,7 +122,7 @@ public class PlayerAction : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
             // ブーストジャンプ力を瞬間的に加える
-            rb.AddForce(Vector3.up * boostJumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);
         }
     }
 

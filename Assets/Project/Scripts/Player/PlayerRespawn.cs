@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    // ScriptableObject のインスタンス
-    public PlayerStates playerStates;
 
     public List<Transform> respawnPoints;        // リスポーンポイントのリスト
     private Transform lastRespawnPoint;             // 最後にいたリスポーンポイント
