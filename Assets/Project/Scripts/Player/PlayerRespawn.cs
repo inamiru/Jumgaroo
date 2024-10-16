@@ -4,55 +4,46 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
+    // ScriptableObject のインスタンス
+    public PlayerStates playerStates;
+
     public List<Transform> respawnPoints;        // リスポーンポイントのリスト
     private Transform lastRespawnPoint;             // 最後にいたリスポーンポイント
 
+    private GameOverController gameOverController;
 
-    PlayerController playerController;
-    TakeDamage takeDamage;
-
-    void Start ()
+    // Start is called before the first frame update
+    void Start()
     {
-        playerController = GetComponent<PlayerController>();
-        takeDamage = GetComponent<TakeDamage>();
-
+        gameOverController = GetComponent<GameOverController>();
         lastRespawnPoint = respawnPoints[0];        // 最初のリスポーンポイントを設定
+
     }
 
     public void Respawn()
     {
-        if (playerController.currentHitCount != 0)
-        {
-            Transform closestRespawnPoint = GetClosestRespawnPoint(); // 最も近いリスポーンポイントを取得
-            
-            if (closestRespawnPoint != null) // リスポーンポイントが見つかった場合
-            {
-                transform.position = closestRespawnPoint.position; // リスポーンポイントに移動
-                Debug.Log("Player Respawned at: " + closestRespawnPoint.position); // リスポーン時のデバッグメッセージ
-            }
-        }
+            // 最も近いリスポーンポイントを探す
+            Transform nearestRespawnPoint = FindNearestRespawnPoint();
 
-        // 接触回数が0になったらゲームオーバー処理を呼び出し
-        if (playerController.currentHitCount <= 0)
-        {
-            takeDamage.GameOver(); // ゲームオーバー処理を呼び出す
-        }
+            // プレイヤーをリスポーン地点に移動
+            transform.position = nearestRespawnPoint.position;
     }
 
-    private Transform GetClosestRespawnPoint()
+    private Transform FindNearestRespawnPoint()
     {
-        Transform closestPoint = null;
-        float closestDistance = Mathf.Infinity;
+        Transform nearestPoint = respawnPoints[0];
+        float minDistance = Vector3.Distance(transform.position, nearestPoint.position);
 
-        foreach (Transform point in respawnPoints)
+        foreach (var respawnPoint in respawnPoints)
         {
-            float distance = Vector3.Distance(transform.position, point.position);
-            if (distance < closestDistance)
+            float distance = Vector3.Distance(transform.position, respawnPoint.position);
+            if (distance < minDistance)
             {
-                closestDistance = distance;
-                closestPoint = point;
+                minDistance = distance;
+                nearestPoint = respawnPoint;
             }
         }
-        return closestPoint; // 最も近いリスポーンポイントを返す
+
+        return nearestPoint;
     }
 }

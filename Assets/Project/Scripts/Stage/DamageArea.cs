@@ -4,32 +4,37 @@ using UnityEngine;
 
 public class DamageArea : MonoBehaviour
 {
-    public int damageIncrement = 1; // 増加する接触回数
-    private bool isPlayerInside = false; // プレイヤーがエリア内にいるかどうかを示すフラグ
+    public int damageAmount = 1; // 増加する接触回数
 
-    private void OnTriggerEnter(Collider other)
+    // ScriptableObject のインスタンス
+    public PlayerStates playerStates;
+    private GameOverController gameOverController;
+
+    void Start()
     {
-        if (other.CompareTag("Player") && !isPlayerInside) // プレイヤーと接触し、まだ入っていない場合
+        gameOverController = GetComponent<GameOverController>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            isPlayerInside = true; // プレイヤーがエリア内にいると設定
-            // プレイヤーのDamageManagerを取得
-            PlayerController playerController = other.GetComponent<PlayerController>();
-            PlayerRespawn playerRespawn = other.GetComponent<PlayerRespawn>();
-            
-            if (playerController != null)
+            // プレイヤーのHealthManagerを取得
+            PlayerHealthManager playerHealth = other.gameObject.GetComponent<PlayerHealthManager>();
+               
+            if (playerHealth != null)
             {
-                playerRespawn.Respawn(); // リスポーンを呼び出す
-                playerController.IncreaseHitCount(damageIncrement); // 接触回数を増やすメソッドを呼び出す
+                // ダメージを与える
+                playerHealth.TakeDamage(damageAmount);
+
+                // プレイヤーのリスポーン機能を呼び出す
+                PlayerRespawn playerRespawn = other.GetComponent<PlayerRespawn>();
+
+                if (playerRespawn != null)
+                {
+                    playerRespawn.Respawn();
+                }
             }
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")) // プレイヤーがエリアから出た場合
-        {
-            isPlayerInside = false; // プレイヤーがエリア内にいないと設定
-        }
-    }
-
 }

@@ -56,7 +56,7 @@ PrefabInstance:
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
@@ -108,11 +108,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1920728050869288197}
+      addedObject: {fileID: 7985613387661234048}
     - targetCorrespondingSourceObject: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5314816904032991305}
+      addedObject: {fileID: 493907581994731936}
   m_SourcePrefab: {fileID: 100100000, guid: b290fdef4994188489fcd4f9af01b8fb, type: 3}
 --- !u!1 &6033309062930874 stripped
 GameObject:
@@ -169,7 +169,7 @@ MonoBehaviour:
   maxJumps: 1
   boostJumpForce: 10
   forwardForce: 1
---- !u!114 &1920728050869288197
+--- !u!114 &7985613387661234048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,12 +178,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6033309062930874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5facbed009bb74555a176f4316177c25, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d1c5ef412a48492e866c91e5b42a7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHits: 3
-  currentHitCount: 0
---- !u!114 &5314816904032991305
+  respawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  damageArea: {fileID: 0}
+--- !u!114 &493907581994731936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,9 +194,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6033309062930874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc248640d57eb47a9aeabfe4ece9a5d8, type: 3}
+  m_Script: {fileID: 11500000, guid: d660d8b6f84d44e1e9b1c5b1c471c1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackForce: 5
-  knockbackDuration: 0.5
+  playerAction: {fileID: 7040347204004970700}
   gameOverText: {fileID: 0}
