@@ -5,7 +5,7 @@ using TMPro;  // TextMeshProを使う場合
 
 public class GameOverController : MonoBehaviour
 {
-    public PlayerAction playerAction;
+    [SerializeField] private PlayerAction playerAction;
 
     private Animator animator;
 
@@ -14,7 +14,6 @@ public class GameOverController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerAction = GetComponent<PlayerAction>();
         animator = GetComponent<Animator>();
         
         gameOverText.gameObject.SetActive(false);   // ゲームオーバーテキストを非表示にする
