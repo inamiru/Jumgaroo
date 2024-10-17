@@ -11,8 +11,7 @@ public class EffectManager : MonoBehaviour
 
     void Start()
     {
-        // 指定した時間後にエフェクトを再生するコルーチンを開始
-        StartCoroutine(SpawnEffectsAfterDelay());
+
     }
 
     public IEnumerator SpawnEffectsAfterDelay()
@@ -28,11 +27,6 @@ public class EffectManager : MonoBehaviour
                 GameObject effect = Instantiate(effects[i], effectPositions[i].position, effectPositions[i].rotation);
                 effect.transform.position = effectPositions[i].position; // 位置を固定
 
-            }
-            else
-            {
-                // 位置が足りない場合はゴールエリアのワールド座標に生成
-                Instantiate(effects[i], transform.position, Quaternion.identity);
             }
         }
 

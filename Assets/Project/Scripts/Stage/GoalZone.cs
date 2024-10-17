@@ -9,26 +9,22 @@ public class GoalZone : MonoBehaviour
 
     public TextMeshProUGUI goalText;  // TextMeshProのUIテキスト
     public string playerTag = "Player";  // プレイヤーのタグ
-    private bool goalReached = false;  // ゴールに到達したかのフラグ
     public Animator playerAnimator;  // プレイヤーのAnimatorコンポーネント
-
-
 
     // Start is called before the first frame update
     void Start()
     {
         // 初期状態ではゴールテキストを非表示に設定
         goalText.enabled = false;
+
     }
 
     // プレイヤーが範囲内（トリガー）に入ったら
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag) && !goalReached)
-        {
-            // ゴールに到達したフラグを立てる
-            goalReached = true;
 
+        if (other.CompareTag(playerTag))
+        {
             // ゴールテキストを表示
             goalText.enabled = true;
 
