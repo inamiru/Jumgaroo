@@ -23,9 +23,8 @@ public class EffectManager : MonoBehaviour
         {
             if (i < effectPositions.Length)
             {
-                // エフェクトを生成した後に、その位置を固定する
+                // エフェクトを生成
                 GameObject effect = Instantiate(effects[i], effectPositions[i].position, effectPositions[i].rotation);
-                effect.transform.position = effectPositions[i].position; // 位置を固定
 
             }
         }
