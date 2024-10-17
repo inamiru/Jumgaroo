@@ -11,6 +11,8 @@ public class GoalZone : MonoBehaviour
     public string playerTag = "Player";  // プレイヤーのタグ
     public Animator playerAnimator;  // プレイヤーのAnimatorコンポーネント
 
+    public GameObject[] uiElementsToHide;  // 非表示にしたいUI要素
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,9 @@ public class GoalZone : MonoBehaviour
 
         if (other.CompareTag(playerTag))
         {
+            // UIを非表示にする
+            HideUIElements();
+            
             // ゴールテキストを表示
             goalText.enabled = true;
 
@@ -49,6 +54,18 @@ public class GoalZone : MonoBehaviour
                 {
                     playerActionScript.enabled = false;  // 移動スクリプトを無効化
                 }
+            }
+        }
+    }
+
+    // UI要素を非表示にする処理
+    void HideUIElements()
+    {
+        foreach (GameObject uiElement in uiElementsToHide)
+        {
+            if (uiElement != null)
+            {
+                uiElement.SetActive(false); // UI要素を非表示にする
             }
         }
     }

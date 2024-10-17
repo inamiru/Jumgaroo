@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    public GameObject[] effects; // •¡”‚ÌƒGƒtƒFƒNƒg‚ÌƒvƒŒƒnƒu‚ğŠi”[‚·‚é”z—ñ
-    public Transform[] effectPositions; // ƒGƒtƒFƒNƒg‚ğ•\¦‚·‚éˆÊ’u‚Ì”z—ñ
+    public GameObject[] effects;   // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ—ãƒ¬ãƒãƒ–
+    public Transform[] effectPositions;      // å„ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ä½ç½®
 
-    public float delayTime = 3.0f;  // ƒGƒtƒFƒNƒg‚ğÄ¶‚·‚é‚Ü‚Å‚Ì’x‰„ŠÔ
+    public float delayTime = 3.0f;  // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ã¾ã§ã®å¾…æ©Ÿæ™‚é–“
 
     void Start()
     {
@@ -16,14 +16,14 @@ public class EffectManager : MonoBehaviour
 
     public IEnumerator SpawnEffectsAfterDelay()
     {
-        // w’è‚µ‚½•b”‘Ò‹@
+        // æŒ‡å®šã•ã‚ŒãŸæ™‚é–“å¾…æ©Ÿ
         yield return new WaitForSeconds(delayTime);
 
         for (int i = 0; i < effects.Length; i++)
         {
             if (i < effectPositions.Length)
             {
-                // ƒGƒtƒFƒNƒg‚ğ¶¬
+                // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
                 GameObject effect = Instantiate(effects[i], effectPositions[i].position, effectPositions[i].rotation);
 
             }
