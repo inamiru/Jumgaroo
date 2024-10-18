@@ -2,70 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;  // TextMeshProを使用するための名前空間
+using TransitionsPlus;
 
-public class GoalZone : MonoBehaviour
+namespace TransitionsPlusDemos
 {
-    public EffectManager effectManager;
-
-    public TextMeshProUGUI goalText;  // TextMeshProのUIテキスト
-    public string playerTag = "Player";  // プレイヤーのタグ
-    public Animator playerAnimator;  // プレイヤーのAnimatorコンポーネント
-
-    public GameObject[] uiElementsToHide;  // 非表示にしたいUI要素
-
-    // Start is called before the first frame update
-    void Start()
+    public class GoalZone : MonoBehaviour
     {
-        // 初期状態ではゴールテキストを非表示に設定
-        goalText.enabled = false;
+        public EffectManager effectManager;
+        public TransitionAnimator animator;
 
-    }
+        public TextMeshProUGUI goalText;  // TextMeshProのUIテキスト
+        public string playerTag = "Player";  // プレイヤーのタグ
+        public Animator playerAnimator;  // プレイヤーのAnimatorコンポーネント
 
-    // プレイヤーが範囲内（トリガー）に入ったら
-    void OnTriggerEnter(Collider other)
-    {
+        public GameObject[] uiElementsToHide;  // 非表示にしたいUI要素
 
-        if (other.CompareTag(playerTag))
+        // Start is called before the first frame update
+        void Start()
         {
-            // UIを非表示にする
-            HideUIElements();
-            
-            // ゴールテキストを表示
-            goalText.enabled = true;
+            // 初期状態ではゴールテキストを非表示に設定
+            goalText.enabled = false;
 
-            // エフェクトを表示するコルーチンを開始
-            effectManager.StartCoroutine(effectManager.SpawnEffectsAfterDelay());
+        }
 
-            // プレイヤーのアニメーションをゴールに到達したものに切り替える
-            playerAnimator.SetTrigger("GoalReached");
+        // プレイヤーが範囲内（トリガー）に入ったら
+        void OnTriggerEnter(Collider other)
+        {
 
-            // プレイヤーのRigidbodyの動きを止める
-            Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
-
-            if (playerRigidbody != null)
+            if (other.CompareTag(playerTag))
             {
-                // プレイヤーの速度をゼロにする
-                playerRigidbody.velocity = Vector3.zero;
-                playerRigidbody.angularVelocity = Vector3.zero;
+                // UIを非表示にする
+                HideUIElements();
 
-                // プレイヤーの入力を無効にする（プレイヤーの移動スクリプトを無効にする）
-                PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
-                if (playerActionScript != null)
+                // ゴールテキストを表示
+                goalText.enabled = true;
+
+                // エフェクトを表示するコルーチンを開始
+                effectManager.StartCoroutine(effectManager.SpawnEffectsAfterDelay());
+
+                // プレイヤーのアニメーションをゴールに到達したものに切り替える
+                playerAnimator.SetTrigger("GoalReached");
+
+                // プレイヤーのRigidbodyの動きを止める
+                Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
+
+                if (playerRigidbody != null)
                 {
-                    playerActionScript.enabled = false;  // 移動スクリプトを無効化
+                    // プレイヤーの速度をゼロにする
+                    playerRigidbody.velocity = Vector3.zero;
+                    playerRigidbody.angularVelocity = Vector3.zero;
+
+                    // プレイヤーの入力を無効にする（プレイヤーの移動スクリプトを無効にする）
+                    PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
+                    if (playerActionScript != null)
+                    {
+                        playerActionScript.enabled = false;  // 移動スクリプトを無効化
+                    }
                 }
+                animator.Play();
             }
         }
-    }
 
-    // UI要素を非表示にする処理
-    void HideUIElements()
-    {
-        foreach (GameObject uiElement in uiElementsToHide)
+        // UI要素を非表示にする処理
+        void HideUIElements()
         {
-            if (uiElement != null)
+            foreach (GameObject uiElement in uiElementsToHide)
             {
-                uiElement.SetActive(false); // UI要素を非表示にする
+                if (uiElement != null)
+                {
+                    uiElement.SetActive(false); // UI要素を非表示にする
+                }
             }
         }
     }
