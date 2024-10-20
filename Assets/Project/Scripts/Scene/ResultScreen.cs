@@ -15,16 +15,6 @@ public class ResultScreen : MonoBehaviour
 
     public float starDisplayInterval = 0.5f;   // 星を表示する間隔
 
-    void Awake()
-    {
-        // GameTimeDisplay が存在しない場合にインスタンスを作成
-        if (GameTimeDisplay.Instance == null)
-        {
-            GameObject gameTimeDisplayObject = new GameObject("GameTimeDisplay");
-            gameTimeDisplayObject.AddComponent<GameTimeDisplay>();  // GameTimeDisplay を追加
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -50,67 +40,38 @@ public class ResultScreen : MonoBehaviour
         DisplayScore();
 
         // 星の表示
-        ShowStars();
+        DisplayStars();
     }
 
     // クリアタイムを表示するメソッド
-private void DisplayClearTime()
-{
-    if (GameTimeDisplay.Instance != null)
+    private void DisplayClearTime()
     {
-        // GameTimeDisplayからゴール時のタイムを取得
-        float finishTime = GameTimeDisplay.Instance.GetFinishTime();
+            float finishTime = GameTimeDisplay.Instance.GetFinishTime();
 
-        // デバッグログでfinishTimeを表示
-        Debug.Log("FinishTime: " + finishTime);
+            int minutes = Mathf.FloorToInt(finishTime / 60);
+            int seconds = Mathf.FloorToInt(finishTime % 60);
 
-        int minutes = Mathf.FloorToInt(finishTime / 60);
-        int seconds = Mathf.FloorToInt(finishTime % 60);
-        
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
-    else
-    {
-        Debug.LogError("GameTimeDisplay instance is missing!");
-    }
-}
 
     // スコアを表示するメソッド
     private void DisplayScore()
     {
-        if (ItemScore.Instance != null)
-        {
             int finalScore = ItemScore.Instance.GetFinalScore();
             scoreText.text = finalScore.ToString();
-        }
-        else
-        {
-            Debug.LogError("ItemScore instance is missing!");
-        }
     }
 
-     // スコアに応じた星を表示するメソッド
-    public void ShowStars()
+    // スコアに応じた星を表示
+    private IEnumerator DisplayStars()
     {
-        if (TotalScoreCalculator.Instance != null)
-        {
-            int starCount = TotalScoreCalculator.Instance.GetStarRating();
+        int starCount = TotalScoreCalculator.Instance.GetStarRating();
 
-            // 星の数が星の配列の長さを超えないことを確認
-            starCount = Mathf.Clamp(starCount, 1, stars.Length);
-
-            StartCoroutine(DisplayStars(starCount));
-        }
-    }
-
-    // 指定された数の星を順番に表示するコルーチン
-    private IEnumerator DisplayStars(int starCount)
-    {
-        for (int i = 0; i < starCount; i++)
+        // stars 配列のサイズを超えないように制限
+        for (int i = 0; i < Mathf.Min(starCount, stars.Length); i++)
         {
             if (stars[i] != null)
             {
-                stars[i].gameObject.SetActive(true);
+                stars[i].gameObject.SetActive(true);  // 星を表示
             }
             yield return new WaitForSeconds(starDisplayInterval);
         }

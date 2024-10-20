@@ -4,33 +4,56 @@ using UnityEngine;
 
 public class TimeScore : MonoBehaviour
 {
-    public StageData stageData;  // ステージデータの参照
-    public float clearTime;      // プレイヤーのクリアタイム
+    [SerializeField]
+    private int maxScore = 1000;    // 最大スコア
+    [SerializeField]
+    private int minScore = 100;     // 最低スコア
+    private float finishTimeScore;
 
-     // クリアタイムを記録する
-    public void SetClearTime(float time)
-    {
-        clearTime = time;
-    }
+    public static TimeScore Instance { get; private set; }
 
-    // スコアを計算するためにクリアタイムをScoreManagerに渡す
-    public void CalculateFinalScore()
+    private void Awake()
     {
-        if (TotalScoreCalculator.Instance != null)
+        if (Instance == null)
         {
-            if (stageData != null)
-            {
-                float baseTime = stageData.GetBaseTime(); // ステージの基準タイムを取得
-                TotalScoreCalculator.Instance.CalculateTotalScore(clearTime);
-            }
-            else
-            {
-                Debug.LogError("Stage data is not assigned!");
-            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Debug.LogError("TotalScoreCalculator instance is missing!");
+            Destroy(gameObject);
         }
+    }
+
+    public void SetFinishTime(float time)
+    {
+        finishTimeScore = time;
+    }
+
+    public float GetFinishTime()
+    {
+        return finishTimeScore;
+    }
+    // クリアタイムに基づいてスコアを計算するメソッド
+    public int CalculateScore()
+    {
+        // 依存関係の確認
+        if (GameTimeDisplay.Instance == null || StageData.Instance == null)
+        {
+            Debug.LogError("GameTimeDisplay or StageData instance is missing!");
+            return minScore;  // 最低スコアを返す
+        }
+
+        float finishTime = GameTimeDisplay.Instance.GetFinishTime();
+        float baseTime = StageData.Instance.GetBaseTime();  // ベースタイムを取得
+
+        // クリアタイムがベースタイム以下の場合のスコア計算
+        float timeDifference = baseTime - finishTime;
+        int score = Mathf.FloorToInt(timeDifference * (maxScore / baseTime));
+
+        // スコアをminScore以上、maxScore以下に制限
+        score = Mathf.Clamp(score, minScore, maxScore);
+
+        return score;
     }
 }

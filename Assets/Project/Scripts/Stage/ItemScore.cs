@@ -37,9 +37,9 @@ public class ItemScore : MonoBehaviour
     }
 
     // スコアを更新するメソッド（例: アイテム取得時などに呼ぶ）
-    public void AddScore(int points)
+    public void AddScore(int scoreValue)
     {
-        currentScore += points;
+        currentScore += scoreValue;
         UpdateScoreDisplay();
     }
 
@@ -69,4 +69,9 @@ public class ItemScore : MonoBehaviour
         UpdateScoreDisplay();
     }
 
+    // ゲーム終了時のスコアをリセットするメソッド
+    public void ResetFinalScore()
+    {
+        finalScore = 0;
+    }
 }

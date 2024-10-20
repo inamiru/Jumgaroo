@@ -6,10 +6,8 @@ public class TotalScoreCalculator : MonoBehaviour
 {
     public static TotalScoreCalculator Instance { get; private set; }
 
-    private int maxScore = 1000;    // 最大スコア（基準タイムをピッタリでクリアした時のスコア）
-    private int minScore = 100;     // 最低スコア（基準タイムを超えた時のスコア）
-    private int itemScore = 0;      // アイテム取得によるスコア
-    private int finalScore = 0;     // 最終スコア
+    [SerializeField] private int twoStarThreshold = 2000;
+    [SerializeField] private int threeStarThreshold = 4000;
 
     private void Awake()
     {
@@ -25,67 +23,28 @@ public class TotalScoreCalculator : MonoBehaviour
         }
     }
 
-    // クリアタイムに基づいてスコアを計算するメソッド
-    public int CalculateClearTimeScore(float clearTime)
+    // 合計スコアを計算
+    public int CalculateTotalScore()
     {
-        if (StageData.Instance != null)
-        {
-            float baseTime = StageData.Instance.GetBaseTime();  // StageDataから基準タイムを取得
+        int timeScore = TimeScore.Instance.CalculateScore();
+        int itemScore = ItemScore.Instance.GetFinalScore();
 
-            if (clearTime <= baseTime)
-            {
-                // 基準タイムを下回った場合、クリアタイムに応じてスコアを計算
-                return Mathf.FloorToInt(Mathf.Lerp(maxScore, minScore, clearTime / baseTime));
-            }
-            else
-            {
-                return minScore;
-            }
-        }
-        else
-        {
-            Debug.LogError("StageData instance is missing!");
-            return minScore;  // 基準タイムが取得できない場合、最低スコア
-        }
-    }
-
-    // 最終スコアを計算するメソッド
-    public void CalculateTotalScore(float clearTime)
-    {
-        int clearTimeScore = CalculateClearTimeScore(clearTime);
-        finalScore = clearTimeScore + itemScore;
+        // 合計スコアはタイムスコアとアイテムスコアの合計
+        return itemScore + timeScore;
     }
 
     // スコアに応じて星の数を評価
     public int GetStarRating()
     {
-        int starCount = 1;  // 最低でも1つ星
+        int totalScore = CalculateTotalScore();
+        Debug.Log("Total Score: " + totalScore);  // デバッグ用ログ
 
-        if (finalScore >= 4000)
-        {
-            starCount = 3;
-        }
-        else if (finalScore >= 3000)
-        {
-            starCount = 2;
-        }
-
-        return starCount;
-    }
-
-    // アイテムスコアを追加するメソッド
-    public void AddItemScore(int score)
-    {
-        if (score > 0)
-        {
-            itemScore += score;
-        }
-    }
-
-    // スコアをリセットするメソッド
-    public void ResetScores()
-    {
-        itemScore = 0;
-        finalScore = 0;
+        // スコアに応じた星の数を返す
+        if (totalScore >= threeStarThreshold)
+            return 3;  // threeStarThreshold以上で3つ星
+        else if (totalScore >= twoStarThreshold)
+            return 2;  // twoStarThreshold以上で2つ星
+        else
+            return 1;  // twoStarThreshold未満で1つ星
     }
 }

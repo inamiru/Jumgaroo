@@ -12,6 +12,7 @@ public class GameTimeDisplay : MonoBehaviour
     private float finishTime;
     private bool isFinished;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -57,6 +58,12 @@ public class GameTimeDisplay : MonoBehaviour
             finishTime = Time.time - startTime;  // 経過時間を記録
             isFinished = true;
         }
+    }
+
+    // ゴール時の時間を設定
+    public void SetFinishTime(float time)
+    {
+        finishTime = time;
     }
 
     // クリアタイムを取得する

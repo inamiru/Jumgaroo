@@ -30,17 +30,15 @@ namespace TransitionsPlusDemos
     {
         if (other.CompareTag("Player"))
         {
-            // ゴール処理
-            if (GameTimeDisplay.Instance != null)
-            {
-                GameTimeDisplay.Instance.FinishGame();  // ゴールタイムを記録
-            }
+             // ゴール処理
+            GameTimeDisplay.Instance.FinishGame();  // ゴール処理を呼ぶ
 
-            // ゴールエリアに入った瞬間のスコアを保存
-            if (ItemScore.Instance != null)
-           {
-                ItemScore.Instance.SetFinalScore();
-            }
+            // ゴール時の時間を記録
+            float finishTime = GameTimeDisplay.Instance.GetFinishTime();
+            GameTimeDisplay.Instance.SetFinishTime(finishTime);
+
+            // スコアを記録
+            ItemScore.Instance.SetFinalScore();
 
             // UIを非表示にする
             HideUIElements();
@@ -53,16 +51,6 @@ namespace TransitionsPlusDemos
 
             // プレイヤーのアニメーションをゴールに到達したものに切り替える
             playerAnimator.SetTrigger("GoalReached");
-
-            // プレイヤーのRigidbodyの動きを止める
-            Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
- 
-            if (playerRigidbody != null)
-            {
-                playerRigidbody.velocity = Vector3.zero;
-                playerRigidbody.angularVelocity = Vector3.zero;
-                playerRigidbody.isKinematic = true;  // 物理演算を無効化
-            }
 
             // プレイヤーの移動スクリプトを無効化
             PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
