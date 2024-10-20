@@ -9,11 +9,6 @@ public class EffectManager : MonoBehaviour
 
     public float delayTime = 3.0f;  // エフェクトを表示するまでの待機時間
 
-    void Start()
-    {
-
-    }
-
     public IEnumerator SpawnEffectsAfterDelay()
     {
         // 指定された時間待機

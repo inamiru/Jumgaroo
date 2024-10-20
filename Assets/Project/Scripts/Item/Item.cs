@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public int scoreValue = 10;  // ‚±‚ÌƒAƒCƒeƒ€‚ªŠl“¾‚³‚ê‚½Û‚É‰ÁZ‚·‚éƒXƒRƒA
+    public int scoreValue = 10;  // ã‚¹ã‚³ã‚¢ã®åŠ ç®—å€¤
 
     private void OnTriggerEnter(Collider other)
     {
-        // ƒvƒŒƒCƒ„[‚ÉÚG‚µ‚½ê‡
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«æ¥è§¦ã—ãŸ
         if (other.CompareTag("Player"))
         {
-            // ƒXƒRƒA‚ğ‰ÁZ
-            ScoreManager.instance.AddScore(scoreValue);
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–å¾—ã—ãŸæ™‚ã«ã‚¹ã‚³ã‚¢ã‚’åŠ ç®—ã™ã‚‹
+            ItemScore.Instance.AddScore(scoreValue);
 
-            // ƒAƒCƒeƒ€‚ğíœ
+            // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™
             Destroy(gameObject);
         }
     }

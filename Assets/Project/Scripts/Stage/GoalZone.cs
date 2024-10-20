@@ -9,10 +9,10 @@ namespace TransitionsPlusDemos
     public class GoalZone : MonoBehaviour
     {
         public EffectManager effectManager;
-        public TransitionAnimator animator;
+        public StageTransition stageTransition;
 
         public TextMeshProUGUI goalText;  // TextMeshProのUIテキスト
-        public string playerTag = "Player";  // プレイヤーのタグ
+
         public Animator playerAnimator;  // プレイヤーのAnimatorコンポーネント
 
         public GameObject[] uiElementsToHide;  // 非表示にしたいUI要素
@@ -26,42 +26,59 @@ namespace TransitionsPlusDemos
         }
 
         // プレイヤーが範囲内（トリガー）に入ったら
-        void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-
-            if (other.CompareTag(playerTag))
+            // ゴール処理
+            if (GameTimeDisplay.Instance != null)
             {
-                // UIを非表示にする
-                HideUIElements();
+                GameTimeDisplay.Instance.FinishGame();  // ゴールタイムを記録
+            }
 
-                // ゴールテキストを表示
-                goalText.enabled = true;
+            // ゴールエリアに入った瞬間のスコアを保存
+            if (ItemScore.Instance != null)
+           {
+                ItemScore.Instance.SetFinalScore();
+            }
 
-                // エフェクトを表示するコルーチンを開始
-                effectManager.StartCoroutine(effectManager.SpawnEffectsAfterDelay());
+            // UIを非表示にする
+            HideUIElements();
 
-                // プレイヤーのアニメーションをゴールに到達したものに切り替える
-                playerAnimator.SetTrigger("GoalReached");
+            // ゴールテキストを表示
+            goalText.enabled = true;
 
-                // プレイヤーのRigidbodyの動きを止める
-                Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
+            // エフェクトを表示するコルーチンを開始
+            effectManager.StartCoroutine(effectManager.SpawnEffectsAfterDelay());
 
-                if (playerRigidbody != null)
-                {
-                    // プレイヤーの速度をゼロにする
-                    playerRigidbody.velocity = Vector3.zero;
-                    playerRigidbody.angularVelocity = Vector3.zero;
+            // プレイヤーのアニメーションをゴールに到達したものに切り替える
+            playerAnimator.SetTrigger("GoalReached");
 
-                    // プレイヤーの入力を無効にする（プレイヤーの移動スクリプトを無効にする）
-                    PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
-                    if (playerActionScript != null)
-                    {
-                        playerActionScript.enabled = false;  // 移動スクリプトを無効化
-                    }
-                }
-                animator.Play();
+            // プレイヤーのRigidbodyの動きを止める
+            Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
+ 
+            if (playerRigidbody != null)
+            {
+                playerRigidbody.velocity = Vector3.zero;
+                playerRigidbody.angularVelocity = Vector3.zero;
+                playerRigidbody.isKinematic = true;  // 物理演算を無効化
+            }
+
+            // プレイヤーの移動スクリプトを無効化
+            PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
+
+            if (playerActionScript != null)
+            {
+                playerActionScript.enabled = false;  // 移動スクリプトを無効化
+            }
+
+            // ステージ遷移を実行
+            if (stageTransition != null)
+            {
+                stageTransition.StartCoroutine(stageTransition.CallAfterDelayTransition());
             }
         }
+    }
 
         // UI要素を非表示にする処理
         void HideUIElements()
