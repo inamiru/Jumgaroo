@@ -25,22 +25,12 @@ public class TimeScore : MonoBehaviour
         }
     }
 
-    public void SetFinishTime(float time)
-    {
-        finishTimeScore = time;
-    }
-
-    public float GetFinishTime()
-    {
-        return finishTimeScore;
-    }
     // クリアタイムに基づいてスコアを計算するメソッド
     public int CalculateScore()
     {
         // 依存関係の確認
         if (GameTimeDisplay.Instance == null || StageData.Instance == null)
         {
-            Debug.LogError("GameTimeDisplay or StageData instance is missing!");
             return minScore;  // 最低スコアを返す
         }
 
@@ -55,5 +45,15 @@ public class TimeScore : MonoBehaviour
         score = Mathf.Clamp(score, minScore, maxScore);
 
         return score;
+    }
+
+    public void SetFinishTimeScore(float score)
+    {
+        finishTimeScore = score;
+    }
+
+    public float GetFinishTimeScore()
+    {
+        return finishTimeScore;
     }
 }
