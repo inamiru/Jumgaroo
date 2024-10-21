@@ -19,25 +19,38 @@ namespace TransitionsPlusDemos
         // Start is called before the first frame update
         void Start()
         {
-            animator = GetComponent<Animator>();
+            // "Kangaroo"という名前のオブジェクトからAnimatorを取得
+            GameObject gameOverObject = GameObject.Find("Kangaroo");
+            
+            animator = gameOverObject.GetComponent<Animator>();
 
             gameOverText.gameObject.SetActive(false);   // ゲームオーバーテキストを非表示にする
         }
 
         public void GameOver()
         {
+             // ゴール処理
+            GameTimeDisplay.Instance.FinishGame();
+
+            // ゴール時の時間を記録
+            float finishTime = GameTimeDisplay.Instance.GetFinishTime();
+            GameTimeDisplay.Instance.SetFinishTime(finishTime);
+
+            // スコアを記録
+            ItemScore.Instance.SetFinalScore();
+
+            // ゲームオーバーのテキストを表示
+            gameOverText.gameObject.SetActive(true);
+            gameOverText.text = "Game Over";
+
+            // UIを非表示にする
+            HideUIElements();
+
             // 死亡アニメーションの再生
             animator.SetBool("isDead", true);
 
             // プレイヤーの動きを止める
             StopMovement();
-
-            // UIを非表示にする
-            HideUIElements();
-
-            // ゲームオーバーのテキストを表示
-            gameOverText.gameObject.SetActive(true);
-            gameOverText.text = "Game Over";
 
             // ステージ遷移を実行
             if (stageTransition != null)
@@ -58,7 +71,6 @@ namespace TransitionsPlusDemos
                 rb.velocity = Vector3.zero;
             }
 
-            PlayerAction playerAction = GetComponent<PlayerAction>();
             if (playerAction != null)
             {
                 playerAction.enabled = false;

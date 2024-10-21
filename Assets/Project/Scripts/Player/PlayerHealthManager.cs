@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using TransitionsPlusDemos;
 using UnityEngine;
 using UnityEngine.UI;
+using TransitionsPlusDemos;
 
 public class PlayerHealthManager : MonoBehaviour
 {
     public PlayerStates playerStates;  // ScriptableObject の参照
-    private GameOverController gameOverController;
+    public GameOverController gameOverController;
 
     private bool isDead = false;                // プレイヤーが死亡したかどうかのフラグ
     public Image[] heartImages; // ハートのUI（Imageコンポーネント）を格納する配列
@@ -20,23 +20,25 @@ public class PlayerHealthManager : MonoBehaviour
         UpdateHeartUI(); // ゲーム開始時にハートUIを初期化
 
         animator = GetComponent<Animator>();   // プレイヤーのAnimator
-        gameOverController = gameObject.GetComponent<GameOverController>();
+        
+        gameOverController = FindObjectOfType<GameOverController>(); // GameOverControllerを取得
     }
 
     // ダメージを受ける処理
     public void TakeDamage(int damage)
     {
-        // HPを減少させる
-        playerStates.TakeDamage(damage);
-        UpdateHeartUI(); // ハートUIを更新
-
-        Debug.Log("プレイヤーは " + damage + " ダメージを受けた。残りHP: " + playerStates.currentHitCount);
-
-        // HPが0かどうか確認
-        if (playerStates.IsDead() && !isDead)
+        if (playerStates != null)
         {
-            isDead = true; // 死亡フラグを立てる
-            gameOverController.GameOver();  // HPが0ならゲームオーバー
+            // HPを減少させる
+            playerStates.TakeDamage(damage);
+            UpdateHeartUI();  // ハートUIを更新
+
+            // HPが0かどうか確認
+            if (playerStates.IsDead() && !isDead)
+            {
+                isDead = true;  // 死亡フラグを立てる
+                gameOverController.GameOver();  // HPが0ならゲームオーバー
+            }
         }
     }
 
