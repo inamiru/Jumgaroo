@@ -56,7 +56,7 @@ PrefabInstance:
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
@@ -108,11 +108,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1079411057861296101}
+    - targetCorrespondingSourceObject: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7985613387661234048}
     - targetCorrespondingSourceObject: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 493907581994731936}
+      addedObject: {fileID: 4488539097867507829}
   m_SourcePrefab: {fileID: 100100000, guid: b290fdef4994188489fcd4f9af01b8fb, type: 3}
 --- !u!1 &6033309062930874 stripped
 GameObject:
@@ -159,16 +163,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feae28fd56e3748deaa204318cec4191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 1
-  maxSpeed: 7
-  jumpForce: 6
+  playerStates: {fileID: 11400000, guid: 817dcd0e2e10645789a0b392be9a43d6, type: 2}
   rayDistance: 1.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8192
-  maxJumps: 1
-  boostJumpForce: 10
-  forwardForce: 1
+--- !u!114 &1079411057861296101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033309062930874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a9b46b39c0c4c0daf88dd48d434568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStates: {fileID: 11400000, guid: 817dcd0e2e10645789a0b392be9a43d6, type: 2}
+  heartImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &7985613387661234048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,8 +200,7 @@ MonoBehaviour:
   respawnPoints:
   - {fileID: 0}
   - {fileID: 0}
-  damageArea: {fileID: 0}
---- !u!114 &493907581994731936
+--- !u!114 &4488539097867507829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,3 +214,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAction: {fileID: 7040347204004970700}
   gameOverText: {fileID: 0}
+  stageTransition: {fileID: 0}

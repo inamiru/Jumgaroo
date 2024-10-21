@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;  // TextMeshProを使用するための名前空間
-using TransitionsPlus;
 
 namespace TransitionsPlusDemos
 {
     public class GoalZone : MonoBehaviour
     {
-        public EffectManager effectManager;
+        public StageClearEffects stageClearEffects;
         public StageTransition stageTransition;
 
         public TextMeshProUGUI goalText;  // TextMeshProのUIテキスト
@@ -47,7 +46,7 @@ namespace TransitionsPlusDemos
             goalText.enabled = true;
 
             // エフェクトを表示するコルーチンを開始
-            effectManager.StartCoroutine(effectManager.SpawnEffectsAfterDelay());
+            stageClearEffects.StartCoroutine(stageClearEffects.SpawnEffectsAfterDelay());
 
             // プレイヤーのアニメーションをゴールに到達したものに切り替える
             playerAnimator.SetTrigger("GoalReached");
@@ -63,7 +62,7 @@ namespace TransitionsPlusDemos
             // ステージ遷移を実行
             if (stageTransition != null)
             {
-                stageTransition.StartCoroutine(stageTransition.CallAfterDelayTransition());
+                stageTransition.StartCoroutine(stageTransition.CallAfterDelayStageClearTransition());
             }
         }
     }
