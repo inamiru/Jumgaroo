@@ -7,8 +7,6 @@ using TransitionsPlus;
 namespace TransitionsPlusDemos {
     public class TitleScreenManager : MonoBehaviour
     {
-        // 切り替えたいシーンの名前をInspectorから設定可能
-        public string nextSceneName = "GameScene";
         public TransitionAnimator animator;
 
         // Start is called before the first frame update
