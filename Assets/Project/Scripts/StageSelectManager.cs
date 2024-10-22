@@ -4,91 +4,85 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using TransitionsPlusDemos;
+using TransitionsPlus;
+
+namespace TransitionsPlusDemos
+{
 
 public class StageSelectManager : MonoBehaviour
 {
-    public Image thumbnailImage;  // ƒTƒ€ƒlƒCƒ‹‚ğ•\¦‚·‚éImageƒRƒ“ƒ|[ƒlƒ“ƒg
-    public TextMeshProUGUI stageNameText;  // ƒXƒe[ƒW–¼‚ğ•\¦‚·‚éTextMeshPro
-    public List<StageInfo> stages;  // ƒXƒe[ƒWî•ñ‚ÌƒŠƒXƒg
+    public Image thumbnailImage;  // ã‚µãƒ ãƒã‚¤ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹Imageã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+    public TextMeshProUGUI stageNameText;  // ã‚¹ãƒ†ãƒ¼ã‚¸åã‚’è¡¨ç¤ºã™ã‚‹TextMeshPro
+    public List<StageInfo> stages;  // ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±ã®ãƒªã‚¹ãƒˆ
 
-    private int currentStageIndex = 0;  // Œ»İ‘I‘ğ‚³‚ê‚Ä‚¢‚éƒXƒe[ƒW‚ÌƒCƒ“ƒfƒbƒNƒX
+    private int currentStageIndex = 0;  // ç¾åœ¨é¸æŠã•ã‚Œã¦ã„ã‚‹ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 
-    private CustomSceneManager customSceneManager;
+    public TransitionAnimator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Å‰‚ÉƒXƒe[ƒWî•ñ‚ğ•\¦
+        // æœ€åˆã«ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±ã‚’è¡¨ç¤º
         UpdateStageDisplay();
-
-        // CustomSceneManager‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
-        customSceneManager = FindObjectOfType<CustomSceneManager>();
-
-        // Œ»İ‚ÌƒV[ƒ“–¼‚ğæ“¾‚µ‚ÄCustomSceneManager‚É“n‚·
-        if (customSceneManager != null)
-        {
-            string currentSceneName = SceneManager.GetActiveScene().name;  // Œ»İ‚ÌƒV[ƒ“–¼‚ğæ“¾
-            customSceneManager.LoadStage(currentSceneName);  // ƒV[ƒ“–¼‚ğCustomSceneManager‚É“n‚µ‚Ä•Û‘¶
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ¶–îˆóƒL[‚ª‰Ÿ‚³‚ê‚½ê‡
+        // å·¦çŸ¢å°ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸå ´åˆ
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             PreviousStage();
         }
 
-        // ‰E–îˆóƒL[‚ª‰Ÿ‚³‚ê‚½ê‡
+        // å³çŸ¢å°ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸå ´åˆ
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             NextStage();
         }
 
-        // ƒXƒy[ƒXƒL[‚Å‘I‘ğ‚µ‚½ƒXƒe[ƒW‚ğƒ[ƒh
-        if (Input.GetKeyDown(KeyCode.Space))
+        // ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã§é¸æŠã—ãŸã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ãƒ­ãƒ¼ãƒ‰
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             LoadSelectedStage();
         }
     }
 
-    // ƒXƒe[ƒW‚ğ1‚Â‘O‚ÉØ‚è‘Ö‚¦‚é
+    // ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’1ã¤å‰ã«åˆ‡ã‚Šæ›¿ãˆã‚‹
     private void PreviousStage()
     {
         currentStageIndex--;
         if (currentStageIndex < 0)
         {
-            currentStageIndex = stages.Count - 1;  // ƒŠƒXƒg‚ÌÅŒã‚É–ß‚é
+            currentStageIndex = stages.Count - 1;  // ãƒªã‚¹ãƒˆã®æœ€å¾Œã«æˆ»ã‚‹
         }
         UpdateStageDisplay();
     }
 
-    // ƒXƒe[ƒW‚ğ1‚ÂŒã‚ÉØ‚è‘Ö‚¦‚é
+    // ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’1ã¤å¾Œã«åˆ‡ã‚Šæ›¿ãˆã‚‹
     private void NextStage()
     {
         currentStageIndex++;
         if (currentStageIndex >= stages.Count)
         {
-            currentStageIndex = 0;  // ƒŠƒXƒg‚ÌÅ‰‚É–ß‚é
+            currentStageIndex = 0;  // ãƒªã‚¹ãƒˆã®æœ€åˆã«æˆ»ã‚‹
         }
         UpdateStageDisplay();
     }
-
-    // ‘I‘ğ‚³‚ê‚Ä‚¢‚éƒXƒe[ƒW‚ğ•\¦‚·‚é
+    // é¸æŠã•ã‚Œã¦ã„ã‚‹ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
     private void UpdateStageDisplay()
     {
         StageInfo currentStage = stages[currentStageIndex];
-        thumbnailImage.sprite = currentStage.thumbnail;  // ƒTƒ€ƒlƒCƒ‹‰æ‘œ‚ğ•ÏX
-        stageNameText.text = currentStage.stageName;  // ƒXƒe[ƒW–¼‚ğ•ÏX
+        thumbnailImage.sprite = currentStage.thumbnail;  // ã‚µãƒ ãƒã‚¤ãƒ«ç”»åƒã‚’å¤‰æ›´
+        stageNameText.text = currentStage.stageName;  // ã‚¹ãƒ†ãƒ¼ã‚¸åã‚’å¤‰æ›´
     }
 
-    // ‘I‘ğ‚µ‚½ƒXƒe[ƒW‚ğƒ[ƒh‚·‚é
+    // é¸æŠã—ãŸã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
     private void LoadSelectedStage()
     {
         StageInfo selectedStage = stages[currentStageIndex];
-        SceneManager.LoadScene(selectedStage.sceneName);  // ‘Î‰‚·‚éƒV[ƒ“‚ğƒ[ƒh
+                animator.Play();
+        SceneManager.LoadScene(selectedStage.sceneName);  // å¯¾å¿œã™ã‚‹ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
     }
+}
 }

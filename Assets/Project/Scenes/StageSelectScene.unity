@@ -165,7 +165,7 @@ MonoBehaviour:
   onTransitionEnd:
     m_PersistentCalls:
       m_Calls: []
-  loadSceneAtEnd: 1
+  loadSceneAtEnd: 0
   sceneNameToLoad: Stage01
   sceneLoadMode: 0
   fadeToCamera: 0
@@ -190,7 +190,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1897129485}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1544691787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &266679976
 GameObject:
@@ -226,7 +226,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 37, y: 305}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &266679978
@@ -258,8 +258,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -401,6 +401,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440155972}
   m_CullTransparentMesh: 1
+--- !u!28 &590123689
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 256
+  m_Height: 1
+  m_CompleteImageSize: 2044
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 9
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 0
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 2044
+  _typelessdata: ee8018ffee8018ffee8018ffee8118ffee8118ffee8118ffee8117ffee8117ffee8117ffee8217ffee8217ffee8217ffee8217ffee8217ffee8217ffee8317ffee8317ffee8317ffef8317ffef8317ffef8317ffef8317ffef8417ffef8417ffef8417ffef8417ffef8417ffef8417ffef8517ffef8517ffef8517ffef8517ffef8517ffef8517ffef8617ffef8617ffef8617ffef8617ffef8617ffef8617ffef8717ffef8717ffef8717ffef8717ffef8717ffef8717ffef8817ffef8817ffef8817ffef8817ffef8817ffef8817ffef8917ffef8917ffef8917ffef8917ffef8917ffef8917ffef8a17ffef8a17ffef8a17ffef8a16ffef8a16ffef8a16ffef8b16ffef8b16ffef8b16ffef8b16ffef8b16ffef8b16ffef8c16fff08c16fff08c16fff08c16fff08c16fff08c16fff08d16fff08d16fff08d16fff08d16fff08d16fff08d16fff08e16fff08e16fff08e16fff08e16fff08e16fff08e16fff08f16fff08f16fff08f16fff08f16fff08f16fff08f16fff09016fff09016fff09016fff09016fff09016fff09016fff09116fff09116fff09116fff09116fff09116fff09116fff09216fff09216fff09216fff09216fff09216fff09216fff09316fff09316fff09316fff09316fff09316fff09315fff09315fff09415fff09415fff09415fff09415fff09415fff19415fff19515fff19515fff19515fff19515fff19515fff19515fff19615fff19615fff19615fff19615fff19615fff19615fff19715fff19715fff19715fff19715fff19715fff19715fff19815fff19815fff19815fff19815fff19815fff19815fff19915fff19915fff19915fff19915fff19915fff19915fff19a15fff19a15fff19a15fff19a15fff19a15fff19a15fff19b15fff19b15fff19b15fff19b15fff19b15fff19b15fff19c15fff19c15fff19c15fff19c15fff19c15fff19c14fff19d14fff19d14fff19d14fff29d14fff29d14fff29d14fff29e14fff29e14fff29e14fff29e14fff29e14fff29e14fff29f14fff29f14fff29f14fff29f14fff29f14fff29f14fff2a014fff2a014fff2a014fff2a014fff2a014fff2a014fff2a114fff2a114fff2a114fff2a114fff2a114fff2a114fff2a214fff2a214fff2a214fff2a214fff2a214fff2a214fff2a214fff2a314fff2a314fff2a314fff2a314fff2a314fff2a314fff2a414fff2a414fff2a414fff2a414fff2a414fff2a414fff2a514fff2a514fff2a514fff2a514fff2a514fff2a514fff2a613fff3a613fff3a613fff3a613fff3a613fff3a613fff3a713fff3a713fff3a713fff3a713fff3a713fff3a713fff3a813fff3a813fff3a813fff3a813fff3a813fff3a813fff3a913fff3a913fff3a913fff3a913fff3a913fff3a913fff3aa13fff3aa13fff3aa13fff3aa13ffee8018ffee8018ffee8118ffee8117ffee8117ffee8217ffee8217ffee8217ffee8317ffef8317ffef8317ffef8417ffef8417ffef8417ffef8517ffef8517ffef8517ffef8617ffef8617ffef8617ffef8717ffef8717ffef8717ffef8817ffef8817ffef8817ffef8917ffef8917ffef8917ffef8a17ffef8a16ffef8a16ffef8b16ffef8b16ffef8b16ffef8c16fff08c16fff08c16fff08d16fff08d16fff08d16fff08e16fff08e16fff08e16fff08f16fff08f16fff08f16fff09016fff09016fff09016fff09116fff09116fff09116fff09216fff09216fff09216fff09316fff09316fff09315fff09315fff09415fff09415fff19415fff19515fff19515fff19515fff19615fff19615fff19615fff19715fff19715fff19715fff19815fff19815fff19815fff19915fff19915fff19915fff19a15fff19a15fff19a15fff19b15fff19b15fff19b15fff19c15fff19c15fff19c14fff19d14fff29d14fff29d14fff29e14fff29e14fff29e14fff29f14fff29f14fff29f14fff2a014fff2a014fff2a014fff2a114fff2a114fff2a114fff2a214fff2a214fff2a214fff2a314fff2a314fff2a314fff2a414fff2a414fff2a414fff2a514fff2a514fff2a514fff2a613fff3a613fff3a613fff3a713fff3a713fff3a713fff3a813fff3a813fff3a813fff3a913fff3a913fff3a913fff3aa13fff3aa13ffee8018ffee8117ffee8117ffee8217ffee8317ffef8317ffef8417ffef8517ffef8517ffef8617ffef8717ffef8717ffef8817ffef8917ffef8917ffef8a16ffef8b16ffef8b16fff08c16fff08d16fff08d16fff08e16fff08f16fff08f16fff09016fff09116fff09116fff09216fff09316fff09315fff09415fff19415fff19515fff19615fff19615fff19715fff19815fff19815fff19915fff19a15fff19a15fff19b15fff19c15fff19c14fff29d14fff29e14fff29e14fff29f14fff2a014fff2a014fff2a114fff2a214fff2a214fff2a314fff2a414fff2a414fff2a514fff2a613fff3a613fff3a713fff3a813fff3a813fff3a913fff3aa13ffee8017ffee8117ffee8317ffef8417ffef8517ffef8717ffef8817ffef8916ffef8b16fff08c16fff08d16fff08f16fff09016fff09116fff09315fff09415fff19515fff19615fff19815fff19915fff19a15fff19c14fff29d14fff29e14fff2a014fff2a114fff2a214fff2a414fff2a513fff3a613fff3a813fff3a913ffee8017ffee8317ffef8617ffef8816ffef8b16fff08e16fff09016fff09315fff19515fff19815fff19b14fff29d14fff2a014fff2a314fff2a513fff3a813ffee8117ffef8716ffef8c16fff09115fff19615fff19c14fff2a114fff2a613ffee8416ffef8e15fff19914fff2a313ffee8915fff19e13ffef9314ff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &711199711
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +546,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _GradientTex:
-        m_Texture: {fileID: 1983501475}
+        m_Texture: {fileID: 590123689}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -550,7 +598,6 @@ GameObject:
   - component: {fileID: 1178006217}
   - component: {fileID: 1178006216}
   - component: {fileID: 1178006215}
-  - component: {fileID: 1178006219}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -645,27 +692,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1178006219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178006214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12ba1e517abd86f45ab739d759b52443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thumbnailImage: {fileID: 1453350497}
-  stageNameText: {fileID: 266679978}
-  stages:
-  - stageName: Tutorial
-    thumbnail: {fileID: 21300000, guid: 159edc0e83a684f50af6c010388442b8, type: 3}
-    sceneName: Stage01
-  - stageName: Stage02
-    thumbnail: {fileID: 21300000, guid: 40f204d0c77a24226bd16e0c178d7945, type: 3}
-    sceneName: Stage02
 --- !u!1 &1190767043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,7 +1521,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1544691787}
-  - component: {fileID: 1544691786}
+  - component: {fileID: 1544691788}
   m_Layer: 0
   m_Name: SceneChanger
   m_TagString: Untagged
@@ -1503,19 +1529,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1544691786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1544691785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff36e0ea3fa544f8a4d7aa9d6918f78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 155608510}
 --- !u!4 &1544691787
 Transform:
   m_ObjectHideFlags: 0
@@ -1529,9 +1542,29 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 155608511}
   - {fileID: 2027456818}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1544691788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544691785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ba1e517abd86f45ab739d759b52443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thumbnailImage: {fileID: 1453350497}
+  stageNameText: {fileID: 266679978}
+  stages:
+  - stageName: Tutrial
+    thumbnail: {fileID: 21300000, guid: 159edc0e83a684f50af6c010388442b8, type: 3}
+    sceneName: Stage01
+  animator: {fileID: 155608510}
 --- !u!114 &1869501114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1691,54 +1724,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
---- !u!28 &1983501475
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 2
-  m_Width: 256
-  m_Height: 1
-  m_CompleteImageSize: 2044
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 9
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 0
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 2044
-  _typelessdata: ee8018ffee8018ffee8018ffee8118ffee8118ffee8118ffee8117ffee8117ffee8117ffee8217ffee8217ffee8217ffee8217ffee8217ffee8217ffee8317ffee8317ffee8317ffef8317ffef8317ffef8317ffef8317ffef8417ffef8417ffef8417ffef8417ffef8417ffef8417ffef8517ffef8517ffef8517ffef8517ffef8517ffef8517ffef8617ffef8617ffef8617ffef8617ffef8617ffef8617ffef8717ffef8717ffef8717ffef8717ffef8717ffef8717ffef8817ffef8817ffef8817ffef8817ffef8817ffef8817ffef8917ffef8917ffef8917ffef8917ffef8917ffef8917ffef8a17ffef8a17ffef8a17ffef8a16ffef8a16ffef8a16ffef8b16ffef8b16ffef8b16ffef8b16ffef8b16ffef8b16ffef8c16fff08c16fff08c16fff08c16fff08c16fff08c16fff08d16fff08d16fff08d16fff08d16fff08d16fff08d16fff08e16fff08e16fff08e16fff08e16fff08e16fff08e16fff08f16fff08f16fff08f16fff08f16fff08f16fff08f16fff09016fff09016fff09016fff09016fff09016fff09016fff09116fff09116fff09116fff09116fff09116fff09116fff09216fff09216fff09216fff09216fff09216fff09216fff09316fff09316fff09316fff09316fff09316fff09315fff09315fff09415fff09415fff09415fff09415fff09415fff19415fff19515fff19515fff19515fff19515fff19515fff19515fff19615fff19615fff19615fff19615fff19615fff19615fff19715fff19715fff19715fff19715fff19715fff19715fff19815fff19815fff19815fff19815fff19815fff19815fff19915fff19915fff19915fff19915fff19915fff19915fff19a15fff19a15fff19a15fff19a15fff19a15fff19a15fff19b15fff19b15fff19b15fff19b15fff19b15fff19b15fff19c15fff19c15fff19c15fff19c15fff19c15fff19c14fff19d14fff19d14fff19d14fff29d14fff29d14fff29d14fff29e14fff29e14fff29e14fff29e14fff29e14fff29e14fff29f14fff29f14fff29f14fff29f14fff29f14fff29f14fff2a014fff2a014fff2a014fff2a014fff2a014fff2a014fff2a114fff2a114fff2a114fff2a114fff2a114fff2a114fff2a214fff2a214fff2a214fff2a214fff2a214fff2a214fff2a214fff2a314fff2a314fff2a314fff2a314fff2a314fff2a314fff2a414fff2a414fff2a414fff2a414fff2a414fff2a414fff2a514fff2a514fff2a514fff2a514fff2a514fff2a514fff2a613fff3a613fff3a613fff3a613fff3a613fff3a613fff3a713fff3a713fff3a713fff3a713fff3a713fff3a713fff3a813fff3a813fff3a813fff3a813fff3a813fff3a813fff3a913fff3a913fff3a913fff3a913fff3a913fff3a913fff3aa13fff3aa13fff3aa13fff3aa13ffee8018ffee8018ffee8118ffee8117ffee8117ffee8217ffee8217ffee8217ffee8317ffef8317ffef8317ffef8417ffef8417ffef8417ffef8517ffef8517ffef8517ffef8617ffef8617ffef8617ffef8717ffef8717ffef8717ffef8817ffef8817ffef8817ffef8917ffef8917ffef8917ffef8a17ffef8a16ffef8a16ffef8b16ffef8b16ffef8b16ffef8c16fff08c16fff08c16fff08d16fff08d16fff08d16fff08e16fff08e16fff08e16fff08f16fff08f16fff08f16fff09016fff09016fff09016fff09116fff09116fff09116fff09216fff09216fff09216fff09316fff09316fff09315fff09315fff09415fff09415fff19415fff19515fff19515fff19515fff19615fff19615fff19615fff19715fff19715fff19715fff19815fff19815fff19815fff19915fff19915fff19915fff19a15fff19a15fff19a15fff19b15fff19b15fff19b15fff19c15fff19c15fff19c14fff19d14fff29d14fff29d14fff29e14fff29e14fff29e14fff29f14fff29f14fff29f14fff2a014fff2a014fff2a014fff2a114fff2a114fff2a114fff2a214fff2a214fff2a214fff2a314fff2a314fff2a314fff2a414fff2a414fff2a414fff2a514fff2a514fff2a514fff2a613fff3a613fff3a613fff3a713fff3a713fff3a713fff3a813fff3a813fff3a813fff3a913fff3a913fff3a913fff3aa13fff3aa13ffee8018ffee8117ffee8117ffee8217ffee8317ffef8317ffef8417ffef8517ffef8517ffef8617ffef8717ffef8717ffef8817ffef8917ffef8917ffef8a16ffef8b16ffef8b16fff08c16fff08d16fff08d16fff08e16fff08f16fff08f16fff09016fff09116fff09116fff09216fff09316fff09315fff09415fff19415fff19515fff19615fff19615fff19715fff19815fff19815fff19915fff19a15fff19a15fff19b15fff19c15fff19c14fff29d14fff29e14fff29e14fff29f14fff2a014fff2a014fff2a114fff2a214fff2a214fff2a314fff2a414fff2a414fff2a514fff2a613fff3a613fff3a713fff3a813fff3a813fff3a913fff3aa13ffee8017ffee8117ffee8317ffef8417ffef8517ffef8717ffef8817ffef8916ffef8b16fff08c16fff08d16fff08f16fff09016fff09116fff09315fff09415fff19515fff19615fff19815fff19915fff19a15fff19c14fff29d14fff29e14fff2a014fff2a114fff2a214fff2a414fff2a513fff3a613fff3a813fff3a913ffee8017ffee8317ffef8617ffef8816ffef8b16fff08e16fff09016fff09315fff19515fff19815fff19b14fff29d14fff2a014fff2a314fff2a513fff3a813ffee8117ffef8716ffef8c16fff09115fff19615fff19c14fff2a114fff2a613ffee8416ffef8e15fff19914fff2a313ffee8915fff19e13ffef9314ff
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &2027456816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,7 +1942,6 @@ SceneRoots:
   - {fileID: 1295589990}
   - {fileID: 1178006218}
   - {fileID: 1190767046}
-  - {fileID: 155608511}
   - {fileID: 1544691787}
   - {fileID: 1540012306}
   - {fileID: 1348028422}

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;  // TextMeshProを使う場合
+using UnityEngine.SceneManagement;  // シーン管理を行うための名前空間
 
 namespace TransitionsPlusDemos
 {
     public class GameOverController : MonoBehaviour
     {
         [SerializeField] private PlayerAction playerAction;
+        [SerializeField] private CustomSceneManager customSceneManager;
 
         private Animator animator;
 
@@ -52,12 +54,7 @@ namespace TransitionsPlusDemos
             // プレイヤーの動きを止める
             StopMovement();
 
-            // ステージ遷移を実行
-            if (stageTransition != null)
-            {
-                stageTransition.StartCoroutine(stageTransition.CallAfterDelayGameOVerTransition());
-            }
-
+            EndStage();
         }
 
         // プレイヤーの動きを止める
@@ -87,6 +84,19 @@ namespace TransitionsPlusDemos
                     uiElement.SetActive(false); // UI要素を非表示にする
                 }
             }
+        }
+
+        // ステージの終了時に呼び出すメソッド
+        public void EndStage()
+        {
+            // 現在のシーン名を取得
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            
+            // 前のシーン名を保存
+            customSceneManager.SetPreviousScene(currentSceneName);
+    
+            // ステージ遷移を実行
+            stageTransition.StartCoroutine(stageTransition.CallAfterDelayGameOVerTransition());
         }
     }
 }

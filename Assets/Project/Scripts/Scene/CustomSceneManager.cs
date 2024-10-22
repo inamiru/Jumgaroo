@@ -2,53 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;  // シーン管理を行うための名前空間
-using TransitionsPlus;
 
-namespace TransitionsPlusDemos
+public class CustomSceneManager : MonoBehaviour
 {
-    public class CustomSceneManager : MonoBehaviour
+    private string previousSceneName;  // 前のシーン名を保存
+    private string currentSceneName;   // 現在のシーン名を保存
+
+    // ステージ選択シーンの名前を定数で管理
+    private const string stageSelectSceneName = "StageSelectScene";
+
+    private void Start()
     {
-        private string lastPlayedStage;  // 最後にプレイしたステージ名を保存
+        currentSceneName = SceneManager.GetActiveScene().name;
+        previousSceneName = ""; // 初期化
+    }
 
-        private static CustomSceneManager instance;
+    public void SetPreviousScene(string sceneName)
+    {
+        previousSceneName = sceneName;
+    }
 
-        void Awake()
+    // 前のシーンの名前を取得
+    public string GetPreviousSceneName()
+    {
+        return previousSceneName;
+    }
+
+    // 現在のシーンを再読み込み（リスタート）
+    public void RestartCurrentScene()
+    {
+        SceneManager.LoadScene(currentSceneName);
+    }
+
+    // 前のシーンを再読み込み（リスタート）
+    public void RestartPreviousScene()
+    {
+        if (!string.IsNullOrEmpty(previousSceneName))
         {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);  // シーンをまたいでもこのオブジェクトを保持
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            SceneManager.LoadScene(previousSceneName);  // 前のシーンをロード
+        }
+    }
+
+    // 特定のシーンをロード
+    public void LoadScene(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogWarning("Scene name is empty or null."); // 警告メッセージ
+            return;
         }
 
-        // ステージ開始時に呼ばれる
-        public void LoadStage(string stageName)
-        {
-            lastPlayedStage = stageName;  // 現在のステージ名を保存
-            SceneManager.LoadScene(stageName);
-        }
+        SetPreviousScene(SceneManager.GetActiveScene().name);  // 現在のシーンを保存
+        SceneManager.LoadScene(sceneName);   // 指定されたシーンをロード
+    }
 
-        // リスタート時に呼ばれる、保存していたステージを再ロード
-        public void RestartLastPlayedStage()
-        {
-            if (!string.IsNullOrEmpty(lastPlayedStage))
-            {
-                SceneManager.LoadScene(lastPlayedStage);  // 保存していたステージをリスタート
-            }
-            else
-            {
-                Debug.LogWarning("No stage to restart. Last played stage is not set.");
-            }
-        }
-
-        // ステージ選択画面に遷移
-        public void LoadStageSelectScene()
-        {
-            SceneManager.LoadScene("StageSelectScene");
-        }
+    // ステージ選択画面をロード
+    public void LoadStageSelectScene()
+    {
+        LoadScene(stageSelectSceneName);
     }
 }
