@@ -8,37 +8,47 @@ namespace TransitionsPlusDemos
 {
     public class CustomSceneManager : MonoBehaviour
     {
-    // 現在のシーンをリロード（再読み込み）する
-    public void RestartCurrentScene()
-    {
-        StartCoroutine(TransitionAndRestart());
+        private string lastPlayedStage;  // 最後にプレイしたステージ名を保存
+
+        private static CustomSceneManager instance;
+
+        void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);  // シーンをまたいでもこのオブジェクトを保持
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        // ステージ開始時に呼ばれる
+        public void LoadStage(string stageName)
+        {
+            lastPlayedStage = stageName;  // 現在のステージ名を保存
+            SceneManager.LoadScene(stageName);
+        }
+
+        // リスタート時に呼ばれる、保存していたステージを再ロード
+        public void RestartLastPlayedStage()
+        {
+            if (!string.IsNullOrEmpty(lastPlayedStage))
+            {
+                SceneManager.LoadScene(lastPlayedStage);  // 保存していたステージをリスタート
+            }
+            else
+            {
+                Debug.LogWarning("No stage to restart. Last played stage is not set.");
+            }
+        }
+
+        // ステージ選択画面に遷移
+        public void LoadStageSelectScene()
+        {
+            SceneManager.LoadScene("StageSelectScene");
+        }
     }
-
-    // ステージ選択などの指定されたシーンに遷移する
-    public void LoadScene(string sceneName)
-    {
-        StartCoroutine(TransitionAndLoadScene(sceneName));
-    }
-
-    // 指定されたシーンに遷移するコルーチン
-    private IEnumerator TransitionAndLoadScene(string sceneName)
-    {
-        // シーン遷移を行う
-        SceneManager.LoadScene(sceneName);
-
-        // 遷移後に必要な処理があればここに追加
-        yield return null; // コルーチンの終了
-    }
-
-    // 現在のシーンをリロードするコルーチン
-    private IEnumerator TransitionAndRestart()
-    {
-        // 現在のシーンを再読み込み
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
-
-        // 再読み込み後に必要な処理があればここに追加
-        yield return null; // コルーチンの終了
-    }
-}
 }

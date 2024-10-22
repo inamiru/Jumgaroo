@@ -13,7 +13,7 @@ namespace TransitionsPlusDemos {
         void Update()
         {
             // スペースキーが押されたかどうかを検出
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 animator.Play();
             }

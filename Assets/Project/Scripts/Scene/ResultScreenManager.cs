@@ -4,65 +4,77 @@ using UnityEngine;
 using TMPro;
 using TransitionsPlusDemos;
 
-    public class ResultScreenManager : MonoBehaviour
+public class ResultScreenManager : MonoBehaviour
+{
+    public CustomSceneManager sceneManager;  // CustomSceneManagerの参照
+
+    public TextMeshProUGUI optionText;  // メニューのテキスト表示
+    private enum MenuOption { Restart, StageSelect }
+    private MenuOption currentOption = MenuOption.Restart;
+
+    void Start()
     {
-
-        public TextMeshProUGUI selectionText;  // テキストUIの参照
-        public SelectionManager selectionManager;  // SelectionManagerの参照
-        public CustomSceneManager custtomSceneManager;  // CustomSceneManagerの参照
-        
-        public float displayDelay = 1.0f;  // 結果表示の遅延時間
-
-        // Start is called before the first frame update
-        void Start()
-        {
-        // 初期のテキスト表示
-        UpdateSelectionText();
-        StartCoroutine(WaitAndEnableInput());
-        }
-
-    // 一定時間後に操作可能にする
-    private IEnumerator WaitAndEnableInput()
-    {
-        yield return new WaitForSeconds(displayDelay);
-        StartCoroutine(HandleInput());
+        UpdateOptionText();  // 初期の選択肢を表示
     }
 
-    // ユーザー入力を処理する
-    private IEnumerator HandleInput()
+    void Update()
     {
-        while (true)
-        {
-            // スペースキーで選択されたアクションを実行する
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                ExecuteAction();
-                break;
-            }
+        HandleInput();  // ユーザー入力を処理
+    }
 
-            // 選択肢のテキストを更新
-            UpdateSelectionText();
-            yield return null;
+    private void HandleInput()
+    {
+        // 左右の矢印キーでメニューを切り替え
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            ToggleOption();
+        }
+
+        // スペースキーで選択されたアクションを実行
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ExecuteAction();
         }
     }
 
-    // 選択されたテキストをUIに表示
-    private void UpdateSelectionText()
+    // 現在の選択肢を切り替え
+    private void ToggleOption()
     {
-        selectionText.text = selectionManager.CurrentSelectionText;
+        if (currentOption == MenuOption.Restart)
+        {
+            currentOption = MenuOption.StageSelect;
+        }
+        else
+        {
+            currentOption = MenuOption.Restart;
+        }
+
+        UpdateOptionText();  // テキストを更新
     }
 
-    // 選択されたアクションを実行する
+    // 選択肢に応じてテキストを更新
+    private void UpdateOptionText()
+    {
+        if (currentOption == MenuOption.Restart)
+        {
+            optionText.text = "Restart";
+        }
+        else
+        {
+            optionText.text = "Stage Select";
+        }
+    }
+
+    // 選択されたアクションを実行
     private void ExecuteAction()
     {
-        switch (selectionManager.GetCurrentSelection())
+        if (currentOption == MenuOption.Restart)
         {
-            case SelectionManager.Selection.Restart:
-                custtomSceneManager.RestartCurrentScene();  // リスタート処理
-                break;
-            case SelectionManager.Selection.StageSelect:
-                custtomSceneManager.LoadScene("StageSelectScene");  // ステージ選択シーンに遷移
-                break;
+            sceneManager.RestartLastPlayedStage();  // 直前のステージをリスタート
+        }
+        else if (currentOption == MenuOption.StageSelect)
+        {
+            sceneManager.LoadStageSelectScene();  // ステージ選択画面に遷移
         }
     }
 }
