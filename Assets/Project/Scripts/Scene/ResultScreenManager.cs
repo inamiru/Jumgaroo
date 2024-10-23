@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace TransitionsPlusDemos
-{
+
     public class ResultScreenManager : MonoBehaviour
     {
         public TextMeshProUGUI restartText;      // 「リスタート」のテキスト
@@ -12,15 +11,11 @@ namespace TransitionsPlusDemos
         public CustomSceneManager customSceneManager;  // カスタムシーンマネージャー
 
         private int selectedIndex = 0;  // 0 = リスタート, 1 = ステージ選択（デフォルトは0）
-        private string previousStageName;  // 直前に遊んでいたステージ名
 
         // Start is called before the first frame update
         void Start()
         {
-            // カスタムシーンマネージャーから直前のステージ名を取得
-            previousStageName = customSceneManager.GetPreviousSceneName();
-            // 初期表示を「リスタート」に設定
-            UpdateSelectionDisplay();
+            UpdateSelectionDisplay();  // 初期表示を設定
         }
 
          // Update is called once per frame
@@ -69,10 +64,19 @@ namespace TransitionsPlusDemos
             }
         }
 
-        // 直前に遊んでいたステージをリスタートする
+        // 現在のステージをリスタートする
         private void RestartStage()
         {
-                customSceneManager.LoadScene(previousStageName);  // 前のステージを最初から再スタート
+            string currentSceneName = StageController.instance.GetCurrentScene(); // 現在のシーン名を取得
+
+            if (!string.IsNullOrEmpty(currentSceneName)) // 空でないか確認
+            {
+                customSceneManager.LoadScene(currentSceneName);  // 現在のステージを再スタート
+            }
+            else
+            {
+                Debug.LogWarning("Current scene name is empty!"); // 警告メッセージ
+            }
         }
 
         // ステージ選択画面に移動
@@ -81,4 +85,3 @@ namespace TransitionsPlusDemos
             customSceneManager.LoadStageSelectScene();  // ステージ選択シーンに遷移
         }
     }
-}

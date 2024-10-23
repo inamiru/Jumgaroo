@@ -5,60 +5,45 @@ using UnityEngine.SceneManagement;  // シーン管理を行うための名前�
 
 public class CustomSceneManager : MonoBehaviour
 {
-    private string previousSceneName;  // 前のシーン名を保存
-    private string currentSceneName;   // 現在のシーン名を保存
+    public static CustomSceneManager instance;
 
+    private string previousSceneName = "TitleScene";  // タイトル画面を初期値に設定
+    
     // ステージ選択シーンの名前を定数で管理
     private const string stageSelectSceneName = "StageSelectScene";
 
-    private void Start()
+    private void Awake()
     {
-        currentSceneName = SceneManager.GetActiveScene().name;
-        previousSceneName = ""; // 初期化
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);  // オブジェクトがシーン間で破棄されないようにする
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);  // 別のインスタンスが存在する場合は、新しいオブジェクトを破棄
+        }
     }
 
-    public void SetPreviousScene(string sceneName)
+    public void LoadScene(string sceneName)
     {
-        previousSceneName = sceneName;
+        // シーン遷移前に現在のシーン名を保存
+        StageController.instance.SetCurrentScene(SceneManager.GetActiveScene().name);
+
+        // シーンの読み込み
+        SceneManager.LoadScene(sceneName);
     }
 
-    // 前のシーンの名前を取得
+
+
     public string GetPreviousSceneName()
     {
         return previousSceneName;
     }
 
-    // 現在のシーンを再読み込み（リスタート）
-    public void RestartCurrentScene()
-    {
-        SceneManager.LoadScene(currentSceneName);
-    }
-
-    // 前のシーンを再読み込み（リスタート）
-    public void RestartPreviousScene()
-    {
-        if (!string.IsNullOrEmpty(previousSceneName))
-        {
-            SceneManager.LoadScene(previousSceneName);  // 前のシーンをロード
-        }
-    }
-
-    // 特定のシーンをロード
-    public void LoadScene(string sceneName)
-    {
-        if (string.IsNullOrEmpty(sceneName))
-        {
-            Debug.LogWarning("Scene name is empty or null."); // 警告メッセージ
-            return;
-        }
-
-        SetPreviousScene(SceneManager.GetActiveScene().name);  // 現在のシーンを保存
-        SceneManager.LoadScene(sceneName);   // 指定されたシーンをロード
-    }
-
     // ステージ選択画面をロード
     public void LoadStageSelectScene()
     {
-        LoadScene(stageSelectSceneName);
+        SceneManager.LoadScene(stageSelectSceneName);   // 指定されたシーンをロード
     }
 }

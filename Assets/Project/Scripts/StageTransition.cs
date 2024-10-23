@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TransitionsPlus;
 
-namespace TransitionsPlusDemos
-{
     public class StageTransition : MonoBehaviour
     {
         public float delayTime = 3.0f;
@@ -30,4 +28,3 @@ namespace TransitionsPlusDemos
             gameOverAnimator.Play();
         }
     }
-}

@@ -7,6 +7,8 @@ namespace TransitionsPlusDemos
 {
     public class GoalZone : MonoBehaviour
     {
+        [SerializeField] private CustomSceneManager customSceneManager;
+
         public StageClearEffects stageClearEffects;
         public StageTransition stageTransition;
 
