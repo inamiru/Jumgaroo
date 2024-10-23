@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 using TransitionsPlus;
 
 public class StageSelectManager : MonoBehaviour
@@ -112,16 +111,30 @@ public class StageSelectManager : MonoBehaviour
     {
         StageInfo selectedStage = stages[currentStageIndex];
 
-        Color transitionColor = new Color(0, 0, 0, 255);  // 任意の色を設定
+        Gradient gradient = new Gradient();
+
+        // 16進数カラーコードからColorを生成（#RRGGBBAA形式）
+        Color colorStart;
+        Color colorEnd;
+
+        ColorUtility.TryParseHtmlString("#F8732B", out colorStart);
+        ColorUtility.TryParseHtmlString("#D6B436", out colorEnd);
+
+        // GradientColorKey配列を作成し、Colorと時間を指定
+        gradient.colorKeys = new GradientColorKey[] {
+            new GradientColorKey(colorStart, 0.0f),  // 最初の色（赤）
+            new GradientColorKey(colorEnd, 1.0f)     // 最後の色（半透明の青）
+        };
 
         // トランジションを開始
-            TransitionAnimator.Start(
-                TransitionType.Fade,     // transition type
-                duration: 3.0f,            // transition duration in seconds
-                noiseIntensity: 0.2f,     // intensity of noise
-                color: transitionColor, 
-                sceneNameToLoad: selectedStage.sceneName // ロードするシーン名
-            );
-//        SceneManager.LoadScene(selectedStage.sceneName);  // 対応するシーンをロード
+        TransitionAnimator.Start(
+            TransitionType.Shape,     // transition type
+            duration: 2.0f,            // transition duration in seconds
+            rotationMultiplier: -2,
+            splits: 2,
+            gradient : gradient,
+            keepAspectRatio : true,
+            sceneNameToLoad: selectedStage.sceneName // ロードするシーン名
+        );
     }
 }
