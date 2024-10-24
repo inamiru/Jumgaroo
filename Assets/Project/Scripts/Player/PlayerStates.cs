@@ -32,9 +32,7 @@ public class PlayerStates : ScriptableObject
     public float maxSpeed = 10.0f;    // 最大速度
 
     public float jumpForce = 5.0f;      // ジャンプ力
-    public int jumpCount = 0;          // ジャンプの回数
     public int maxJumps = 2;            // 最大ジャンプ回数（二段ジャンプを許可するため2に設定）
-
     public float boostJumpForce = 10.0f;     // ジャンプブーストのジャンプ力
     public float forwardForce = 5f;           // 無限ジャンプ時の前方への力
 

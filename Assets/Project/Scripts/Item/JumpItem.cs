@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class JumpItem : MonoBehaviour
 {
-     public float unlimitedJumpDuration = 5.0f;  // 無限ジャンプの継続時間（秒）
+    private PlayerJump playerJump;  // PlayerJumpの参照
+    public float unlimitedJumpDuration = 5.0f;  // 無限ジャンプの継続時間（秒）
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerJump = GetComponent<PlayerJump>();  // PlayerJump コンポーネントを取得
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,11 +19,11 @@ public class JumpItem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // プレイヤーの無制限ジャンプを有効にして、指定時間後に解除
-            PlayerAction playerAction = other.GetComponent<PlayerAction>();
+            PlayerJump playerJump = other.GetComponent<PlayerJump>();
 
-            if (playerAction != null)
+            if (playerJump != null)
             {
-                playerAction.EnableUnlimitedJumps(unlimitedJumpDuration);
+            //    playerJump.EnableUnlimitedJumps(unlimitedJumpDuration);
             }
 
             // アイテムを削除
