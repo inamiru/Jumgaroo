@@ -13,6 +13,8 @@ public class PlayerJump : MonoBehaviour
 
     private int jumpCount = 0;  // ジャンプの回数をカウント
 
+    public bool IsJumping { get; private set; } // ジャンプ中かどうかを判定するプロパティ
+
     private Animator animator;
 
     // Start is called before the first frame update
@@ -44,6 +46,8 @@ public class PlayerJump : MonoBehaviour
     // ジャンプ処理
     public void Jump()
     {
+        IsJumping = true; // ジャンプ開始時にフラグを立てる
+
         // 接地している場合はジャンプ回数をリセット
         if (isGrounded)
         {
@@ -61,6 +65,26 @@ public class PlayerJump : MonoBehaviour
             rb.AddForce(Vector3.up * jumpAdjustment, ForceMode.Impulse);
 
             jumpCount++;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // ジャンプブーストの面に接触した場合
+        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpBoost"))
+        {
+            // 既存のY方向の速度をリセット
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+            // ブーストジャンプ力を瞬間的に加える
+            rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);
+        }
+
+        // 地面に着地した場合
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            IsJumping = false; // 地面に着地したらフラグをリセット
+            jumpCount = 0;  // ジャンプ回数をリセット
         }
     }
 
