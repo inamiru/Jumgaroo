@@ -17,7 +17,7 @@ public class ResultScreenManager : MonoBehaviour
     private int selectedIndex = 0;  // 0 = リスタート, 1 = ステージ選択（デフォルトは0）
 
     private bool hasStartedGame = false; // ゲームがスタートしたかどうかのフラグ
-    private bool inputLocked = false;    // ユーザー入力をロックするフラグ
+    private bool inputLocked = true;    // ユーザー入力をロックするフラグ
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,17 @@ public class ResultScreenManager : MonoBehaviour
          // Update is called once per frame
     void Update()
     {
+        // ResultScreen から結果表示の状態を取得
+        ResultScreen resultScreen = FindObjectOfType<ResultScreen>();
+
+        // 結果がすべて表示されている場合のみ入力を受け付ける
+        if (resultScreen != null && resultScreen.AreAllResultsDisplayed())
+        {
+            inputLocked = false;  // 結果が表示されたら入力を受け付ける
+        }
+
+        if (inputLocked) return;
+
         HandleInput();
     }
 

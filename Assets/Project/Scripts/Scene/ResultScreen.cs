@@ -16,6 +16,9 @@ public class ResultScreen : MonoBehaviour
     public Image[] stars; // 星のImage配列（3つ）
     public float starDisplayInterval = 0.5f;   // 星を表示する間隔
 
+    private bool allResultsDisplayed = false; // すべての結果が表示されたかどうかのフラグ
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +42,9 @@ public class ResultScreen : MonoBehaviour
 
         // 星の表示をコルーチンとして呼び出す
         yield return StartCoroutine(DisplayStars());
+
+        // すべての結果が表示されたことを記録
+        allResultsDisplayed = true;
 
     }
 
@@ -82,6 +88,11 @@ public class ResultScreen : MonoBehaviour
             }
             yield return new WaitForSeconds(starDisplayInterval);  // インターバルをおいて表示
         }
+    }
+
+    public bool AreAllResultsDisplayed()  // 結果がすべて表示されているか確認するメソッド
+    {
+        return allResultsDisplayed;
     }
 
     // 星をすべて非表示にするメソッド
