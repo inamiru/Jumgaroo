@@ -1,95 +1,95 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TransitionsPlus;
-using UnityEngine.SceneManagement;
-
+using TransitionsPlus;  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ç”¨ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨
+using UnityEngine.SceneManagement;  // ã‚·ãƒ¼ãƒ³ç®¡ç†ã‚’è¡Œã†ãŸã‚ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨
 
 public class TransitionManager : MonoBehaviour
 {
-    public float duration = 2.0f;                                 // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ÌŠÔ
-    public int rotationMultiplier = -2;                           // ‰ñ“]‚Ìƒ}ƒ‹ƒ`ƒvƒ‰ƒCƒ„[
-    public int splits = 2;                                        // •ªŠ„”
-    public bool keepAspectRatio = true;                           // ƒAƒXƒyƒNƒg”ä‚ğ•Û‚·‚é‚©
+    public float duration = 2.0f;  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç¶™ç¶šæ™‚é–“
+    public int rotationMultiplier = -2;  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³æ™‚ã®å›è»¢å€ç‡
+    public int splits = 2;  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã§åˆ†å‰²ã™ã‚‹æ•°
+    public bool keepAspectRatio = true;  // ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã‚’ç¶­æŒã™ã‚‹ã‹ã©ã†ã‹
 
-    // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì•û–@‚ğ‘I‘ğ‚·‚éƒtƒ‰ƒO
-    public bool useGradient = false;                              // ƒOƒ‰ƒf[ƒVƒ‡ƒ“‚ğg—p‚·‚é‚©
-    public string colorStartHex = "#F8732B";                      // ƒOƒ‰ƒf[ƒVƒ‡ƒ“ŠJnF
-    public string colorEndHex = "#D6B436";                        // ƒOƒ‰ƒf[ƒVƒ‡ƒ“I—¹F
-    public string solidColorHex = "#000000";                      // ’PFƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ÌF
+    // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®è¦‹ãŸç›®ã‚’å¤‰æ›´ã™ã‚‹ã‚ªãƒ—ã‚·ãƒ§ãƒ³
+    public bool useGradient = false;  // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ä½¿ç”¨ã™ã‚‹ã‹ã©ã†ã‹
+    public string colorStartHex = "#F8732B";  // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã®é–‹å§‹è‰²ï¼ˆ16é€²æ•°ï¼‰
+    public string colorEndHex = "#D6B436";  // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµ‚äº†è‰²ï¼ˆ16é€²æ•°ï¼‰
+    public string solidColorHex = "#000000";  // å˜è‰²ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®å ´åˆã®è‰²
 
-
-    // ƒOƒ‰ƒf[ƒVƒ‡ƒ“‚É‚æ‚éƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
+    // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void StartGradientTransition(string sceneNameToLoad)
     {
-        Gradient gradient = new Gradient();
+        Gradient gradient = new Gradient();  // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 
-        // 16i”ƒJƒ‰[ƒR[ƒh‚©‚çColor‚ğ¶¬
+        // 16é€²æ•°ã®ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’Colorå‹ã«å¤‰æ›
         Color colorStart;
         Color colorEnd;
 
-        ColorUtility.TryParseHtmlString("#F8732B", out colorStart);
-        ColorUtility.TryParseHtmlString("#D6B436", out colorEnd);
+        // é–‹å§‹è‰²ã¨çµ‚äº†è‰²ã‚’16é€²æ•°ã‚³ãƒ¼ãƒ‰ã‹ã‚‰å¤‰æ›
+        ColorUtility.TryParseHtmlString(colorStartHex, out colorStart);
+        ColorUtility.TryParseHtmlString(colorEndHex, out colorEnd);
 
-        // GradientColorKey”z—ñ‚ğì¬‚µAColor‚ÆŠÔ‚ğw’è
+        // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã®è‰²è¨­å®šã‚’è¡Œã†ï¼ˆé–‹å§‹è‰²ã¨çµ‚äº†è‰²ï¼‰
         gradient.colorKeys = new GradientColorKey[] {
-            new GradientColorKey(colorStart, 0.0f),  // Å‰‚ÌF
-            new GradientColorKey(colorEnd, 1.0f)     // ÅŒã‚ÌF
+            new GradientColorKey(colorStart, 0.0f),  // é–‹å§‹æ™‚ã®è‰²
+            new GradientColorKey(colorEnd, 1.0f)     // çµ‚äº†æ™‚ã®è‰²
         };
 
-        // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğŠJn
+        // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã™ã‚‹
         TransitionAnimator.Start(
-            TransitionType.Shape,     // transition type
-            duration: duration,            // transition duration in seconds
-            rotationMultiplier: rotationMultiplier,
-            splits: splits,
-            gradient: gradient,
-            keepAspectRatio: keepAspectRatio
-            );
-    }
-
-    // ’PˆêF‚É‚æ‚éƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
-    public void StartColorTransition(Color transitionColor)
-    {
-        // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğŠJn
-        TransitionAnimator.Start(
-            TransitionType.Shape,     // transition type
-            duration: duration,
-            rotationMultiplier: rotationMultiplier,
-            splits: splits,
-            color: transitionColor,
-            keepAspectRatio: keepAspectRatio
+            TransitionType.Shape,  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ã‚¿ã‚¤ãƒ—ï¼ˆã“ã“ã§ã¯Shapeï¼‰
+            duration: duration,  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç¶™ç¶šæ™‚é–“
+            rotationMultiplier: rotationMultiplier,  // å›è»¢å€ç‡
+            splits: splits,  // åˆ†å‰²æ•°
+            gradient: gradient,  // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’é©ç”¨
+            keepAspectRatio: keepAspectRatio  // ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã‚’ç¶­æŒã™ã‚‹ã‹ã©ã†ã‹
         );
     }
 
-    // ‚Ç‚¿‚ç‚©‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğŒÄ‚Ño‚·ƒƒ\ƒbƒh
+    // å˜è‰²ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    public void StartColorTransition(Color transitionColor)
+    {
+        // å˜è‰²ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹
+        TransitionAnimator.Start(
+            TransitionType.Shape,  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ã‚¿ã‚¤ãƒ—
+            duration: duration,  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç¶™ç¶šæ™‚é–“
+            rotationMultiplier: rotationMultiplier,  // å›è»¢å€ç‡
+            splits: splits,  // åˆ†å‰²æ•°
+            color: transitionColor,  // å˜è‰²ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã«ä½¿ç”¨ã™ã‚‹è‰²
+            keepAspectRatio: keepAspectRatio  // ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã‚’ç¶­æŒã™ã‚‹ã‹ã©ã†ã‹
+        );
+    }
+
+    // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹ãŸã‚ã®ãƒ¡ã‚½ãƒƒãƒ‰ï¼ˆã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã‹å˜è‰²ã‹ã‚’é¸ã¶ï¼‰
     public void ExecuteTransition(bool useGradient, string sceneNameToLoad = null, Color? transitionColor = null)
     {
-        if (useGradient)
+        if (useGradient)  // ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ãŒæœ‰åŠ¹ãªã‚‰ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹
         {
             StartGradientTransition(sceneNameToLoad);
         }
-        else if (transitionColor.HasValue)
+        else if (transitionColor.HasValue)  // å˜è‰²ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹ãªã‚‰å˜è‰²ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹
         {
             StartColorTransition(transitionColor.Value);
         }
-        else
+        else  // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚«ãƒ©ãƒ¼ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„å ´åˆã¯è­¦å‘Šã‚’å‡ºã™
         {
             Debug.LogWarning("No transition color specified for color transition.");
         }
 
-        // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ªŠ®—¹‚µ‚½Œã‚ÉƒV[ƒ“‚ğƒ[ƒh‚·‚é
+        // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³å®Œäº†å¾Œã«ã‚·ãƒ¼ãƒ³ã‚’èª­ã¿è¾¼ã‚€
         if (sceneNameToLoad != null)
         {
-            StartCoroutine(LoadSceneAfterTransition(sceneNameToLoad));
+            StartCoroutine(LoadSceneAfterTransition(sceneNameToLoad));  // ã‚³ãƒ«ãƒ¼ãƒãƒ³ã§ã‚·ãƒ¼ãƒ³ã‚’é…å»¶ãƒ­ãƒ¼ãƒ‰
         }
     }
 
-        private IEnumerator LoadSceneAfterTransition(string sceneName)
-        {
-            // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ªŠ®—¹‚·‚é‚Ü‚Å‘Ò‚ÂiÀÛ‚ÌÀ‘•‚É‰‚¶‚ÄğŒ‚ğ’Ç‰Áj
-            yield return new WaitForSeconds(2.0f); // ‰¼‚Ì’x‰„i2•b‘Ò‹@j
+    // æŒ‡å®šã•ã‚ŒãŸã‚·ãƒ¼ãƒ³ã‚’ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³å¾Œã«ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³
+    private IEnumerator LoadSceneAfterTransition(string sceneName)
+    {
+        // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®çµ‚äº†ã¾ã§å¾…æ©Ÿ
+        yield return new WaitForSeconds(duration);  // durationç§’å¾…ã¤
 
-            SceneManager.LoadScene(sceneName); // ƒV[ƒ“‚ğƒ[ƒh
-        }
+        SceneManager.LoadScene(sceneName);  // æŒ‡å®šã•ã‚ŒãŸã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
+    }
 }

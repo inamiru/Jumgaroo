@@ -4,33 +4,34 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    public static EffectManager instance;  // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX
+    public static EffectManager instance;  // EffectManagerã®ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 
-    public GameObject dustEffectPrefab;    // •à‚­‚Ì“y‰ŒƒGƒtƒFƒNƒg‚ÌƒvƒŠƒtƒ@ƒu
-    public GameObject heartLostEffectPrefab; // ƒn[ƒg‚ªŒ¸‚Á‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg‚ÌƒvƒŠƒtƒ@ƒu
+    public GameObject dustEffectPrefab;    // ã»ã“ã‚Šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ—ãƒ¬ãƒãƒ–
+    public GameObject heartLostEffectPrefab; // ãƒãƒ¼ãƒˆå–ªå¤±ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ—ãƒ¬ãƒãƒ–
 
     private void Awake()
     {
+        // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã®åˆæœŸåŒ–
         if (instance == null)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);  // ƒV[ƒ“ŠÔ‚ÅƒIƒuƒWƒFƒNƒg‚ª”jŠü‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+            instance = this;  // ç¾åœ¨ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã—ã¦è¨­å®š
+            DontDestroyOnLoad(gameObject);  // ã‚·ãƒ¼ãƒ³ãŒå¤‰ã‚ã£ã¦ã‚‚ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´æ£„ã—ãªã„
         }
         else
         {
-            Destroy(gameObject);  // ‘¼‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ª‘¶İ‚·‚éê‡‚ÍAV‚µ‚¢ƒIƒuƒWƒFƒNƒg‚ğ”jŠü
+            Destroy(gameObject);  // æ—¢ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå­˜åœ¨ã™ã‚‹å ´åˆã€é‡è¤‡ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´æ£„
         }
     }
 
-    // “y‰ŒƒGƒtƒFƒNƒg‚ğÄ¶‚·‚éƒƒ\ƒbƒh
+    // ã»ã“ã‚Šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æŒ‡å®šã—ãŸä½ç½®ã§å†ç”Ÿã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void PlayDustEffect(Vector3 position)
     {
-        Instantiate(dustEffectPrefab, position, Quaternion.identity);
+        Instantiate(dustEffectPrefab, position, Quaternion.identity); // æŒ‡å®šä½ç½®ã«ã»ã“ã‚Šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
     }
 
-    // ƒn[ƒg‚ªŒ¸‚Á‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg‚ğÄ¶‚·‚éƒƒ\ƒbƒh
+    // ãƒãƒ¼ãƒˆå–ªå¤±ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æŒ‡å®šã—ãŸä½ç½®ã§å†ç”Ÿã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void PlayHeartLostEffect(Vector3 position)
     {
-        Instantiate(heartLostEffectPrefab, position, Quaternion.identity);
+        Instantiate(heartLostEffectPrefab, position, Quaternion.identity); // æŒ‡å®šä½ç½®ã«ãƒãƒ¼ãƒˆå–ªå¤±ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
     }
 }

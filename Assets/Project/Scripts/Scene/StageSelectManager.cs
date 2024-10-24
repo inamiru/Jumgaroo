@@ -41,8 +41,8 @@ public class StageSelectManager : MonoBehaviour
     // 入力処理
     private void HandleInput()
     {
-        // 入力がロックされている場合は何もしない
-        if (inputLocked) return;
+        // ゲームが既にスタートしているか、入力がロックされている場合は何もしない
+        if (inputLocked || hasStartedGame) return;
 
         // 左矢印キーが押された場合
         if (Input.GetKeyDown(KeyCode.LeftArrow))

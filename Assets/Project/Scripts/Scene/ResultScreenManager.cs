@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using TransitionsPlus;
-
 
 public class ResultScreenManager : MonoBehaviour
 {
@@ -50,8 +48,8 @@ public class ResultScreenManager : MonoBehaviour
     // 入力処理
      private void HandleInput()
     {
-        // 入力がロックされている場合は何もしない
-        if (inputLocked) return;
+        // ゲームがすでに始まっている、または入力がロックされている場合は何もしない
+        if (hasStartedGame || inputLocked) return;
         
         // 左矢印キーが押された場合
         if (Input.GetKeyDown(KeyCode.LeftArrow))

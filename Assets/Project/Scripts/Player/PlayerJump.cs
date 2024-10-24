@@ -4,94 +4,96 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
-    public PlayerStates playerStates;  // ScriptableObject ‚ÌQÆ
-    private Rigidbody rb;
+    public PlayerStates playerStates;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç®¡ç†ã™ã‚‹ScriptableObjectã®å‚ç…§
+    private Rigidbody rb;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Rigidbodyã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å‚ç…§
 
-    private bool isGrounded = false;    // Ú’n‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
-    public float rayDistance = 1.1f;    // ƒŒƒC‚Ì’·‚³
-    public LayerMask groundLayer;       // ’n–ÊƒŒƒCƒ„[
+    private bool isGrounded = false;    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒåœ°é¢ã«æ¥åœ°ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
+    public float rayDistance = 1.1f;    // åœ°é¢ã‚’æ¤œå‡ºã™ã‚‹Rayã®é•·ã•
+    public LayerMask groundLayer;       // åœ°é¢ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æŒ‡å®šã™ã‚‹
 
-    private int jumpCount = 0;  // ƒWƒƒƒ“ƒv‚Ì‰ñ”‚ğƒJƒEƒ“ƒg
+    private int jumpCount = 0;  // ã‚¸ãƒ£ãƒ³ãƒ—ã®å›æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹å¤‰æ•°
 
-    public bool IsJumping { get; private set; } // ƒWƒƒƒ“ƒv’†‚©‚Ç‚¤‚©‚ğ”»’è‚·‚éƒvƒƒpƒeƒB
+    public bool IsJumping { get; private set; } // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚¸ãƒ£ãƒ³ãƒ—ä¸­ã‹ã©ã†ã‹ã‚’å¤–éƒ¨ã‹ã‚‰å–å¾—å¯èƒ½ãªãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
-    private Animator animator;
+    private Animator animator;  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å‚ç…§
 
     // Start is called before the first frame update
     void Start()
     {
-        // Rigidbody‚ÆAnimator‚Ìæ“¾
+        // Rigidbodyã¨Animatorã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
     }
 
-    // ƒŒƒCƒLƒƒƒXƒg‚ğg‚Á‚ÄÚ’n”»’è‚ğs‚¤
+    // æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å®Ÿè¡Œã•ã‚Œã‚‹Updateãƒ¡ã‚½ãƒƒãƒ‰
     void Update()
     {
+        // Raycastã‚’ä½¿ç”¨ã—ã¦ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒåœ°é¢ã«æ¥åœ°ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯
         isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
 
-        // ƒAƒjƒ[ƒ^[‚ÉÚ’n”»’è‚ÌŒ‹‰Ê‚ğ“n‚·
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚¿ãƒ¼ã«isGroundedã®çŠ¶æ…‹ã‚’åæ˜ 
         animator.SetBool("isGrounded", isGrounded);
     }
 
-    // ƒWƒƒƒ“ƒv‚Ì“ü—Íƒ`ƒFƒbƒN
+    // ã‚¸ãƒ£ãƒ³ãƒ—ã®å…¥åŠ›ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†ãƒ¡ã‚½ãƒƒãƒ‰
     public void CheckJumpInput()
     {
+        // ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰Jumpãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
     }
 
-    // ƒWƒƒƒ“ƒvˆ—
+    // ã‚¸ãƒ£ãƒ³ãƒ—ã®å‡¦ç†ã‚’è¡Œã†ãƒ¡ã‚½ãƒƒãƒ‰
     public void Jump()
     {
-        IsJumping = true; // ƒWƒƒƒ“ƒvŠJn‚Éƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        IsJumping = true;  // ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ã§ã‚ã‚‹ã“ã¨ã‚’ç¤ºã™ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
 
-        // Ú’n‚µ‚Ä‚¢‚éê‡‚ÍƒWƒƒƒ“ƒv‰ñ”‚ğƒŠƒZƒbƒg
+        // æ¥åœ°ã—ã¦ã„ã‚‹å ´åˆã€ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’ãƒªã‚»ãƒƒãƒˆ
         if (isGrounded)
         {
-            jumpCount = 0;  // Ú’n‚ÉƒWƒƒƒ“ƒv‰ñ”‚ğƒŠƒZƒbƒg
+            jumpCount = 0;  // ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’ãƒªã‚»ãƒƒãƒˆ
         }
 
-        // ƒWƒƒƒ“ƒv‰ñ”‚ªÅ‘å‚É’B‚µ‚Ä‚¢‚È‚¢ê‡
+        // ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ãŒæœ€å¤§ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°æœªæº€ã§ã‚ã‚Œã°ã‚¸ãƒ£ãƒ³ãƒ—ã‚’å®Ÿè¡Œ
         if (jumpCount < playerStates.maxJumps)
         {
-            // Y•ûŒü‚Ì‘¬“x‚ğƒŠƒZƒbƒg‚µ‚Ä‚©‚çã•ûŒü‚ÉƒWƒƒƒ“ƒv
+            // Yè»¸ã®é€Ÿåº¦ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¦ã‹ã‚‰ã‚¸ãƒ£ãƒ³ãƒ—åŠ›ã‚’è¿½åŠ 
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-            // ƒIƒuƒWƒFƒNƒg‚É‚Ô‚Â‚©‚é‚Æ‚«‚Ì’²®
-            float jumpAdjustment = playerStates.jumpForce; // ’²®‚µ‚½‚¢ê‡‚Í‚±‚Ì’l‚ğ•ÏX
+            // ã‚¸ãƒ£ãƒ³ãƒ—åŠ›ã‚’è¨­å®šã—ã€ä¸Šæ–¹å‘ã«åŠ›ã‚’åŠ ãˆã‚‹
+            float jumpAdjustment = playerStates.jumpForce;  // å¿…è¦ã«å¿œã˜ã¦èª¿æ•´å¯èƒ½
             rb.AddForce(Vector3.up * jumpAdjustment, ForceMode.Impulse);
 
-            jumpCount++;
+            jumpCount++;  // ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
         }
     }
 
+    // ä»–ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨è¡çªã—ãŸéš›ã«å‘¼ã³å‡ºã•ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     private void OnCollisionEnter(Collision collision)
     {
-        // ƒWƒƒƒ“ƒvƒu[ƒXƒg‚Ì–Ê‚ÉÚG‚µ‚½ê‡
+        // "JumpBoost"ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«å±ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨è¡çªã—ãŸå ´åˆ
         if (collision.gameObject.layer == LayerMask.NameToLayer("JumpBoost"))
         {
-            // Šù‘¶‚ÌY•ûŒü‚Ì‘¬“x‚ğƒŠƒZƒbƒg
+            // Yè»¸ã®é€Ÿåº¦ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¦ã€ã‚¸ãƒ£ãƒ³ãƒ—ãƒ–ãƒ¼ã‚¹ãƒˆã‚’è¿½åŠ 
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-
-            // ƒu[ƒXƒgƒWƒƒƒ“ƒv—Í‚ğuŠÔ“I‚É‰Á‚¦‚é
-            rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);  // ãƒ–ãƒ¼ã‚¹ãƒˆã‚¸ãƒ£ãƒ³ãƒ—
         }
 
-        // ’n–Ê‚É’…’n‚µ‚½ê‡
+        // "Ground"ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«å±ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨è¡çªã—ãŸå ´åˆ
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            IsJumping = false; // ’n–Ê‚É’…’n‚µ‚½‚çƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
-            jumpCount = 0;  // ƒWƒƒƒ“ƒv‰ñ”‚ğƒŠƒZƒbƒg
+            IsJumping = false;  // ã‚¸ãƒ£ãƒ³ãƒ—çµ‚äº†
+            jumpCount = 0;  // ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’ãƒªã‚»ãƒƒãƒˆ
         }
     }
 
-    // ƒfƒoƒbƒO—pFƒŒƒCƒLƒƒƒXƒg‚Ì‰Â‹‰»
+    // ãƒ‡ãƒãƒƒã‚°ç”¨ã«Rayã®æç”»ã‚’è¡Œã†
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.red;  // Rayã®è‰²ã‚’èµ¤ã«è¨­å®š
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¶³å…ƒã‹ã‚‰Rayã‚’æç”»ã—ã€åœ°é¢ã¨ã®è·é›¢ã‚’å¯è¦–åŒ–
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * rayDistance);
     }
 }
