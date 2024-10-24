@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using TransitionsPlus;
 
 public class StageSelectManager : MonoBehaviour
 {
@@ -15,10 +14,9 @@ public class StageSelectManager : MonoBehaviour
     private bool hasStartedGame = false; // ゲームがスタートしたかどうかのフラグ
     private bool inputLocked = false;    // ユーザー入力をロックするフラグ
 
-    public GameObject leftArrow;        // 左矢印のオブジェクト
-    public GameObject rightArrow;       // 右矢印のオブジェクト
+    public ArrowSizeController arrowSizeController;
 
-    public TransitionAnimator animator;
+    private TransitionManager transitionManager;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +25,11 @@ public class StageSelectManager : MonoBehaviour
         {
             UpdateStageDisplay();  
         }
+
+        transitionManager = FindObjectOfType<TransitionManager>();
+
+        // 初期状態では、両方の矢印は等しいサイズで表示される
+        arrowSizeController.ResetArrowScale();
     }
 
     // Update is called once per frame
@@ -45,14 +48,12 @@ public class StageSelectManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             PreviousStage();
-            StartCoroutine(ScaleArrow(leftArrow));  // 左矢印を大きくするコルーチンを開始
         }
 
         // 右矢印キーが押された場合
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             NextStage();
-            StartCoroutine(ScaleArrow(rightArrow));  // 右矢印を大きくするコルーチンを開始
         }
 
         // エンターキーで選択したステージをロード
@@ -63,15 +64,6 @@ public class StageSelectManager : MonoBehaviour
 
             LoadSelectedStage();
         }
-    }
-
-    // 矢印を大きくするコルーチン
-    private IEnumerator ScaleArrow(GameObject arrow)
-    {
-        Vector3 originalScale = arrow.transform.localScale; // 元のスケールを保存
-        arrow.transform.localScale = originalScale * 1.5f; // 矢印を大きくする
-        yield return new WaitForSeconds(0.1f); // 一瞬待つ
-        arrow.transform.localScale = originalScale; // 元のスケールに戻す
     }
 
     // ステージを1つ前に切り替える
@@ -104,6 +96,10 @@ public class StageSelectManager : MonoBehaviour
         StageInfo currentStage = stages[currentStageIndex];
         thumbnailImage.sprite = currentStage.thumbnail;  // サムネイル画像を変更
         stageNameText.text = currentStage.stageName;  // ステージ名を変更
+
+        // 矢印のサイズを更新
+        arrowSizeController.UpdateArrowSize(currentStageIndex);
+
     }
 
     // 選択したステージをロードする
@@ -111,30 +107,10 @@ public class StageSelectManager : MonoBehaviour
     {
         StageInfo selectedStage = stages[currentStageIndex];
 
-        Gradient gradient = new Gradient();
-
-        // 16進数カラーコードからColorを生成（#RRGGBBAA形式）
-        Color colorStart;
-        Color colorEnd;
-
-        ColorUtility.TryParseHtmlString("#F8732B", out colorStart);
-        ColorUtility.TryParseHtmlString("#D6B436", out colorEnd);
-
-        // GradientColorKey配列を作成し、Colorと時間を指定
-        gradient.colorKeys = new GradientColorKey[] {
-            new GradientColorKey(colorStart, 0.0f),  // 最初の色（赤）
-            new GradientColorKey(colorEnd, 1.0f)     // 最後の色（半透明の青）
-        };
-
-        // トランジションを開始
-        TransitionAnimator.Start(
-            TransitionType.Shape,     // transition type
-            duration: 2.0f,            // transition duration in seconds
-            rotationMultiplier: -2,
-            splits: 2,
-            gradient : gradient,
-            keepAspectRatio : true,
-            sceneNameToLoad: selectedStage.sceneName // ロードするシーン名
+        // トランジションを実行し、トランジションが完了した後にシーンをロード
+        transitionManager.ExecuteTransition(
+            useGradient: true,
+            sceneNameToLoad: selectedStage.sceneName // 選択したステージのシーン名を渡す
         );
     }
 }

@@ -34,8 +34,6 @@ public class CustomSceneManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-
-
     public string GetPreviousSceneName()
     {
         return previousSceneName;
