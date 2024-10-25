@@ -4,34 +4,47 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    public static EffectManager instance;  // EffectManagerのシングルトンインスタンス
-
-    public GameObject dustEffectPrefab;    // ほこりエフェクトのプレハブ
-    public GameObject heartLostEffectPrefab; // ハート喪失エフェクトのプレハブ
+    public static EffectManager instance;  // シングルトンインスタンス
+    public GameObject dustEffectPrefab;
+    public GameObject heartLostEffectPrefab;
+    private float defaultEffectLifetime = 1.0f; // デフォルトのエフェクト生存時間
 
     private void Awake()
     {
-        // シングルトンの初期化
         if (instance == null)
         {
-            instance = this;  // 現在のインスタンスをシングルトンインスタンスとして設定
-            DontDestroyOnLoad(gameObject);  // シーンが変わってもこのオブジェクトを破棄しない
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);  // 既にインスタンスが存在する場合、重複したオブジェクトを破棄
+            Destroy(gameObject);
+        }
+
+        // エフェクトプレハブが設定されているか確認
+        if (dustEffectPrefab == null || heartLostEffectPrefab == null)
+        {
+            Debug.LogWarning("EffectManager: 一部のエフェクトプレハブが設定されていません");
         }
     }
 
     // ほこりエフェクトを指定した位置で再生するメソッド
-    public void PlayDustEffect(Vector3 position)
+    public void PlayDustEffect(Vector3 position, float lifetime = -1f)
     {
-        Instantiate(dustEffectPrefab, position, Quaternion.identity); // 指定位置にほこりエフェクトを生成
+        if (dustEffectPrefab != null)
+        {
+            var dustEffect = Instantiate(dustEffectPrefab, position, Quaternion.identity);
+            Destroy(dustEffect, lifetime > 0 ? lifetime : defaultEffectLifetime);
+        }
     }
 
     // ハート喪失エフェクトを指定した位置で再生するメソッド
     public void PlayHeartLostEffect(Vector3 position)
     {
-        Instantiate(heartLostEffectPrefab, position, Quaternion.identity); // 指定位置にハート喪失エフェクトを生成
+        if (heartLostEffectPrefab != null)
+        {
+            GameObject heartLostEffect = Instantiate(heartLostEffectPrefab, position, Quaternion.identity);
+            Destroy(heartLostEffect, 1.0f);
+        }
     }
 }

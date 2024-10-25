@@ -31,7 +31,7 @@ TagManager:
   - Water
   - UI
   - Cover
-  - 
+  - Effect
   - Enemy
   - 
   - 
@@ -59,4 +59,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UIEffect
+    uniqueID: 3733983741
     locked: 0

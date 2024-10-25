@@ -1,28 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using TransitionsPlusDemos;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    public PlayerStates playerStates;  // ScriptableObject の参照
-    public GameOverController gameOverController;
-     public HeartDisplayManager heartDisplayManager; // HeartDisplayManagerの参照
+    [SerializeField] private PlayerStates playerStates;
+    [SerializeField] private GameOverController gameOverController;
+    [SerializeField] private HeartDisplayManager heartDisplayManager;
 
-    private bool isDead = false;                // プレイヤーが死亡したかどうかのフラグ
-    private Animator animator;  // プレイヤーのAnimator
+    private bool isDead = false;
+    private Animator animator;
+    private int previousHealth;
 
     void Start()
     {
-        playerStates.InitializeHP();  // ゲーム開始時にHPを初期化
-        
-        // ハートのUIを初期化するためにHeartDisplayManagerを呼び出す
-        heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount); 
+        playerStates.InitializeHP();
+        heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount);
+        animator = GetComponent<Animator>();
+        gameOverController = FindObjectOfType<GameOverController>();
 
-        animator = GetComponent<Animator>();   // プレイヤーのAnimator
-        
-        gameOverController = FindObjectOfType<GameOverController>(); // GameOverControllerを取得
+        previousHealth = playerStates.currentHitCount;
     }
 
     // ダメージを受ける処理
@@ -30,28 +28,43 @@ public class PlayerHealthManager : MonoBehaviour
     {
         if (playerStates != null)
         {
-            // HPを減少させる
             playerStates.TakeDamage(damage);
-            heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount); // ハートUIを更新
-
-            // ハートが減ったエフェクトを再生
-            EffectManager.instance.PlayHeartLostEffect(transform.position); // 現在の位置にエフェクトを表示
-
-            // HPが0かどうか確認
-            if (playerStates.IsDead() && !isDead)
-            {
-                isDead = true;  // 死亡フラグを立てる
-                gameOverController.GameOver();  // HPが0ならゲームオーバー
-            }
+            UpdateHeartDisplay();
+            CheckGameOver();
+        }
+        else
+        {
+            Debug.LogWarning("playerStates is null!");
         }
     }
 
-    // ダメージアニメーションを再生する
+    // ダメージを受けた後のUIを更新
+    private void UpdateHeartDisplay()
+    {
+        heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount);
+
+        if (playerStates.currentHitCount < previousHealth)
+        {
+            heartDisplayManager.PlayHeartLostEffect(previousHealth - playerStates.currentHitCount);
+        }
+
+        previousHealth = playerStates.currentHitCount;
+    }
+
+    private void CheckGameOver()
+    {
+        if (playerStates.IsDead() && !isDead)
+        {
+            isDead = true;
+            gameOverController.GameOver();
+        }
+    }
+
     public void PlayDamageAnimation()
     {
         if (animator != null)
         {
-            animator.SetTrigger("Damage"); 
+            animator.SetTrigger("Damage");
         }
     }
 }
