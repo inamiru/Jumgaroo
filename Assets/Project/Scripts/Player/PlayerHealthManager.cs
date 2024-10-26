@@ -15,10 +15,15 @@ public class PlayerHealthManager : MonoBehaviour
 
     void Start()
     {
+        if (playerStates == null || heartDisplayManager == null || gameOverController == null)
+        {
+            Debug.LogError("PlayerHealthManager: 必要なコンポーネントが設定されていません");
+            return;
+        }
+
         playerStates.InitializeHP();
         heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount);
         animator = GetComponent<Animator>();
-        gameOverController = FindObjectOfType<GameOverController>();
 
         previousHealth = playerStates.currentHitCount;
     }
@@ -26,16 +31,9 @@ public class PlayerHealthManager : MonoBehaviour
     // ダメージを受ける処理
     public void TakeDamage(int damage)
     {
-        if (playerStates != null)
-        {
-            playerStates.TakeDamage(damage);
-            UpdateHeartDisplay();
-            CheckGameOver();
-        }
-        else
-        {
-            Debug.LogWarning("playerStates is null!");
-        }
+        playerStates.TakeDamage(damage);
+        heartDisplayManager.PlayHeartLostEffect(previousHealth - playerStates.currentHitCount); // ここでエフェクトを再生
+        CheckGameOver();
     }
 
     // ダメージを受けた後のUIを更新

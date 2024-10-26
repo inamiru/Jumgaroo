@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Rigidbodyを使用してプレイヤーを前方に移動させる
-        rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + Vector3.right * currentSpeed * Time.fixedDeltaTime);
         
         // アニメーターに現在の移動速度を反映し、移動アニメーションを再生
         animator.SetFloat("Speed", currentSpeed);

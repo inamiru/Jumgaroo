@@ -62,7 +62,7 @@ public class PlayerAction : MonoBehaviour
             effectPosition += transform.forward * dustEffectZOffset; // プレイヤーの前方にオフセット
 
             // EffectManagerを使用してダストエフェクトを表示
-            EffectManager.instance.PlayDustEffect(effectPosition);
+            EffectManager.Instance.PlayDustEffect(effectPosition);
         }
     }
 
