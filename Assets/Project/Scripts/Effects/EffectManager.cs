@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    private static EffectManager _instance;  // シングルトンインスタンス
+    private static EffectManager _instance;
     public static EffectManager Instance
     {
         get
@@ -19,10 +19,7 @@ public class EffectManager : MonoBehaviour
 
     public GameObject dustEffectPrefab;
     public GameObject heartLostEffectPrefab;
-    private float defaultEffectLifetime = 1.0f; // デフォルトのエフェクト生存時間
-
-    private Queue<GameObject> dustEffectPool = new Queue<GameObject>();
-    private Queue<GameObject> heartLostEffectPool = new Queue<GameObject>();
+    private float defaultEffectLifetime = 1.0f;
 
     private void Awake()
     {
@@ -41,56 +38,22 @@ public class EffectManager : MonoBehaviour
     // ほこりエフェクトを指定した位置で再生するメソッド
     public void PlayDustEffect(Vector3 position, float lifetime = -1f)
     {
-        GameObject dustEffect = GetEffectFromPool(dustEffectPool, dustEffectPrefab);
-        if (dustEffect != null)
-        {
-            dustEffect.transform.position = position;
-            dustEffect.SetActive(true);
-
-            StartCoroutine(DeactivateEffectAfterTime(dustEffect, dustEffectPool, lifetime > 0 ? lifetime : defaultEffectLifetime));
-        }
+        GameObject dustEffect = Instantiate(dustEffectPrefab, position, Quaternion.identity);
+        StartCoroutine(DestroyEffectAfterTime(dustEffect, lifetime > 0 ? lifetime : defaultEffectLifetime));
     }
 
-    // ハート喪失エフェクトを指定した位置で再生するメソッド
-    public void PlayHeartLostEffects(Vector3[] positions)
+
+    // ハート喪失エフェクトを1つ再生するメソッド
+    public void PlayHeartLostEffect(Vector3 position)
     {
-        foreach (var position in positions)
-        {
-            PlayHeartLostEffect(position);
-        }
+        GameObject heartLostEffect = Instantiate(heartLostEffectPrefab, position, Quaternion.identity);
+        StartCoroutine(DestroyEffectAfterTime(heartLostEffect, defaultEffectLifetime));
     }
-
-     // エフェクトをプールから取得し、必要なら新しく生成する
-    private GameObject GetEffectFromPool(Queue<GameObject> pool, GameObject prefab)
-    {
-        if (pool.Count > 0)
-        {
-            return pool.Dequeue();
-        }
-        else if (prefab != null)
-        {
-            return Instantiate(prefab);
-        }
-        return null;
-    }
-
-    // エフェクトを非アクティブにしてプールに戻すコルーチン
-    private IEnumerator DeactivateEffectAfterTime(GameObject effect, Queue<GameObject> pool, float delay)
+    
+    // エフェクトを指定時間後に削除するコルーチン
+    private IEnumerator DestroyEffectAfterTime(GameObject effect, float delay)
     {
         yield return new WaitForSeconds(delay);
-        effect.SetActive(false);
-        pool.Enqueue(effect);
-    }
-
-    // ハート喪失エフェクトを再生するためのメソッド
-    private void PlayHeartLostEffect(Vector3 position)
-    {
-        GameObject heartLostEffect = GetEffectFromPool(heartLostEffectPool, heartLostEffectPrefab);
-        if (heartLostEffect != null)
-        {
-            heartLostEffect.transform.position = position;
-            heartLostEffect.SetActive(true);
-            StartCoroutine(DeactivateEffectAfterTime(heartLostEffect, heartLostEffectPool, defaultEffectLifetime));
-        }
+        Destroy(effect);
     }
 }

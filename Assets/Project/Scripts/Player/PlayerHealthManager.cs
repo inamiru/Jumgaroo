@@ -32,21 +32,7 @@ public class PlayerHealthManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         playerStates.TakeDamage(damage);
-        heartDisplayManager.PlayHeartLostEffect(previousHealth - playerStates.currentHitCount); // ここでエフェクトを再生
         CheckGameOver();
-    }
-
-    // ダメージを受けた後のUIを更新
-    private void UpdateHeartDisplay()
-    {
-        heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount);
-
-        if (playerStates.currentHitCount < previousHealth)
-        {
-            heartDisplayManager.PlayHeartLostEffect(previousHealth - playerStates.currentHitCount);
-        }
-
-        previousHealth = playerStates.currentHitCount;
     }
 
     private void CheckGameOver()

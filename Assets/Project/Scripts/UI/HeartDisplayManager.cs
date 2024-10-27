@@ -8,7 +8,6 @@ public class HeartDisplayManager : MonoBehaviour
     public Image[] heartImages; // ハートのUI（Imageコンポーネント）を格納する配列
     public GameObject heartLostEffectPrefab; // ハート喪失エフェクトのプレハブ
     public Camera UICamera; // UIカメラの参照
-    public Camera MainCamera; // メインカメラの参照
 
     public float scaleAmount = 1.2f; // 拡大するスケール
     public float scaleDuration = 0.5f; // 拡大・縮小にかかる時間
@@ -16,9 +15,6 @@ public class HeartDisplayManager : MonoBehaviour
 
     public PlayerStates playerStates;  // ScriptableObject の参照
     private int previousHealth; // 前回のハート数を保持
-
-    // エフェクトのY軸オフセット
-    public float effectYOffset = -5.0f;
 
     private void Start()
     {
@@ -32,6 +28,7 @@ public class HeartDisplayManager : MonoBehaviour
         // ハート数が変わった場合にUIを更新
         if (previousHealth != playerStates.currentHitCount)
         {
+            PlayHeartLostEffect(previousHealth - playerStates.currentHitCount); // 減少分のエフェクトを再生
             UpdateHeartUI(playerStates.currentHitCount);
             previousHealth = playerStates.currentHitCount; // 現在のハート数を保持
         }
@@ -46,49 +43,25 @@ public class HeartDisplayManager : MonoBehaviour
         }
     }
 
-    // 減少したハートの位置にエフェクトを表示する
+    // ハート消失エフェクトを表示
     public void PlayHeartLostEffect(int lostHeartsCount)
     {
-        Vector3[] effectPositions = new Vector3[lostHeartsCount];
-
-        for (int i = previousHealth - 1; i >= previousHealth - lostHeartsCount; i--)
+        for (int i = 1; i <= lostHeartsCount; i++)
         {
-            if (i >= 0 && i < heartImages.Length)
+            int heartIndex = previousHealth - i;
+            if (heartIndex >= 0 && heartIndex < heartImages.Length)
             {
-                // ハートのUIのRectTransformの取得
-                RectTransform heartRectTransform = heartImages[i].rectTransform;
-
-                // ハートUIのスクリーン位置をワールド座標に変換
+                RectTransform heartRectTransform = heartImages[heartIndex].rectTransform;
                 Vector3 screenPoint = UICamera.WorldToScreenPoint(heartRectTransform.position);
                 Vector3 worldPoint;
-    
 
                 if (RectTransformUtility.ScreenPointToWorldPointInRectangle(heartRectTransform, screenPoint, UICamera, out worldPoint))
                 {
-                    // Y軸にオフセットを追加
-                    worldPoint.y += effectYOffset;
-                    
-                    // エフェクトを正確な位置に生成
-                    GameObject effect = Instantiate(heartLostEffectPrefab, worldPoint, Quaternion.identity);
-                    effect.transform.SetParent(UICamera.transform, false); // UIカメラに設定
-
-                    // エフェクトの再生を監視し、完了したら非アクティブにする
-                    StartCoroutine(DeactivateEffectAfterDelay(effect, 0.5f)); // 非アクティブ
-
+                    EffectManager.Instance.PlayHeartLostEffect(worldPoint);
                 }
             }
         }
     }
-
-// エフェクトを一定時間後に非アクティブ化するコルーチン
-private IEnumerator DeactivateEffectAfterDelay(GameObject effect, float delay)
-{
-    yield return new WaitForSeconds(delay);
-    if (effect != null)
-    {
-        effect.SetActive(false); // エフェクトを非アクティブにする
-    }
-}
 
     private IEnumerator ScaleHearts()
     {
