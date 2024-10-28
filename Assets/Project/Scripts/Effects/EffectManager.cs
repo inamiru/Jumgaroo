@@ -19,6 +19,8 @@ public class EffectManager : MonoBehaviour
 
     public GameObject dustEffectPrefab;
     public GameObject heartLostEffectPrefab;
+    public GameObject itemCollectEffectPrefab;
+
     private float defaultEffectLifetime = 1.0f;
 
     private void Awake()
@@ -55,5 +57,15 @@ public class EffectManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(effect);
+    }
+
+    // アイテム取得エフェクトを表示するメソッド
+    public void PlayItemCollectEffect(Vector3 position)
+    {
+        if (itemCollectEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(itemCollectEffectPrefab, position, Quaternion.identity);
+            Destroy(effect, 1.0f);  // エフェクトを一定時間後に破棄する
+        }
     }
 }

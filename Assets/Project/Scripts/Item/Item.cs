@@ -14,6 +14,9 @@ public class Item : MonoBehaviour
             // アイテムを取得した時にスコアを加算する
             ItemScore.Instance.AddScore(scoreValue);
 
+            // エフェクトをアイテムの位置に表示する
+            EffectManager.Instance.PlayItemCollectEffect(transform.position);
+
             // ゲームオブジェクトを消す
             Destroy(gameObject);
         }
