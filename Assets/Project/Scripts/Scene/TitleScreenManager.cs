@@ -14,8 +14,9 @@ public class TitleScreenManager : MonoBehaviour
     private bool inputLocked = false;    // ユーザー入力をロックするフラグ
 
     public ArrowSizeController arrowSizeController;
+    public AudioClip arrowKeySE; // 矢印キー用のサウンドエフェクト
 
-    public TransitionAnimator animator;
+    private TransitionAnimator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class TitleScreenManager : MonoBehaviour
             {
                 selectedIndex = 1; // エンドに戻る
             }
+            SoundManager.Instance.PlaySoundEffect(arrowKeySE); // サウンドエフェクトを再生
             UpdateSelectionDisplay();
         }
 
@@ -57,6 +59,7 @@ public class TitleScreenManager : MonoBehaviour
             {
                 selectedIndex = 0; // スタートに戻る
             }
+            SoundManager.Instance.PlaySoundEffect(arrowKeySE); // サウンドエフェクトを再生
             UpdateSelectionDisplay();
         }
         
