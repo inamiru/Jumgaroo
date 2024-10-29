@@ -20,6 +20,8 @@ public class EffectManager : MonoBehaviour
     public GameObject dustEffectPrefab;
     public GameObject heartLostEffectPrefab;
     public GameObject itemCollectEffectPrefab;
+    public GameObject jumpEffectPrefab;  // ジャンプエフェクトのプレハブ
+    public GameObject starEffectPrefab;
 
     private float defaultEffectLifetime = 1.0f;
 
@@ -44,6 +46,14 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(DestroyEffectAfterTime(dustEffect, lifetime > 0 ? lifetime : defaultEffectLifetime));
     }
 
+    public void PlayJumpEffect(Vector3 position)
+    {
+        if (jumpEffectPrefab != null)
+        {
+            GameObject jumpEffect = Instantiate(jumpEffectPrefab, position, Quaternion.identity);
+            Destroy(jumpEffect, 1.0f);  // 1秒後にエフェクトを削除
+        }
+    }
 
     // ハート喪失エフェクトを1つ再生するメソッド
     public void PlayHeartLostEffect(Vector3 position)
@@ -67,5 +77,10 @@ public class EffectManager : MonoBehaviour
             GameObject effect = Instantiate(itemCollectEffectPrefab, position, Quaternion.identity);
             Destroy(effect, 1.0f);  // エフェクトを一定時間後に破棄する
         }
+    }
+
+    public void PlayStarEffect(Vector3 position)
+    {
+        Instantiate(starEffectPrefab, position, Quaternion.identity);
     }
 }

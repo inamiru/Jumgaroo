@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     public PlayerStates playerStates;  // プレイヤーのステータスを管理するScriptableObjectの参照
+
     private Rigidbody rb;  // プレイヤーのRigidbodyコンポーネントの参照
 
     private bool isGrounded = false;    // プレイヤーが地面に接地しているかどうかのフラグ
@@ -12,9 +13,7 @@ public class PlayerJump : MonoBehaviour
     public LayerMask groundLayer;       // 地面のレイヤーを指定する
 
     private int jumpCount = 0;  // ジャンプの回数をカウントする変数
-
     public bool IsJumping { get; private set; } // プレイヤーがジャンプ中かどうかを外部から取得可能なプロパティ
-
     private Animator animator;  // プレイヤーのアニメーターコンポーネントの参照
 
     // Start is called before the first frame update
@@ -48,25 +47,21 @@ public class PlayerJump : MonoBehaviour
     // ジャンプの処理を行うメソッド
     public void Jump()
     {
-        IsJumping = true;  // ジャンプ中であることを示すフラグを設定
+        IsJumping = true;
 
-        // 接地している場合、ジャンプ回数をリセット
         if (isGrounded)
         {
-            jumpCount = 0;  // ジャンプ回数をリセット
+            jumpCount = 0;
         }
 
-        // ジャンプ回数が最大ジャンプ回数未満であればジャンプを実行
         if (jumpCount < playerStates.maxJumps)
         {
-            // Y軸の速度をリセットしてからジャンプ力を追加
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.up * playerStates.jumpForce, ForceMode.Impulse);
+            jumpCount++;
 
-            // ジャンプ力を設定し、上方向に力を加える
-            float jumpAdjustment = playerStates.jumpForce;  // 必要に応じて調整可能
-            rb.AddForce(Vector3.up * jumpAdjustment, ForceMode.Impulse);
-
-            jumpCount++;  // ジャンプ回数をカウント
+            // ジャンプエフェクトを再生する
+            EffectManager.Instance.PlayJumpEffect(transform.position);
         }
     }
 

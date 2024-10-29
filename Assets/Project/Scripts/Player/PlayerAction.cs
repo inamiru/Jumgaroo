@@ -11,11 +11,6 @@ public class PlayerAction : MonoBehaviour
     private bool canMove = false;    // プレイヤーの入力を受け付けるかどうかを制御するフラグ
     private Animator animator;
 
-    private float dustEffectTimer = 0f; // 土煙エフェクト生成のタイマー
-    private float dustEffectInterval = 0.1f; // エフェクト生成の間隔
-    private float dustEffectHeightOffset = 1.2f; // エフェクト位置のY座標オフセット
-    private float dustEffectZOffset = -0.2f; // エフェクト位置のZ座標オフセット
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,34 +31,6 @@ public class PlayerAction : MonoBehaviour
         // アニメーションのSpeedパラメータに現在のスピードを設定
         animator.SetFloat("Speed", playerMovement.currentSpeed);
 
-        // アニメーションのBlend Treeの速度をチェック
-        if (animator.GetFloat("Speed") > 0.1f) // 適切なしきい値を設定
-        {
-            // タイマーを更新
-            dustEffectTimer += Time.deltaTime;
-            // 一定間隔で土煙エフェクトを表示
-            if (dustEffectTimer >= dustEffectInterval)
-            {
-                ShowDustEffect();
-                dustEffectTimer = 0f; // タイマーをリセット
-            }
-        }
-    }
-
-    private void ShowDustEffect()
-    {
-        // ジャンプ中でない場合にのみエフェクトを生成
-        if (!playerJump.IsJumping)
-        {
-            // プレイヤーの足元の位置を計算
-            Vector3 effectPosition = transform.position + Vector3.up * dustEffectHeightOffset; // 足元のY座標を調整
-
-            // Z軸方向のオフセットを追加（前方にオフセット）
-            effectPosition += transform.forward * dustEffectZOffset; // プレイヤーの前方にオフセット
-
-            // EffectManagerを使用してダストエフェクトを表示
-            EffectManager.Instance.PlayDustEffect(effectPosition);
-        }
     }
 
     // 外部から呼び出して入力を有効にするメソッド
