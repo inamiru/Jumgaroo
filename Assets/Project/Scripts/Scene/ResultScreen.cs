@@ -14,6 +14,8 @@ public class ResultScreen : MonoBehaviour
     public float stardisplayDelay = 2.5f;    // 星表示までの遅延時間（秒）
 
     public Image[] stars; // 星のImage配列（3つ）
+    public Transform[] starPositions;  // 星のエフェクト表示位置
+
     public float starDisplayInterval = 0.5f;   // 星を表示する間隔
 
     private bool allResultsDisplayed = false; // すべての結果が表示されたかどうかのフラグ
@@ -76,6 +78,7 @@ public class ResultScreen : MonoBehaviour
     private IEnumerator DisplayStars()
     {
         int starCount = StarCalculator.Instance.GetStarCount();
+
         // 最初の星を表示する前に遅延を追加
         yield return new WaitForSeconds(stardisplayDelay);
 
@@ -85,15 +88,22 @@ public class ResultScreen : MonoBehaviour
             if (stars[i] != null)
             {
                 stars[i].gameObject.SetActive(true);  // 星を表示
+
+                // EffectManagerを使用して星のエフェクトを再生
+                if (EffectManager.Instance != null && i < starPositions.Length)
+                {
+                     // 星の位置を取得し、スクリーン座標からワールド座標に変換
+                    Vector3 starScreenPosition = stars[i].transform.position;
+                    // 星のスクリーン座標に基づき、カメラのZ軸情報を含めたワールド座標に変換
+                    Vector3 starWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(starScreenPosition.x, starScreenPosition.y, Camera.main.nearClipPlane + 1f)); // 深度を適切に調整
+
+                    EffectManager.Instance.PlayStarEffect(starWorldPosition);                }
             }
             yield return new WaitForSeconds(starDisplayInterval);  // インターバルをおいて表示
         }
     }
 
-    public bool AreAllResultsDisplayed()  // 結果がすべて表示されているか確認するメソッド
-    {
-        return allResultsDisplayed;
-    }
+    public bool AreAllResultsDisplayed() => allResultsDisplayed;  // 結果がすべて表示されているか確認するメソッド
 
     // 星をすべて非表示にするメソッド
     private void HideAllStars()

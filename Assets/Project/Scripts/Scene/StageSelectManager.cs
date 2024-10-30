@@ -15,7 +15,6 @@ public class StageSelectManager : MonoBehaviour
     private bool inputLocked = false;    // ユーザー入力をロックするフラグ
 
     public ArrowSizeController arrowSizeController;
-
     private TransitionManager transitionManager;
 
     // Start is called before the first frame update
@@ -47,12 +46,14 @@ public class StageSelectManager : MonoBehaviour
         // 左矢印キーが押された場合
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            SoundEffectManager.Instance.PlayArrowKeySound(); // Play arrow key sound
             PreviousStage();
         }
 
         // 右矢印キーが押された場合
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            SoundEffectManager.Instance.PlayArrowKeySound(); // Play arrow key sound
             NextStage();
         }
 
@@ -61,7 +62,8 @@ public class StageSelectManager : MonoBehaviour
         {
             hasStartedGame = true;  // ゲームがスタートしたことを記録
             inputLocked = true;      // ユーザー入力をロック
-
+            
+            SoundEffectManager.Instance.PlayReturnKeySound(); // リターンキーのSEを再生
             LoadSelectedStage();
         }
     }

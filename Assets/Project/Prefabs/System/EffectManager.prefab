@@ -52,4 +52,4 @@ MonoBehaviour:
     type: 3}
   jumpEffectPrefab: {fileID: 2837609728858217907, guid: 30538aa757d5768459b127b9b70d4362,
     type: 3}
-  starEffectPrefab: {fileID: 0}
+  starEffectPrefab: {fileID: 157776, guid: 82bf03917e16d3d4cad30518cca28308, type: 3}

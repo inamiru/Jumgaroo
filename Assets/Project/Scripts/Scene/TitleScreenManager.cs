@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using TransitionsPlus;
 
 public class TitleScreenManager : MonoBehaviour
 {
@@ -10,21 +9,20 @@ public class TitleScreenManager : MonoBehaviour
     public TextMeshProUGUI exitText;   // エンドのテキスト
 
     private int selectedIndex = 0;      // 現在選択されている項目（0 = スタート, 1 = エンド）
-    private bool hasStartedGame = false; // ゲームがスタートしたかどうかのフラグ
-    private bool inputLocked = false;    // ユーザー入力をロックするフラグ
+    private bool inputLocked = false;   // ユーザー入力をロックするフラグ
 
     public ArrowSizeController arrowSizeController;
-    public AudioClip arrowKeySE; // 矢印キー用のサウンドエフェクト
+    private TransitionManager transitionManager;
 
-    private TransitionAnimator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateSelectionDisplay();  // 初期選択状態を表示
+        transitionManager = FindObjectOfType<TransitionManager>();
 
-        // 初期状態では、両方の矢印は等しいサイズで表示される
-        arrowSizeController.ResetArrowScale();
+        UpdateSelectionDisplay();      // 初期選択状態を表示
+        arrowSizeController.ResetArrowScale();  // 初期状態の矢印サイズ設定
+
     }
     
     // Update is called once per frame
@@ -38,34 +36,24 @@ public class TitleScreenManager : MonoBehaviour
     {
         // 入力がロックされている場合は何もしない
         if (inputLocked) return;
-        
-        // 左矢印キーが押された場合
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            selectedIndex--;  // インデックスをデクリメント
-            if (selectedIndex < 0) // 0未満になったらループ
-            {
-                selectedIndex = 1; // エンドに戻る
-            }
-            SoundManager.Instance.PlaySoundEffect(arrowKeySE); // サウンドエフェクトを再生
+            selectedIndex = (selectedIndex + 1) % 2;  // 左に移動
+            SoundEffectManager.Instance.PlayArrowKeySound(); // Play arrow key sound
             UpdateSelectionDisplay();
         }
 
-        // 右矢印キーが押された場合
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            selectedIndex++;  // インデックスをインクリメント
-            if (selectedIndex > 1) // 1を超えたらループ
-            {
-                selectedIndex = 0; // スタートに戻る
-            }
-            SoundManager.Instance.PlaySoundEffect(arrowKeySE); // サウンドエフェクトを再生
+            selectedIndex = (selectedIndex + 2 - 1) % 2;  // 右に移動
+            SoundEffectManager.Instance.PlayArrowKeySound(); // Play arrow key sound
             UpdateSelectionDisplay();
         }
         
-        // エンターキーが押された場合
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            SoundEffectManager.Instance.PlayReturnKeySound(); // リターンキーのSEを再生
             ExecuteSelectedAction();
         }
     }
@@ -75,7 +63,7 @@ public class TitleScreenManager : MonoBehaviour
     {
         // 選択された項目のみ表示
         startText.gameObject.SetActive(selectedIndex == 0);  // 「リスタート」の表示
-        exitText.gameObject.SetActive(selectedIndex == 1);  // 「ステージ選択」の表示
+        exitText.gameObject.SetActive(selectedIndex == 1);   // 「ステージ選択」の表示
         
         // 矢印のサイズを更新
         arrowSizeController.UpdateArrowSize(selectedIndex);
@@ -84,17 +72,31 @@ public class TitleScreenManager : MonoBehaviour
     // 選択されたアクションを実行
     private void ExecuteSelectedAction()
     {
-        if (selectedIndex == 0 && !hasStartedGame)
+        if (selectedIndex == 0)
         {
-            animator.Play();
-            hasStartedGame = true;  // ゲームがスタートしたことを記録
-            inputLocked = true;      // ユーザー入力をロック
+            if (!inputLocked && transitionManager != null)
+            {
+                LoadStageSelectScene();
+                inputLocked = true;  // ユーザー入力をロック
+            }
         }
         else if (selectedIndex == 1)
         {
-            // エンドを選択 -> ゲームを終了
             Application.Quit();  // ゲームを終了
-            Debug.Log("Game is quitting..."); // デバッグ用メッセージ
+
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;  // エディタ上での終了動作
+            #endif
         }
+    }
+
+    // ステージ選択画面に移動
+    private void LoadStageSelectScene()
+    {
+        // トランジションを実行し、トランジションが完了した後にシーンをロード
+        transitionManager.ExecuteTransition(
+            useGradient: true,
+            sceneNameToLoad: "StageSelectScene" // 選択したステージのシーン名を渡す
+        );        
     }
 }
