@@ -44,6 +44,8 @@ namespace TransitionsPlusDemos
 
                 PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
                 PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+                PlayerJump playerJump = other.GetComponent<PlayerJump>();
+
                 Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
 
                 if (playerActionScript != null)
@@ -56,11 +58,15 @@ namespace TransitionsPlusDemos
                     playerMovement.StopMovement();
                 }
 
+                if (playerJump != null)
+                {
+                    playerJump.DisableInput(); // ジャンプを無効にする
+                }
+
                 // Rigidbodyがある場合、物理演算を無効化して強制的に停止させる
                 if (playerRigidbody != null)
                 {
                     playerRigidbody.velocity = Vector3.zero;
-                    playerRigidbody.isKinematic = true;  // 物理影響を無効化
                 }
 
                 if (stageTransition != null)

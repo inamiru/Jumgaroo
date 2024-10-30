@@ -8,6 +8,9 @@ namespace TransitionsPlusDemos
     public class GameOverController : MonoBehaviour
     {
         [SerializeField] private PlayerAction playerAction;
+        [SerializeField] private PlayerJump playerJump; // PlayerJumpの参照を追加
+        [SerializeField] private PlayerMovement playerMovement;
+
         [SerializeField] private CustomSceneManager customSceneManager;
 
         private Animator animator;
@@ -51,7 +54,8 @@ namespace TransitionsPlusDemos
             animator.SetBool("isDead", true);
 
             // プレイヤーの動きを止める
-            StopMovement();
+            playerMovement.StopMovement();
+            playerJump.DisableInput(); // ジャンプを無効にする
 
             // ステージ遷移を実行
             stageTransition.StartCoroutine(stageTransition.CallAfterDelayGameOVerTransition());
