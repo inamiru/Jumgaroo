@@ -23,51 +23,52 @@ namespace TransitionsPlusDemos
         {
             // 初期状態ではゴールテキストを非表示に設定
             goalText.enabled = false;
-
         }
 
-        // プレイヤーが範囲内（トリガー）に入ったら
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        void OnTriggerEnter(Collider other)
         {
-             // ゴール処理
-            GameTimeDisplay.Instance.FinishGame();  // ゴール処理を呼ぶ
-
-            // ゴール時の時間を記録
-            float finishTime = GameTimeDisplay.Instance.GetFinishTime();
-            GameTimeDisplay.Instance.SetFinishTime(finishTime);
-
-            // スコアを記録
-            ItemScore.Instance.SetFinalScore();
-
-            // UIを非表示にする
-            HideUIElements();
-
-            // ゴールテキストを表示
-            goalText.enabled = true;
-
-            // エフェクトを表示するコルーチンを開始
-            stageClearEffects.StartCoroutine(stageClearEffects.SpawnEffectsAfterDelay());
-
-            // プレイヤーのアニメーションをゴールに到達したものに切り替える
-            playerAnimator.SetTrigger("GoalReached");
-
-            // プレイヤーの移動スクリプトを無効化
-            PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
-
-            if (playerActionScript != null)
+            if (other.CompareTag("Player"))
             {
-                playerActionScript.enabled = false;  // 移動スクリプトを無効化
-            }
+                GameTimeDisplay.Instance.FinishGame();
+                float finishTime = GameTimeDisplay.Instance.GetFinishTime();
+                GameTimeDisplay.Instance.SetFinishTime(finishTime);
+            
+                ItemScore.Instance.SetFinalScore();
 
-            // ステージ遷移を実行
-            if (stageTransition != null)
-            {
-                stageTransition.StartCoroutine(stageTransition.CallAfterDelayStageClearTransition());
+                HideUIElements();
+
+                goalText.enabled = true;
+                StartCoroutine(stageClearEffects.SpawnEffectsAfterDelay());
+
+                playerAnimator.SetTrigger("GoalReached");
+
+                PlayerAction playerActionScript = other.GetComponent<PlayerAction>();
+                PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+                Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
+
+                if (playerActionScript != null)
+                {
+                    playerActionScript.DisableInput();  // 移動スクリプトを無効化し、移動も停止
+                }
+
+                if (playerMovement != null)
+                {
+                    playerMovement.StopMovement();
+                }
+
+                // Rigidbodyがある場合、物理演算を無効化して強制的に停止させる
+                if (playerRigidbody != null)
+                {
+                    playerRigidbody.velocity = Vector3.zero;
+                    playerRigidbody.isKinematic = true;  // 物理影響を無効化
+                }
+
+                if (stageTransition != null)
+                {
+                    StartCoroutine(stageTransition.CallAfterDelayStageClearTransition());
+                }
             }
         }
-    }
 
         // UI要素を非表示にする処理
         void HideUIElements()

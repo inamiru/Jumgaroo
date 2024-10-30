@@ -29,6 +29,7 @@ public class PlayerStates : ScriptableObject
 
 
     public float acceleration = 1.0f; // 加速度
+    public float initialSpeed = 1.0f; //初期速度
     public float maxSpeed = 10.0f;    // 最大速度
 
     public float jumpForce = 5.0f;      // ジャンプ力

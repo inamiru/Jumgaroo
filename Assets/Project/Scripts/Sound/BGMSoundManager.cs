@@ -27,7 +27,7 @@ public class BGMSoundManager : MonoBehaviour
     public void PlayBGM(AudioClip clip)
     {
         if (bgmSource.clip == clip) return; // 既に同じBGMが再生されている場合は何もしない
-        
+
         bgmSource.Stop();
         bgmSource.clip = clip;
         bgmSource.Play();
@@ -40,9 +40,15 @@ public class BGMSoundManager : MonoBehaviour
     }
 
     // ステージ選択画面のBGMを再生
-    public void PlayStageSelectBGM()
+    public void PlayStage01BGM()
     {
         PlayBGM(stageSelectBGM);
+    }
+
+    // ステージ選択画面のBGMを再生
+    public void PlayStageSelectBGM()
+    {
+        PlayBGM(stage01BGM);
     }
 
     public void PlaySoundEffect(AudioClip clip)

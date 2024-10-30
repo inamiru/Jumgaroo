@@ -9,7 +9,9 @@ public class SoundEffectManager : MonoBehaviour
     public AudioSource audioSource; // AudioSource to play sounds
     public AudioClip arrowKeySE;     // Arrow key sound effect
     public AudioClip returnKeySE; // リターンキーのサウンドエフェクト
-
+    public AudioClip openPanelSE; // リターンキーのサウンドエフェクト
+    
+    public AudioClip playerjumpSE; // 
     private void Awake()
     {
         // Ensure only one instance of the SoundEffectManager exists
@@ -44,9 +46,19 @@ public class SoundEffectManager : MonoBehaviour
     {
         PlaySoundEffect(arrowKeySE);
     }
-    
+
     public void PlayReturnKeySound()
     {
         PlaySoundEffect(returnKeySE);
+    }
+
+    public void PlayOpenPanelSound()
+    {
+        PlaySoundEffect(openPanelSE);
+    }
+
+    public void PlayerJumpSound()
+    {
+        PlaySoundEffect(playerjumpSE);
     }
 }

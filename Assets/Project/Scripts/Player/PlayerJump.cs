@@ -5,16 +5,15 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     public PlayerStates playerStates;  // プレイヤーのステータスを管理するScriptableObjectの参照
-
     private Rigidbody rb;  // プレイヤーのRigidbodyコンポーネントの参照
-
     private bool isGrounded = false;    // プレイヤーが地面に接地しているかどうかのフラグ
     public float rayDistance = 1.1f;    // 地面を検出するRayの長さ
     public LayerMask groundLayer;       // 地面のレイヤーを指定する
-
     private int jumpCount = 0;  // ジャンプの回数をカウントする変数
     public bool IsJumping { get; private set; } // プレイヤーがジャンプ中かどうかを外部から取得可能なプロパティ
     private Animator animator;  // プレイヤーのアニメーターコンポーネントの参照
+    private bool inputSuppressed = false;  // ジャンプ入力の抑制フラグ
+    private bool jumpBuffered = false;     // ジャンプバッファフラグ
 
     // Start is called before the first frame update
     void Start()
@@ -27,19 +26,23 @@ public class PlayerJump : MonoBehaviour
     // 毎フレーム実行されるUpdateメソッド
     void Update()
     {
-        // Raycastを使用して、プレイヤーが地面に接地しているかどうかをチェック
+        // Raycastで地面との接地を判定
         isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
-
-        // アニメーターにisGroundedの状態を反映
         animator.SetBool("isGrounded", isGrounded);
+
+        // 接地している場合、ジャンプ回数をリセット
+        if (isGrounded)
+        {
+            jumpCount = 0;
+        }
     }
 
     // ジャンプの入力チェックを行うメソッド
     public void CheckJumpInput()
     {
-        // スペースキーが押されたらJumpメソッドを呼び出す
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!inputSuppressed && Input.GetKeyDown(KeyCode.Space))
         {
+            SoundEffectManager.Instance.PlayerJumpSound();
             Jump();
         }
     }
@@ -49,18 +52,12 @@ public class PlayerJump : MonoBehaviour
     {
         IsJumping = true;
 
-        if (isGrounded)
-        {
-            jumpCount = 0;
-        }
-
         if (jumpCount < playerStates.maxJumps)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * playerStates.jumpForce, ForceMode.Impulse);
             jumpCount++;
 
-            // ジャンプエフェクトを再生する
             EffectManager.Instance.PlayJumpEffect(transform.position);
         }
     }
@@ -68,20 +65,36 @@ public class PlayerJump : MonoBehaviour
     // 他のオブジェクトと衝突した際に呼び出されるメソッド
     private void OnCollisionEnter(Collision collision)
     {
-        // "JumpBoost"レイヤーに属するオブジェクトと衝突した場合
         if (collision.gameObject.layer == LayerMask.NameToLayer("JumpBoost"))
         {
-            // Y軸の速度をリセットして、ジャンプブーストを追加
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);  // ブーストジャンプ
+            rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);
         }
 
-        // "Ground"レイヤーに属するオブジェクトと衝突した場合
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            IsJumping = false;  // ジャンプ終了
-            jumpCount = 0;  // ジャンプ回数をリセット
+            IsJumping = false;
+            jumpCount = 0;
         }
+    }
+
+    // 入力を無効化するメソッド（パネル表示中）
+    public void DisableInput()
+    {
+        inputSuppressed = true;
+    }
+
+    // 入力を有効化するメソッド（パネル非表示後）
+    public void EnableInput()
+    {
+        inputSuppressed = false;
+    }
+
+    // ジャンプバッファをクリアするメソッド
+    public void ClearJumpBuffer()
+    {
+        inputSuppressed = true;
+        Invoke(nameof(EnableInput), 0.1f); // 少し遅れて入力を再開
     }
 
     // デバッグ用にRayの描画を行う

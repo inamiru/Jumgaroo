@@ -6,12 +6,14 @@ using TMPro;
 
 public class PauseWithTextDisplay : MonoBehaviour
 {
-    // エリアごとの情報を格納する配列
+     // エリアごとの情報を格納する配列
     public AreaInfo[] areaInfos;
 
     private bool isGamePaused = false;  // ゲームが停止しているかのフラグ
+    private bool inputSuppressed = false;  // 入力抑制フラグ
 
     public PlayerAction playerAction;  // PlayerMovementの参照
+    public PlayerJump playerJump;
 
     private void Start()
     {
@@ -27,57 +29,53 @@ public class PauseWithTextDisplay : MonoBehaviour
     {
         if (areaID >= 0 && areaID < areaInfos.Length)
         {
-            // エリアに対応するパネルを表示
+            SoundEffectManager.Instance?.PlayOpenPanelSound();
             areaInfos[areaID].panel.SetActive(true);
-
-            // ゲームを停止
             PauseGame();
         }
     }
 
     public void Update()
     {
-        // ゲームが停止している時にスペースキーが押されたら再開
         if (isGamePaused && Input.GetKeyDown(KeyCode.Return))
         {
-            ResumeGame();  // ゲームを再開
+            SoundEffectManager.Instance.PlayReturnKeySound();
+            ResumeGame();
         }
     }
 
-     // ゲームを停止するメソッド
+    // ゲームを停止するメソッド
     private void PauseGame()
     {
         isGamePaused = true;
-        // ゲーム時間を停止
+        inputSuppressed = true;
         Time.timeScale = 0f;
-
-        // プレイヤーのアクションスクリプトを無効化（アクション停止）
         playerAction.DisableInput();
+        playerJump.DisableInput();
     }
 
     // ゲームを再開するメソッド
     private void ResumeGame()
     {
         isGamePaused = false;
-        // ゲーム時間を再開
         Time.timeScale = 1.0f;
 
-        // 全てのパネルを非表示にする
         foreach (var areaInfo in areaInfos)
         {
             areaInfo.panel.SetActive(false);
         }
-        
-        // プレイヤーの入力を許可
-        playerAction.EnableInput();
+
+        inputSuppressed = false;
+        playerJump.ClearJumpBuffer();
+        playerJump.EnableInput();
     }
 
-// エリアの情報を管理するクラス
-[System.Serializable]
-public class AreaInfo
-{
-    public string areaName; // エリア名
-    public GameObject panel; // 表示するパネル
-}
+    // エリアの情報を管理するクラス
+    [System.Serializable]
+    public class AreaInfo
+    {
+        public string areaName; // エリア名
+        public GameObject panel; // 表示するパネル
+    }
 
 }

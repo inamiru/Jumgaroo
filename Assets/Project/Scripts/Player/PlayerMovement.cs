@@ -16,35 +16,61 @@ public class PlayerMovement : MonoBehaviour
     private float dustEffectHeightOffset = 1.2f; // エフェクト位置のY座標オフセット
     private float dustEffectZOffset = -0.2f;     // エフェクト位置のZ座標オフセット
 
+    private bool isMovable = true;         // 移動可能かどうかを示すフラグ
+
     // Start is called before the first frame update
     void Start()
     {
-        // RigidbodyとAnimatorコンポーネントの取得
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         playerJump = GetComponent<PlayerJump>();
     }
 
+    // プレイヤーの移動を完全に停止させるメソッド
+    public void StopMovement()
+    {
+        currentSpeed = 0f;
+        isMovable = false;  // 移動を停止する
+
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;  // Rigidbodyの速度をリセット
+        }
+    }
+
+    // プレイヤーの移動を再開するメソッド
+    public void ResumeMovement()
+    {
+        isMovable = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // isMovableフラグを確認し、移動メソッドを呼び出し
+        if (isMovable)
+        {
+            Move(true); // 実際のゲームロジックでcanMoveフラグを制御する場合は適宜変更
+        }
+    }
+
     // プレイヤーの移動処理を行うメソッド
-    // canMoveがtrueの場合に移動処理を実行する
     public void Move(bool canMove)
     {
         if (!canMove) return;
 
-        if (currentSpeed < playerStates.maxSpeed)
+        // 速度の調整と制限
+        currentSpeed = Mathf.Min(currentSpeed + playerStates.acceleration * Time.deltaTime, playerStates.maxSpeed);
+        
+        // プレイヤーの位置更新
+        if (rb != null)
         {
-            currentSpeed += playerStates.acceleration * Time.deltaTime;
+            rb.MovePosition(transform.position + Vector3.right * currentSpeed * Time.deltaTime);
         }
-        else
-        {
-            currentSpeed = playerStates.maxSpeed;
-        }
-
-        rb.MovePosition(transform.position + Vector3.right * currentSpeed * Time.fixedDeltaTime);
         animator.SetFloat("Speed", currentSpeed);
 
         // 土煙エフェクトをジャンプ中でないときにのみ再生
-        if (!playerJump.IsJumping && currentSpeed > 0.1f)
+        if (playerJump != null && !playerJump.IsJumping && currentSpeed > 0.1f)
         {
             dustEffectTimer += Time.deltaTime;
             if (dustEffectTimer >= dustEffectInterval)
