@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PlayerStatesSO
   m_EditorClassIdentifier: 
   maxHits: 3
-  currentHitCount: 3
+  currentHitCount: 2
   knockbackForce: 10
   knockbackDuration: 0.5
-  acceleration: 10
-  maxSpeed: 27
+  acceleration: 2
+  initialSpeed: 1
+  maxSpeed: 12
   jumpForce: 5
   maxJumps: 2
   boostJumpForce: 10

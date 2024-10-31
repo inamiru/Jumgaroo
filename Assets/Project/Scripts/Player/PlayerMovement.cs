@@ -44,8 +44,8 @@ public class PlayerMovement : MonoBehaviour
         isMovable = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    // FixedUpdateは物理演算用のメソッド
+    void FixedUpdate()
     {
         // isMovableフラグを確認し、移動メソッドを呼び出し
         if (isMovable)
@@ -60,19 +60,19 @@ public class PlayerMovement : MonoBehaviour
         if (!canMove) return;
 
         // 速度の調整と制限
-        currentSpeed = Mathf.Min(currentSpeed + playerStates.acceleration * Time.deltaTime, playerStates.maxSpeed);
+        currentSpeed = Mathf.Min(currentSpeed + playerStates.acceleration * Time.fixedDeltaTime, playerStates.maxSpeed);
         
         // プレイヤーの位置更新
         if (rb != null)
         {
-            rb.MovePosition(transform.position + Vector3.right * currentSpeed * Time.deltaTime);
+            rb.MovePosition(transform.position + Vector3.right * currentSpeed * Time.fixedDeltaTime);
         }
         animator.SetFloat("Speed", currentSpeed);
 
         // 土煙エフェクトをジャンプ中でないときにのみ再生
         if (playerJump != null && !playerJump.IsJumping && currentSpeed > 0.1f)
         {
-            dustEffectTimer += Time.deltaTime;
+            dustEffectTimer += Time.fixedDeltaTime;
             if (dustEffectTimer >= dustEffectInterval)
             {
                 ShowDustEffect();

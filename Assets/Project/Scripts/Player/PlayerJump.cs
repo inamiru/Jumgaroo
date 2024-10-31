@@ -13,7 +13,6 @@ public class PlayerJump : MonoBehaviour
     public bool IsJumping { get; private set; } // プレイヤーがジャンプ中かどうかを外部から取得可能なプロパティ
     private Animator animator;  // プレイヤーのアニメーターコンポーネントの参照
     private bool inputSuppressed = false;  // ジャンプ入力の抑制フラグ
-    private bool jumpBuffered = false;     // ジャンプバッファフラグ
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +23,7 @@ public class PlayerJump : MonoBehaviour
     }
 
     // 毎フレーム実行されるUpdateメソッド
-    void Update()
+    void FixedUpdate()
     {
         // Raycastで地面との接地を判定
         isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundLayer);
@@ -35,6 +34,9 @@ public class PlayerJump : MonoBehaviour
         {
             jumpCount = 0;
         }
+
+        // ジャンプ入力をチェック
+        CheckJumpInput();
     }
 
     // ジャンプの入力チェックを行うメソッド
@@ -54,10 +56,18 @@ public class PlayerJump : MonoBehaviour
 
         if (jumpCount < playerStates.maxJumps)
         {
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            // 現在のXとZの速度を保持
+            float currentXVelocity = rb.velocity.x;
+            float currentZVelocity = rb.velocity.z;
+
+            // Y軸の速度をリセット
+            rb.velocity = new Vector3(currentXVelocity, 0, currentZVelocity);
+        
+            // 上向きの力を加える
             rb.AddForce(Vector3.up * playerStates.jumpForce, ForceMode.Impulse);
             jumpCount++;
 
+            SoundEffectManager.Instance.PlayerJumpSound(); // Play arrow key sound
             EffectManager.Instance.PlayJumpEffect(transform.position);
         }
     }
