@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
         // プレイヤーに接触した
         if (other.CompareTag("Player"))
         {
+            SoundEffectManager.Instance.PlayItemGetSound();
             // アイテムを取得した時にスコアを加算する
             ItemScore.Instance.AddScore(scoreValue);
 

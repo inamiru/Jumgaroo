@@ -4385,6 +4385,11 @@ PrefabInstance:
       propertyPath: bgmSource
       value: 
       objectReference: {fileID: 646909568}
+    - target: {fileID: 8508784180885157796, guid: eefe98c300d434baa9f0f4b119ea9637,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 646909568}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

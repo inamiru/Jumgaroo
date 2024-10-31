@@ -68,4 +68,5 @@ MonoBehaviour:
   arrowKeySE: {fileID: 8300000, guid: 2d9a94ad3835e904badd8136c8ebccef, type: 3}
   returnKeySE: {fileID: 8300000, guid: 7d3b7d91337ad7f44a9abfc33f4fc239, type: 3}
   openPanelSE: {fileID: 8300000, guid: d3cb9c6229e60c04889038dc8e088c68, type: 3}
-  playerjumpSE: {fileID: 8300000, guid: 82e0df6a33d80415494056943bed1447, type: 3}
+  playerJumpSE: {fileID: 8300000, guid: 82e0df6a33d80415494056943bed1447, type: 3}
+  itemgetSE: {fileID: 8300000, guid: 0482d4aa83d684f83875525ade793773, type: 3}

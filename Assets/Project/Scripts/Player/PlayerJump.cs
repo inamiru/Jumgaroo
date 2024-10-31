@@ -44,7 +44,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (!inputSuppressed && Input.GetKeyDown(KeyCode.Space))
         {
-            SoundEffectManager.Instance.PlayerJumpSound();
+            SoundEffectManager.Instance.PlayPlayerJumpSound();
             Jump();
         }
     }
@@ -67,7 +67,7 @@ public class PlayerJump : MonoBehaviour
             rb.AddForce(Vector3.up * playerStates.jumpForce, ForceMode.Impulse);
             jumpCount++;
 
-            SoundEffectManager.Instance.PlayerJumpSound(); // Play arrow key sound
+            SoundEffectManager.Instance.PlayPlayerJumpSound(); // Play arrow key sound
             EffectManager.Instance.PlayJumpEffect(transform.position);
         }
     }

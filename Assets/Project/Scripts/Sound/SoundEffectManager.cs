@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class SoundEffectManager : MonoBehaviour
 {
-    public static SoundEffectManager Instance; // Singleton instance
+    public static SoundEffectManager Instance { get; private set; } // Singleton instance
 
     public AudioSource audioSource; // AudioSource to play sounds
     public AudioClip arrowKeySE;     // Arrow key sound effect
-    public AudioClip returnKeySE; // リターンキーのサウンドエフェクト
-    public AudioClip openPanelSE; // リターンキーのサウンドエフェクト
-    
-    public AudioClip playerjumpSE; // 
+    public AudioClip returnKeySE; // Return key sound effect
+    public AudioClip openPanelSE; // Panel opening sound effect
+    public AudioClip playerJumpSE; // Player jump sound effect
+    public AudioClip itemgetSE;
+
+
     private void Awake()
     {
         // Ensure only one instance of the SoundEffectManager exists
@@ -23,21 +25,22 @@ public class SoundEffectManager : MonoBehaviour
         else
         {
             Destroy(gameObject); // Destroy duplicates
+            return;
         }
 
-        audioSource = gameObject.AddComponent<AudioSource>(); // Add AudioSource if not assigned
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>(); // Add AudioSource if not assigned
+        }
     }
 
+
     // Method to play sound effects
-    public void PlaySoundEffect(AudioClip clip)
+    public void PlaySoundEffect(AudioClip clip, float volume = 1.0f)
     {
-        if (clip != null)
+        if (clip != null && audioSource != null)
         {
-            audioSource.PlayOneShot(clip); // Play the sound effect
-        }
-        else
-        {
-            Debug.LogWarning("Attempted to play a null sound clip.");
+            audioSource.PlayOneShot(clip, volume); // Play the sound effect with specified volume
         }
     }
 
@@ -57,8 +60,13 @@ public class SoundEffectManager : MonoBehaviour
         PlaySoundEffect(openPanelSE);
     }
 
-    public void PlayerJumpSound()
+    public void PlayPlayerJumpSound()
     {
-        PlaySoundEffect(playerjumpSE);
+        PlaySoundEffect(playerJumpSE);
+    }
+
+    public void PlayItemGetSound()
+    {
+        PlaySoundEffect(itemgetSE);
     }
 }
