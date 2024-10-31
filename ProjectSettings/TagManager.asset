@@ -23,6 +23,8 @@ TagManager:
   - Enemy2
   - JumpBoost
   - DamageArea
+  - Missile
+  - Obstacle
   layers:
   - Default
   - TransparentFX
