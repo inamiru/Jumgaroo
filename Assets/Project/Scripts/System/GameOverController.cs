@@ -33,7 +33,10 @@ namespace TransitionsPlusDemos
 
         public void GameOver()
         {
-             // ゴール処理
+            BGMSoundManager.Instance.StopBGM();
+            BGMSoundManager.Instance.PlayGameOverBGM();          
+
+            // ゴール処理
             GameTimeDisplay.Instance.FinishGame();
 
             // ゴール時の時間を記録

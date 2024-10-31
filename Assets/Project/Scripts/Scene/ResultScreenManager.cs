@@ -59,6 +59,7 @@ public class ResultScreenManager : MonoBehaviour
             {
                 selectedIndex = 1; // エンドに戻る
             }
+            SoundEffectManager.Instance.PlayArrowKeySound(); // Play arrow key sound
             UpdateSelectionDisplay();
         }
 
@@ -70,12 +71,14 @@ public class ResultScreenManager : MonoBehaviour
             {
                 selectedIndex = 0; // スタートに戻る
             }
+            SoundEffectManager.Instance.PlayArrowKeySound(); // Play arrow key sound
             UpdateSelectionDisplay();
         }
         
         // エンターキーが押された場合
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            SoundEffectManager.Instance.PlayReturnKeySound(); // リターンキーのSEを再生
             ExecuteSelectedAction();
         }
     }

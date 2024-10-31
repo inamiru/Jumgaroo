@@ -10,12 +10,20 @@ public class BGMSoundManager : MonoBehaviour
     public AudioClip titleBGM;   // タイトル画面用BGM
     public AudioClip stageSelectBGM;   // ステージ選択画面用BGM
     public AudioClip stage01BGM;   // ステージ01用BGM
+    public AudioClip resultBGM;   // リザルト用BGM
+    public AudioClip gameclearBGM;   // ステージクリア用BGM
+    public AudioClip gameoverBGM;   // ゲームオーバー用BGM
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // シーンをまたいでBGMを再生する
+            DontDestroyOnLoad(gameObject);
+            if (bgmSource == null)
+            {
+                bgmSource = gameObject.AddComponent<AudioSource>(); // bgmSourceが未設定なら追加
+            }
         }
         else
         {
@@ -26,29 +34,25 @@ public class BGMSoundManager : MonoBehaviour
     // BGM再生メソッド
     public void PlayBGM(AudioClip clip)
     {
-        if (bgmSource.clip == clip) return; // 既に同じBGMが再生されている場合は何もしない
+        if (bgmSource == null || bgmSource.clip == clip) return;
 
         bgmSource.Stop();
         bgmSource.clip = clip;
         bgmSource.Play();
     }
     
-     // タイトル画面のBGMを再生
-    public void PlayTitleBGM()
-    {
-        PlayBGM(titleBGM);
-    }
+    public void PlayTitleBGM() => PlayBGM(titleBGM);
+    public void PlayStageSelectBGM() => PlayBGM(stageSelectBGM);
+    public void PlayStage01BGM() => PlayBGM(stage01BGM);
+    public void PlayResultBGM() => PlayBGM(resultBGM);
+    public void PlayGameClearBGM() => PlayBGM(gameclearBGM);
+    public void PlayGameOverBGM() => PlayBGM(gameoverBGM);
 
-    // ステージ選択画面のBGMを再生
-    public void PlayStage01BGM()
+    // BGMを停止
+    public void StopBGM()
     {
-        PlayBGM(stageSelectBGM);
-    }
-
-    // ステージ選択画面のBGMを再生
-    public void PlayStageSelectBGM()
-    {
-        PlayBGM(stage01BGM);
+        if (bgmSource != null)
+            bgmSource.Stop();
     }
 
     public void PlaySoundEffect(AudioClip clip)

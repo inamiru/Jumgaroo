@@ -49,6 +49,9 @@ MonoBehaviour:
   titleBGM: {fileID: 8300000, guid: a340c499bf9d743438d7ec2d9e049228, type: 3}
   stageSelectBGM: {fileID: 8300000, guid: a340c499bf9d743438d7ec2d9e049228, type: 3}
   stage01BGM: {fileID: 8300000, guid: 6955b14fd127e43fe879a88ee6dffc2e, type: 3}
+  resultBGM: {fileID: 8300000, guid: 8f4c87fa29dba4f19813a411e7188b5d, type: 3}
+  gameclearBGM: {fileID: 8300000, guid: aed858b20fe08431188e1b78a4157473, type: 3}
+  gameoverBGM: {fileID: 8300000, guid: 04171fe6b6a574d38bfcf8e16688a436, type: 3}
 --- !u!114 &8508784180885157796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,3 +67,5 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   arrowKeySE: {fileID: 8300000, guid: 2d9a94ad3835e904badd8136c8ebccef, type: 3}
   returnKeySE: {fileID: 8300000, guid: 7d3b7d91337ad7f44a9abfc33f4fc239, type: 3}
+  openPanelSE: {fileID: 8300000, guid: d3cb9c6229e60c04889038dc8e088c68, type: 3}
+  playerjumpSE: {fileID: 8300000, guid: 82e0df6a33d80415494056943bed1447, type: 3}

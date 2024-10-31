@@ -29,6 +29,9 @@ namespace TransitionsPlusDemos
         {
             if (other.CompareTag("Player"))
             {
+                BGMSoundManager.Instance.StopBGM();
+                BGMSoundManager.Instance.PlayGameClearBGM();
+
                 GameTimeDisplay.Instance.FinishGame();
                 float finishTime = GameTimeDisplay.Instance.GetFinishTime();
                 GameTimeDisplay.Instance.SetFinishTime(finishTime);
