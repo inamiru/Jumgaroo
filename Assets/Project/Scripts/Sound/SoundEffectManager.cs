@@ -12,7 +12,7 @@ public class SoundEffectManager : MonoBehaviour
     public AudioClip openPanelSE; // Panel opening sound effect
     public AudioClip playerJumpSE; // Player jump sound effect
     public AudioClip itemgetSE;
-
+    public AudioClip stargetSE;
 
     private void Awake()
     {
@@ -68,5 +68,10 @@ public class SoundEffectManager : MonoBehaviour
     public void PlayItemGetSound()
     {
         PlaySoundEffect(itemgetSE);
+    }
+
+    public void StarGetSound()
+    {
+        PlaySoundEffect(stargetSE);
     }
 }

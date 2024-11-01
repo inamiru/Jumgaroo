@@ -88,6 +88,7 @@ public class ResultScreen : MonoBehaviour
             if (stars[i] != null)
             {
                 stars[i].gameObject.SetActive(true);  // 星を表示
+                SoundEffectManager.Instance.StarGetSound();
 
                 // EffectManagerを使用して星のエフェクトを再生
                 if (EffectManager.Instance != null && i < starPositions.Length)
@@ -97,7 +98,8 @@ public class ResultScreen : MonoBehaviour
                     // 星のスクリーン座標に基づき、カメラのZ軸情報を含めたワールド座標に変換
                     Vector3 starWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(starScreenPosition.x, starScreenPosition.y, Camera.main.nearClipPlane + 1f)); // 深度を適切に調整
 
-                    EffectManager.Instance.PlayStarEffect(starWorldPosition);                }
+                    EffectManager.Instance.PlayStarEffect(starWorldPosition);
+                }
             }
             yield return new WaitForSeconds(starDisplayInterval);  // インターバルをおいて表示
         }
