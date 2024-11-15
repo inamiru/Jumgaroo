@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1348028423}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96,8 +96,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 726ed10cf6164b5429253367d9656c81,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: f816efc9ea1ec4840b41db9be19a5e3e,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1920,6 +1922,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1664224009054757408, guid: 1a4770179440d13489b8e1d6b8e0797d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.8743238
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664224009054757408, guid: 1a4770179440d13489b8e1d6b8e0797d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.9784746
+      objectReference: {fileID: 0}
     - target: {fileID: 1664224009054757434, guid: 1a4770179440d13489b8e1d6b8e0797d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2424,7 +2436,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -2443,13 +2455,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295589987}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3825916, y: -0.037222482, z: -0.084107526, w: 0.9193281}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: -0.17094211, y: -0.21707055, z: 0.9122619, w: -0.30238625}
+  m_LocalPosition: {x: 7.5, y: 9, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 29.962, y: -12.033, z: -146.553}
 --- !u!1001 &1348028422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2509,6 +2521,10 @@ PrefabInstance:
     - target: {fileID: 433102, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -43.465
+      objectReference: {fileID: 0}
+    - target: {fileID: 10846822, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
+      propertyPath: m_Intensity
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 11499280, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
       propertyPath: _exposure
@@ -2671,6 +2687,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2037534742}
   m_SourcePrefab: {fileID: 100100000, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf, type: 3}
+--- !u!108 &1348028423 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 10846822, guid: c89c3ec2e7ea9c74fb5413d5fe182ccf,
+    type: 3}
+  m_PrefabInstance: {fileID: 1348028422}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1399105452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 57766284185464752, guid: 7b4a109c17a8b495394a9d07d20638d1,
