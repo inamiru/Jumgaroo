@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2645414728117639091
+--- !u!1 &8979207853377726269
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2480383576631480463}
-  - component: {fileID: 6758040082824254456}
-  - component: {fileID: 8508784180885157796}
+  - component: {fileID: 1632984632301808729}
+  - component: {fileID: 2084835042273320195}
+  - component: {fileID: 1709438341003469847}
   m_Layer: 0
   m_Name: SoundsManager
   m_TagString: Untagged
@@ -18,28 +18,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2480383576631480463
+--- !u!4 &1632984632301808729
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2645414728117639091}
+  m_GameObject: {fileID: 8979207853377726269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.43265644, y: 1.2468288, z: -4.0883036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6758040082824254456
+--- !u!114 &2084835042273320195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2645414728117639091}
+  m_GameObject: {fileID: 8979207853377726269}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30a0322bc72014dd5b4b8c2065c37c50, type: 3}
@@ -48,17 +48,18 @@ MonoBehaviour:
   bgmSource: {fileID: 0}
   titleBGM: {fileID: 8300000, guid: a340c499bf9d743438d7ec2d9e049228, type: 3}
   stageSelectBGM: {fileID: 8300000, guid: a340c499bf9d743438d7ec2d9e049228, type: 3}
-  stage01BGM: {fileID: 8300000, guid: 6955b14fd127e43fe879a88ee6dffc2e, type: 3}
+  stage01BGM: {fileID: 8300000, guid: 0800e7984aed547cab949f34d6b80f23, type: 3}
+  stage02BGM: {fileID: 8300000, guid: 6955b14fd127e43fe879a88ee6dffc2e, type: 3}
   resultBGM: {fileID: 8300000, guid: 8f4c87fa29dba4f19813a411e7188b5d, type: 3}
   gameclearBGM: {fileID: 8300000, guid: aed858b20fe08431188e1b78a4157473, type: 3}
   gameoverBGM: {fileID: 8300000, guid: 04171fe6b6a574d38bfcf8e16688a436, type: 3}
---- !u!114 &8508784180885157796
+--- !u!114 &1709438341003469847
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2645414728117639091}
+  m_GameObject: {fileID: 8979207853377726269}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd0e03840ed8d4943b1e4ce395569ac1, type: 3}
@@ -70,3 +71,4 @@ MonoBehaviour:
   openPanelSE: {fileID: 8300000, guid: d3cb9c6229e60c04889038dc8e088c68, type: 3}
   playerJumpSE: {fileID: 8300000, guid: 82e0df6a33d80415494056943bed1447, type: 3}
   itemgetSE: {fileID: 8300000, guid: 0482d4aa83d684f83875525ade793773, type: 3}
+  stargetSE: {fileID: 8300000, guid: 32b0d0cb711874755b752ccd463ba550, type: 3}
