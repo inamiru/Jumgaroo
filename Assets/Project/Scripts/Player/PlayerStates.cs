@@ -1,24 +1,57 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "PlayerStatesSO", menuName = "ScriptableObjects/PlayerStatesScriptableObject", order = 1)]
 public class PlayerStates : ScriptableObject
 {
-    public int maxHits = 3;  // 敵に接触できる最大回数
-    public int currentHitCount;   // 現在の接触回数
+    [Header("Health Settings")]
+    public int maxHits = 3;  // 最大ヒット回数
+    public int currentHitCount;   // 現在のヒット回数
+    public bool isInvincible = false;  // 無敵状態かどうか
+    public float invincibilityDuration = 2.0f;  // 無敵状態の持続時間
+
+    [Header("Knockback Settings")]
     public float knockbackForce = 5f;        // ノックバックの力
-    public float knockbackDuration = 0.5f;    // ノックバックの持続時間
+    public float knockbackDuration = 0.5f;  // ノックバックの持続時間
+
+    [Header("Movement Settings")]
+    public float acceleration = 1.0f;      // 加速度
+    public float initialSpeed = 1.0f;      // 初期速度
+    public float maxSpeed = 10.0f;         // 最大速度
+    public float jumpForce = 5.0f;         // ジャンプ力
+    public int maxJumps = 2;               // 最大ジャンプ回数
+    public float boostJumpForce = 10.0f;  // ジャンプブースト力
+    public float forwardForce = 5f;        // 無限ジャンプ時の前方力
 
     // 初期化メソッド
     public void InitializeHP()
     {
-        currentHitCount = maxHits;  // ゲーム開始時に現在HPを最大値に設定
+        currentHitCount = maxHits;
     }
 
-    // ダメージを受けた場合にHPを減らす
+    // ダメージを受ける処理
     public void TakeDamage(int damage)
     {
+        if (isInvincible)
+        {
+            Debug.Log("無敵状態のためダメージ無効");
+            return;
+        }
+
         currentHitCount -= damage;
-        currentHitCount = Mathf.Clamp(currentHitCount, 0, maxHits);  // HPは0未満にならないようにする
+        currentHitCount = Mathf.Clamp(currentHitCount, 0, maxHits);
+
+    }
+
+    public bool IsInvincible()
+    {
+        return isInvincible;
+    }
+
+    // 無敵状態を設定
+    public void SetInvincible(bool state)
+    {
+        isInvincible = state;
     }
 
     // HPが0かどうか確認する
@@ -26,16 +59,4 @@ public class PlayerStates : ScriptableObject
     {
         return currentHitCount <= 0;
     }
-
-
-    public float acceleration = 1.0f; // 加速度
-    public float initialSpeed = 1.0f; //初期速度
-    public float maxSpeed = 10.0f;    // 最大速度
-
-    public float jumpForce = 5.0f;      // ジャンプ力
-    public int maxJumps = 2;            // 最大ジャンプ回数（二段ジャンプを許可するため2に設定）
-    public float boostJumpForce = 10.0f;     // ジャンプブーストのジャンプ力
-    public float forwardForce = 5f;           // 無限ジャンプ時の前方への力
-
-
 }

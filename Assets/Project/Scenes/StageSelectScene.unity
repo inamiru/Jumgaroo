@@ -2256,7 +2256,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: eefe98c300d434baa9f0f4b119ea9637, type: 3}
 --- !u!4 &1478690459 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2480383576631480463, guid: eefe98c300d434baa9f0f4b119ea9637,
+  m_CorrespondingSourceObject: {fileID: 1632984632301808729, guid: eefe98c300d434baa9f0f4b119ea9637,
     type: 3}
   m_PrefabInstance: {fileID: 1478690458}
   m_PrefabAsset: {fileID: 0}
@@ -2489,7 +2489,7 @@ MonoBehaviour:
     sceneName: Stage01
   - stageName: Stage02
     thumbnail: {fileID: 21300000, guid: 40f204d0c77a24226bd16e0c178d7945, type: 3}
-    sceneName: Stage01
+    sceneName: Stage02
   - stageName: Back To Title
     thumbnail: {fileID: 0}
     sceneName: TitleScene

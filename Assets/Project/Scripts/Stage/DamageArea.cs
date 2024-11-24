@@ -6,8 +6,8 @@ public class DamageArea : MonoBehaviour
 {
     public int damageAmount = 1; // 増加する接触回数
 
-    // ScriptableObject のインスタンス
-    public PlayerStates playerStates;
+    // PlayerRespawnを格納する変数
+    private PlayerRespawn playerRespawn;
 
     void OnTriggerEnter(Collider other)
     {
@@ -15,19 +15,20 @@ public class DamageArea : MonoBehaviour
         {
             // プレイヤーのHealthManagerを取得
             PlayerHealthManager playerHealth = other.gameObject.GetComponent<PlayerHealthManager>();
-               
+
+            // プレイヤーのPlayerRespawnスクリプトを取得
+            playerRespawn = other.gameObject.GetComponent<PlayerRespawn>();
+
             if (playerHealth != null)
             {
-                // ダメージを与える
-                playerHealth.TakeDamage(damageAmount);
+                // ダメージを与える（タグ情報を追加）
+                playerHealth.ApplyDamage(damageAmount, transform.position, "DamageArea");
+            }
 
-                // プレイヤーのリスポーン機能を呼び出す
-                PlayerRespawn playerRespawn = other.GetComponent<PlayerRespawn>();
-
-                if (playerRespawn != null)
-                {
-                    playerRespawn.Respawn();
-                }
+            if (playerRespawn != null)
+            {
+                // ダメージを受けた後にリスポーンを呼び出す
+                playerRespawn.Respawn();
             }
         }
     }
