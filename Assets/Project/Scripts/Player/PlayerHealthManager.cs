@@ -5,90 +5,122 @@ using TransitionsPlusDemos;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    [SerializeField] private PlayerStates playerStates;
-    [SerializeField] private GameOverController gameOverController;
-    [SerializeField] private HeartDisplayManager heartDisplayManager;
-    [SerializeField] private Rigidbody playerRb;
-    [SerializeField] private Renderer playerRenderer; // プレイヤーの見た目を操作するためのRenderer
-    [SerializeField] private Collider playerCollider; // プレイヤーのコライダー
-    
-    private bool isDead = false;
-    private Animator animator;
+    [Header("Dependencies")]
+    [SerializeField] private PlayerStates playerStates;        // プレイヤーの状態を管理する ScriptableObject
+    [SerializeField] private GameOverController gameOverController; // ゲームオーバー時の処理を管理
+    [SerializeField] private HeartDisplayManager heartDisplayManager; // ハートUIの更新を管理
+    [SerializeField] private Rigidbody playerRb;              // プレイヤーの物理挙動
+    [SerializeField] private Renderer playerRenderer;         // プレイヤーの見た目操作
+    [SerializeField] private Collider playerCollider;         // プレイヤーのコライダー
 
+    private bool isDead = false;                              // 死亡状態かどうか
+    private Animator animator;                                // プレイヤーのアニメーション制御
 
     void Start()
     {
+        // プレイヤーの体力を初期化し、UIを更新
         playerStates.InitializeHP();
         heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount);
+
+        // アニメーターを取得
         animator = GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// プレイヤーにダメージを適用する
+    /// </summary>
+    /// <param name="damage">受けるダメージ量</param>
+    /// <param name="enemyPosition">ダメージを与えたエネミーの位置</param>
+    /// <param name="sourceTag">ダメージソースのタグ（Enemy や DamageArea）</param>
     public void ApplyDamage(int damage, Vector3 enemyPosition, string sourceTag)
     {
         if (sourceTag == "DamageArea")
         {
-            // ダメージエリア：ダメージのみ適用、ノックバックと無敵なし
+            // ダメージエリアの場合：ノックバックや無敵なしでダメージのみ適用
             playerStates.TakeDamage(damage);
             heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount);
-            CheckGameOver();
+            CheckGameOver(); // 死亡判定を実行
             return;
         }
 
         if (sourceTag == "Enemy")
         {
+            // 無敵状態の場合はダメージを無効化
             if (playerStates.isInvincible)
             {
                 Debug.Log("無敵状態のためダメージ無効");
                 return;
             }
 
-            // ダメージ処理
+            // ダメージ適用
             playerStates.TakeDamage(damage);
             heartDisplayManager.UpdateHeartUI(playerStates.currentHitCount);
 
-            // ノックバック処理
+            // 死亡しているかをチェック
+            if (playerStates.IsDead())
+            {
+                CheckGameOver(); // 死亡判定を実行
+                return; // ノックバックをスキップ
+            }
+
+            // ノックバック適用
             Vector3 knockbackDirection = (transform.position - enemyPosition).normalized;
             ApplyKnockback(knockbackDirection);
 
             // 無敵状態を開始
             StartCoroutine(InvincibleCoroutine());
 
-            // ダメージアニメーション
+            // ダメージアニメーションを再生
             PlayDamageAnimation();
 
-            // ゲームオーバー判定
+            // 死亡判定を実行
             CheckGameOver();
         }
     }
 
+    /// <summary>
+    /// ノックバック処理を適用
+    /// </summary>
+    /// <param name="direction">ノックバックの方向</param>
     private void ApplyKnockback(Vector3 direction)
     {
         if (playerStates == null || playerRb == null) return;
 
+        // ノックバックの力を計算して適用
         Vector3 knockback = direction.normalized * playerStates.knockbackForce;
         playerRb.AddForce(knockback, ForceMode.Impulse);
     }
 
+    /// <summary>
+    /// プレイヤーの死亡状態をチェック
+    /// </summary>
     private void CheckGameOver()
     {
         if (playerStates.IsDead() && !isDead)
         {
-            isDead = true;
-            gameOverController.GameOver();
+            isDead = true; // 死亡状態をフラグで記録
+            gameOverController.GameOver(); // ゲームオーバー処理を呼び出し
         }
     }
 
+    /// <summary>
+    /// ダメージを受けた際のアニメーションを再生
+    /// </summary>
     public void PlayDamageAnimation()
     {
         if (animator != null)
         {
-            animator.SetTrigger("Damage");
+            animator.SetTrigger("Damage"); // アニメーションにトリガーを送信
         }
     }
 
+    /// <summary>
+    /// 無敵状態を管理するコルーチン
+    /// </summary>
+    /// <returns>コルーチンの状態</returns>
     private IEnumerator InvincibleCoroutine()
     {
-        playerStates.isInvincible = true;
+        playerStates.isInvincible = true; // 無敵状態を有効化
         float elapsedTime = 0f;
 
         // エネミーとの衝突を無視
@@ -96,13 +128,13 @@ public class PlayerHealthManager : MonoBehaviour
 
         while (elapsedTime < playerStates.invincibilityDuration)
         {
-            // 点滅処理
+            // プレイヤーを点滅させる（視覚的な無敵効果）
             playerRenderer.enabled = !playerRenderer.enabled;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.2f); // 点滅間隔
             elapsedTime += 0.2f;
         }
 
-        // 無敵終了
+        // 無敵状態を終了
         playerRenderer.enabled = true;
         playerStates.isInvincible = false;
 
@@ -110,15 +142,22 @@ public class PlayerHealthManager : MonoBehaviour
         IgnoreEnemyCollision(false);
     }
 
+    /// <summary>
+    /// エネミーとの衝突を無効化または再有効化
+    /// </summary>
+    /// <param name="ignore">衝突を無視するかどうか</param>
     private void IgnoreEnemyCollision(bool ignore)
     {
-        // すべてのエネミーと衝突を無視または再有効化
+        // エネミーをすべて取得
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
         foreach (var enemy in enemies)
         {
             Collider enemyCollider = enemy.GetComponent<Collider>();
+
             if (enemyCollider != null)
             {
+                // プレイヤーとエネミーの衝突を設定
                 Physics.IgnoreCollision(playerCollider, enemyCollider, ignore);
             }
         }
