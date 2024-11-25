@@ -1397,7 +1397,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1442428825}
+  - {fileID: 3547337059655374029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &769212875
@@ -2796,12 +2796,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a4770179440d13489b8e1d6b8e0797d, type: 3}
---- !u!4 &1442428825 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2480383576631480463, guid: eefe98c300d434baa9f0f4b119ea9637,
-    type: 3}
-  m_PrefabInstance: {fileID: 3547337059655374028}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1531994379
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,7 +3223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CLER TIME
+  m_text: CLEAR TIME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9f0ab9a170fa4c3596972aa1db04a9a, type: 2}
   m_sharedMaterial: {fileID: 2081446301306759604, guid: c9f0ab9a170fa4c3596972aa1db04a9a,
@@ -3257,7 +3251,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
+  m_fontSize: 48.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4507,6 +4501,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eefe98c300d434baa9f0f4b119ea9637, type: 3}
+--- !u!4 &3547337059655374029 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1632984632301808729, guid: eefe98c300d434baa9f0f4b119ea9637,
+    type: 3}
+  m_PrefabInstance: {fileID: 3547337059655374028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5148301732528584326
 PrefabInstance:
   m_ObjectHideFlags: 0
