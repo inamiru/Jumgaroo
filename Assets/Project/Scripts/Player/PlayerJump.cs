@@ -75,7 +75,7 @@ public class PlayerJump : MonoBehaviour
     // 他のオブジェクトと衝突した際に呼び出されるメソッド
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("JumpBoost"))
+        if (collision.gameObject.CompareTag("JumpBoost"))
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);

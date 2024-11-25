@@ -13,21 +13,15 @@ MonoBehaviour:
   m_Name: PlayerStatesSO
   m_EditorClassIdentifier: 
   maxHits: 3
-  currentHitCount: 2
+  currentHitCount: 3
   isInvincible: 0
   invincibilityDuration: 3
-  knockbackForce: 13
+  knockbackForce: 10
   knockbackDuration: 0.4
   acceleration: 2
   initialSpeed: 1
   maxSpeed: 10
   jumpForce: 6
   maxJumps: 2
-  boostJumpForce: 10
+  boostJumpForce: 13
   forwardForce: 5
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []

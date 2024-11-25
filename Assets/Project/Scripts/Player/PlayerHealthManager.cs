@@ -30,9 +30,8 @@ public class PlayerHealthManager : MonoBehaviour
     /// プレイヤーにダメージを適用する
     /// </summary>
     /// <param name="damage">受けるダメージ量</param>
-    /// <param name="enemyPosition">ダメージを与えたエネミーの位置</param>
     /// <param name="sourceTag">ダメージソースのタグ（Enemy や DamageArea）</param>
-    public void ApplyDamage(int damage, Vector3 enemyPosition, string sourceTag)
+    public void ApplyDamage(int damage, string sourceTag)
     {
         if (sourceTag == "DamageArea")
         {
@@ -64,8 +63,7 @@ public class PlayerHealthManager : MonoBehaviour
             }
 
             // ノックバック適用
-            Vector3 knockbackDirection = (transform.position - enemyPosition).normalized;
-            ApplyKnockback(knockbackDirection);
+            ApplyKnockback();
 
             // 無敵状態を開始
             StartCoroutine(InvincibleCoroutine());
@@ -73,21 +71,23 @@ public class PlayerHealthManager : MonoBehaviour
             // ダメージアニメーションを再生
             PlayDamageAnimation();
 
-            // 死亡判定を実行
+            // 死亡判定を再確認
             CheckGameOver();
         }
     }
 
     /// <summary>
-    /// ノックバック処理を適用
+    /// ノックバック処理を適用（常にプレイヤーの後ろ方向）
     /// </summary>
-    /// <param name="direction">ノックバックの方向</param>
-    private void ApplyKnockback(Vector3 direction)
+    private void ApplyKnockback()
     {
         if (playerStates == null || playerRb == null) return;
 
-        // ノックバックの力を計算して適用
-        Vector3 knockback = direction.normalized * playerStates.knockbackForce;
+        // プレイヤーの後ろ方向を計算
+        Vector3 knockbackDirection = -transform.forward;
+
+        // ノックバックの力を適用
+        Vector3 knockback = knockbackDirection.normalized * playerStates.knockbackForce;
         playerRb.AddForce(knockback, ForceMode.Impulse);
     }
 

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーと接触した際にダメージを与えるクラス
+/// </summary>
 public class EnemyDamage : MonoBehaviour
 {
     public int damageAmount = 1;  // 与えるダメージ量
@@ -22,7 +25,7 @@ public class EnemyDamage : MonoBehaviour
             }
 
             // ダメージ適用
-            playerHealth.ApplyDamage(damageAmount, transform.position, "Enemy");
+            playerHealth.ApplyDamage(damageAmount, "Enemy");
         }
     }
 }
