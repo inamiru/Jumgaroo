@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: 21b2f218fa38d334daf2f2012e6c546d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _WAVES_ON
   m_InvalidKeywords:
   - _LIGHTS_ON
   - _MAINFOAMPOWER_ON
@@ -73,12 +74,12 @@ Material:
     - _WaveAmplitude: 1
     - _WaveIntensity: 0.325
     - _WaveSpeed: 0.236
-    - _Waves: 0
+    - _Waves: 1
     - __dirty: 0
     m_Colors:
-    - _DeepColor: {r: 0.9622642, g: 0.68768764, b: 0.30411178, a: 1}
+    - _DeepColor: {r: 0.3058823, g: 0.6899045, b: 0.9607843, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FoamColor: {r: 1, g: 0.8582071, b: 0.28773582, a: 1}
-    - _FresnelColor: {r: 0.8867924, g: 0.7910678, b: 0.4224813, a: 0.89411765}
-    - _ShallowColor: {r: 1, g: 0.9204852, b: 0.7216981, a: 1}
+    - _FoamColor: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
+    - _FresnelColor: {r: 0.42352945, g: 0.5755618, b: 0.8862745, a: 0.89411765}
+    - _ShallowColor: {r: 0.9302243, g: 0.9633332, b: 0.9811321, a: 1}
   m_BuildTextureStacks: []
