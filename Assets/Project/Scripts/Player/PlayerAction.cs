@@ -18,6 +18,8 @@ public class PlayerAction : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();  // PlayerMovement コンポーネントを取得
         playerJump = GetComponent<PlayerJump>();  // PlayerJump コンポーネントを取得
         animator = GetComponent<Animator>();
+
+        DisableInput();  // 初期状態で入力無効化
     }
 
     // Update is called once per frame

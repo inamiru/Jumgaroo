@@ -8,9 +8,12 @@ public class GameTimeDisplay : MonoBehaviour
     public TextMeshProUGUI timeText;   // 経過時間を表示するTextMeshProのUI要素
     
     public static GameTimeDisplay Instance { get; private set; }
+
     private float startTime;
     private float finishTime;
     private bool isFinished;
+    private bool isStarted;  // タイマーが開始されたかどうか
+    private bool isCountdownActive;  // カウントダウン中かどうか
 
 
     private void Awake()
@@ -29,25 +32,32 @@ public class GameTimeDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startTime = Time.time;  // ゲーム開始時刻を保存
-        isFinished = false;     // ゲームが終了していない状態を設定
+        isFinished = false;
+        isStarted = false;  // タイマーを未開始に設定
+        isCountdownActive = true;  // カウントダウン中を初期化
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isFinished)
+        if (!isStarted || isFinished || isCountdownActive)
             return;  // ゴールした後は処理を行わない
 
-        // 現在の経過時間を計算
         float elapsedTime = Time.time - startTime;
-
-        // 経過時間を分・秒・ミリ秒の形式に変換
         int minutes = Mathf.FloorToInt(elapsedTime / 60F);
         int seconds = Mathf.FloorToInt(elapsedTime % 60F);
-
-        // 経過時間をテキストに反映
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    // タイマーを開始
+    public void StartTimer()
+    {
+        if (!isStarted)
+        {
+            startTime = Time.time;
+            isStarted = true;
+            isCountdownActive = false;  // カウントダウン終了
+        }
     }
 
     // ゴールに到達したときに呼ばれるメソッド
@@ -77,6 +87,8 @@ public class GameTimeDisplay : MonoBehaviour
     {
         startTime = Time.time;
         isFinished = false;
-        Debug.Log("Timer Reset. startTime: " + startTime);  // リセットしたタイムを表示
+        isStarted = false;
+        isCountdownActive = true;  // タイマーリセット時にカウントダウンを有効化
+
     }
 }

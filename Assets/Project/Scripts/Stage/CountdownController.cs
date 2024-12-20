@@ -6,13 +6,18 @@ using TMPro;  // TextMeshProの名前空間
 public class CountdownController : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;  // TextMeshProのUIテキスト
+
     public int countdownTime = 3;  // カウントダウンの開始値
     public PlayerAction playerAction;  // PlayerMovementの参照
-
+    public PlayerMovement playerMovement;  // PlayerMovementの参照
+    public PlayerJump playerJump;  // PlayerMovementの参照
 
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement.StopMovement(); 
+        playerJump.DisableInput();
+
         // カウントダウンを開始するコルーチンをスタート
         StartCoroutine(CountdownToStart());
     }
@@ -47,6 +52,10 @@ public class CountdownController : MonoBehaviour
     {
         // プレイヤーの入力を許可
         playerAction.EnableInput();
+        playerMovement.ResumeMovement();
+        playerJump.EnableInput();
 
+        // タイマーを開始
+        GameTimeDisplay.Instance.StartTimer();
     }
 }
