@@ -2493,6 +2493,9 @@ MonoBehaviour:
   - stageName: Stage03
     thumbnail: {fileID: 21300000, guid: 33778573ea4445d4ea942feb2f29b0e3, type: 3}
     sceneName: Stage03
+  - stageName: Stage04
+    thumbnail: {fileID: 21300000, guid: 47ae82701b9e5924b9745e48c24dbc51, type: 3}
+    sceneName: Stage04
   - stageName: Back To Title
     thumbnail: {fileID: 21300000, guid: 75c94b954d7a8f54cb8a45541804b64e, type: 3}
     sceneName: TitleScene
