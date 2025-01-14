@@ -77,6 +77,8 @@ public class PlayerJump : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("JumpBoost"))
         {
+            SoundEffectManager.Instance.PlayMushroomJumpSond();
+
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);
         }
