@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8979207853377726269}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.43265644, y: 1.2468288, z: -4.0883036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,10 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
-  titleBGM: {fileID: 8300000, guid: a340c499bf9d743438d7ec2d9e049228, type: 3}
+  titleBGM: {fileID: 8300000, guid: 5b9552cad1fe10246839251d0b5eb0a9, type: 3}
   stageSelectBGM: {fileID: 8300000, guid: a340c499bf9d743438d7ec2d9e049228, type: 3}
   stage01BGM: {fileID: 8300000, guid: 0800e7984aed547cab949f34d6b80f23, type: 3}
   stage02BGM: {fileID: 8300000, guid: 6955b14fd127e43fe879a88ee6dffc2e, type: 3}
+  stage03BGM: {fileID: 0}
+  stage04BGM: {fileID: 0}
   resultBGM: {fileID: 8300000, guid: 8f4c87fa29dba4f19813a411e7188b5d, type: 3}
   gameclearBGM: {fileID: 8300000, guid: aed858b20fe08431188e1b78a4157473, type: 3}
   gameoverBGM: {fileID: 8300000, guid: 04171fe6b6a574d38bfcf8e16688a436, type: 3}

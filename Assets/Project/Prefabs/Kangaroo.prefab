@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.279045
+      value: -12.779045
       objectReference: {fileID: 0}
     - target: {fileID: 8298001947427690071, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
@@ -129,7 +129,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8298001947427523191, guid: b290fdef4994188489fcd4f9af01b8fb,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8716975371671846429}
+      addedObject: {fileID: 3264468643968441626}
   m_SourcePrefab: {fileID: 100100000, guid: b290fdef4994188489fcd4f9af01b8fb, type: 3}
 --- !u!137 &6033309059820720 stripped
 SkinnedMeshRenderer:
@@ -247,8 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoints:
   - {fileID: 0}
-  - {fileID: 0}
---- !u!23 &8716975371671846429
+--- !u!23 &3264468643968441626
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
