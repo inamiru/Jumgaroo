@@ -13,8 +13,6 @@ public class GameTimeDisplay : MonoBehaviour
     private float finishTime;
     private bool isFinished;
     private bool isStarted;  // タイマーが開始されたかどうか
-    private bool isCountdownActive;  // カウントダウン中かどうか
-
 
     private void Awake()
     {
@@ -34,13 +32,14 @@ public class GameTimeDisplay : MonoBehaviour
     {
         isFinished = false;
         isStarted = false;  // タイマーを未開始に設定
-        isCountdownActive = true;  // カウントダウン中を初期化
+
+        StartTimer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isStarted || isFinished || isCountdownActive)
+        if (!isStarted || isFinished)
             return;  // ゴールした後は処理を行わない
 
         float elapsedTime = Time.time - startTime;
@@ -56,7 +55,6 @@ public class GameTimeDisplay : MonoBehaviour
         {
             startTime = Time.time;
             isStarted = true;
-            isCountdownActive = false;  // カウントダウン終了
         }
     }
 
@@ -88,7 +86,5 @@ public class GameTimeDisplay : MonoBehaviour
         startTime = Time.time;
         isFinished = false;
         isStarted = false;
-        isCountdownActive = true;  // タイマーリセット時にカウントダウンを有効化
-
     }
 }
