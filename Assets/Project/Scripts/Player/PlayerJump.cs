@@ -77,6 +77,8 @@ public class PlayerJump : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("JumpBoost"))
         {
+            SoundEffectManager.Instance.PlayMushroomJumpSond(); 
+
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * playerStates.boostJumpForce, ForceMode.Impulse);
         }
@@ -105,13 +107,5 @@ public class PlayerJump : MonoBehaviour
     {
         inputSuppressed = true;
         Invoke(nameof(EnableInput), 0.1f); // 少し遅れて入力を再開
-    }
-
-    // デバッグ用にRayの描画を行う
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;  // Rayの色を赤に設定
-        // プレイヤーの足元からRayを描画し、地面との距離を可視化
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * rayDistance);
     }
 }

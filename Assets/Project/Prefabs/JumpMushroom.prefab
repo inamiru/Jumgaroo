@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1228217667293282, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_Name
-      value: JumpMushroom Variant
+      value: JumpMushroom
       objectReference: {fileID: 0}
     - target: {fileID: 1228217667293282, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_TagString
@@ -30,15 +30,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127340737678762, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -113.20557
       objectReference: {fileID: 0}
     - target: {fileID: 4127340737678762, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.95
+      value: -1.9971449
       objectReference: {fileID: 0}
     - target: {fileID: 4127340737678762, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.004991
+      value: 0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 4127340737678762, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127340737678762, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4127340737678762, guid: 29fdf83b232e86644ab35eb2b1487272, type: 3}
       propertyPath: m_LocalRotation.y
@@ -106,5 +106,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.819754, y: 0.3741422, z: 0.894035}
-  m_Center: {x: 0.024781793, y: 0.5432596, z: -0.002495408}
+  m_Size: {x: 1.1141678, y: 0.37414217, z: 0.894035}
+  m_Center: {x: 0.17198867, y: 0.5432596, z: -0.002495408}

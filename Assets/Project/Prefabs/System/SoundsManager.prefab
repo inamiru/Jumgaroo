@@ -47,11 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
   titleBGM: {fileID: 8300000, guid: 5b9552cad1fe10246839251d0b5eb0a9, type: 3}
-  stageSelectBGM: {fileID: 8300000, guid: a340c499bf9d743438d7ec2d9e049228, type: 3}
-  stage01BGM: {fileID: 8300000, guid: 0800e7984aed547cab949f34d6b80f23, type: 3}
-  stage02BGM: {fileID: 8300000, guid: 6955b14fd127e43fe879a88ee6dffc2e, type: 3}
-  stage03BGM: {fileID: 0}
-  stage04BGM: {fileID: 0}
+  stageSelectBGM: {fileID: 8300000, guid: 0e286b7fa9d5ac945bc1dba824f6e6f6, type: 3}
+  stage01BGM: {fileID: 8300000, guid: 14766b959254ede46b3e4a36e210c105, type: 3}
+  stage02BGM: {fileID: 8300000, guid: 749a90bd8c238e144b1d9cc46bdc2030, type: 3}
+  stage03BGM: {fileID: 8300000, guid: 8070d63aca258d84b85a7bb2b20287d0, type: 3}
+  stage04BGM: {fileID: 8300000, guid: 7b98e6bd754f99c42ae34d559ece0441, type: 3}
   resultBGM: {fileID: 8300000, guid: 8f4c87fa29dba4f19813a411e7188b5d, type: 3}
   gameclearBGM: {fileID: 8300000, guid: aed858b20fe08431188e1b78a4157473, type: 3}
   gameoverBGM: {fileID: 8300000, guid: 04171fe6b6a574d38bfcf8e16688a436, type: 3}
@@ -72,5 +72,6 @@ MonoBehaviour:
   returnKeySE: {fileID: 8300000, guid: 7d3b7d91337ad7f44a9abfc33f4fc239, type: 3}
   openPanelSE: {fileID: 8300000, guid: d3cb9c6229e60c04889038dc8e088c68, type: 3}
   playerJumpSE: {fileID: 8300000, guid: 82e0df6a33d80415494056943bed1447, type: 3}
+  mushroomJumpSE: {fileID: 8300000, guid: c77b83a73cffb2f48b66b7def9718d99, type: 3}
   itemgetSE: {fileID: 8300000, guid: 0482d4aa83d684f83875525ade793773, type: 3}
   stargetSE: {fileID: 8300000, guid: 32b0d0cb711874755b752ccd463ba550, type: 3}
