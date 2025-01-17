@@ -2489,19 +2489,19 @@ MonoBehaviour:
   thumbnailImage: {fileID: 1453350497}
   stageNameText: {fileID: 2116241938}
   stages:
-  - stageName: Stage01
+  - stageName: STAGE01
     thumbnail: {fileID: 21300000, guid: 80102690894580348907b5539d2a1848, type: 3}
     sceneName: Stage01
-  - stageName: Stage02
+  - stageName: STAGE02
     thumbnail: {fileID: 21300000, guid: 8d2679b70fb05ba44966139e057eed87, type: 3}
     sceneName: Stage02
-  - stageName: Stage03
+  - stageName: STAGE03
     thumbnail: {fileID: 21300000, guid: 33778573ea4445d4ea942feb2f29b0e3, type: 3}
     sceneName: Stage03
-  - stageName: Stage04
+  - stageName: STAGE04
     thumbnail: {fileID: 21300000, guid: 47ae82701b9e5924b9745e48c24dbc51, type: 3}
     sceneName: Stage04
-  - stageName: Back To Title
+  - stageName: BACK TO TITLE
     thumbnail: {fileID: 21300000, guid: 75c94b954d7a8f54cb8a45541804b64e, type: 3}
     sceneName: TitleScene
   arrowSizeController: {fileID: 1178006219}
