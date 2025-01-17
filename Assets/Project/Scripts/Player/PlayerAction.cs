@@ -22,17 +22,19 @@ public class PlayerAction : MonoBehaviour
         DisableInput();  // 初期状態で入力無効化
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // 移動処理はPlayerMovementに委譲
-        playerMovement.Move(canMove);
         // ジャンプ処理もPlayerJumpに委譲
         playerJump.CheckJumpInput();
 
         // アニメーションのSpeedパラメータに現在のスピードを設定
         animator.SetFloat("Speed", playerMovement.currentSpeed);
-
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        // 移動処理はPlayerMovementに委譲
+        playerMovement.Move(canMove);
     }
 
     // 外部から呼び出して入力を有効にするメソッド
