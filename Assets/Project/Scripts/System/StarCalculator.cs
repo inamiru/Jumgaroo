@@ -29,6 +29,12 @@ public class StarCalculator : MonoBehaviour
     // スコアに基づいて星の数を計算するメソッド
     public void CalculateStarRating(int totalScore)
     {
+        if (GameTimeDisplay.Instance.isDead_Display)
+        {
+            starCount = 0;
+            return;
+        }
+
         // 星の数をスコアに基づいて決定
         if (totalScore >= 4000)
         {

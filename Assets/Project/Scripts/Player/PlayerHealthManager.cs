@@ -13,7 +13,9 @@ public class PlayerHealthManager : MonoBehaviour
     [SerializeField] private Renderer playerRenderer;         // プレイヤーの見た目操作
     [SerializeField] private Collider playerCollider;         // プレイヤーのコライダー
 
-    private bool isDead = false;                              // 死亡状態かどうか
+  
+    public bool isDead { get; private set; }  // 死亡状態かどうか
+
     private Animator animator;                                // プレイヤーのアニメーション制御
 
     void Start()

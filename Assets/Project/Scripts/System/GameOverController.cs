@@ -10,6 +10,7 @@ namespace TransitionsPlusDemos
         [SerializeField] private PlayerAction playerAction;
         [SerializeField] private PlayerJump playerJump; // PlayerJumpの参照を追加
         [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private PlayerHealthManager healthManager;
 
         [SerializeField] private CustomSceneManager customSceneManager;
 
@@ -37,7 +38,7 @@ namespace TransitionsPlusDemos
             BGMSoundManager.Instance.PlayGameOverBGM();          
 
             // ゴール処理
-            GameTimeDisplay.Instance.FinishGame();
+            GameTimeDisplay.Instance.FinishGame(healthManager.isDead);
 
             // ゴール時の時間を記録
             float finishTime = GameTimeDisplay.Instance.GetFinishTime();
@@ -48,7 +49,7 @@ namespace TransitionsPlusDemos
 
             // ゲームオーバーのテキストを表示
             gameOverText.gameObject.SetActive(true);
-            gameOverText.text = "Game Over";
+            gameOverText.text = "GAME OVER";
 
             // UIを非表示にする
             HideUIElements();

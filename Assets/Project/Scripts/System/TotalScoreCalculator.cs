@@ -6,6 +6,8 @@ public class TotalScoreCalculator : MonoBehaviour
 {
     public static TotalScoreCalculator Instance { get; private set; }
 
+    [SerializeField] PlayerHealthManager healthManager;
+
     private void Awake()
     {
         if (Instance == null)

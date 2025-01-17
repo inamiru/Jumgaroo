@@ -14,6 +14,8 @@ public class GameTimeDisplay : MonoBehaviour
     private bool isFinished;
     private bool isStarted;  // タイマーが開始されたかどうか
 
+    public bool isDead_Display { get; set; } // 例: プロパティとして追加
+
     private void Awake()
     {
         if (Instance == null)
@@ -59,13 +61,15 @@ public class GameTimeDisplay : MonoBehaviour
     }
 
     // ゴールに到達したときに呼ばれるメソッド
-    public void FinishGame()
+    public void FinishGame( bool isDead)
     {
         if (!isFinished)
         {
             finishTime = Time.time - startTime;  // 経過時間を記録
             isFinished = true;
         }
+
+        isDead_Display = isDead;
     }
 
     // ゴール時の時間を設定

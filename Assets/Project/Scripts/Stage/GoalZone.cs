@@ -8,6 +8,7 @@ namespace TransitionsPlusDemos
     public class GoalZone : MonoBehaviour
     {
         [SerializeField] private CustomSceneManager customSceneManager;
+        [SerializeField] private PlayerHealthManager healthManager;
 
         public StageClearEffects stageClearEffects;
         public StageTransition stageTransition;
@@ -32,7 +33,7 @@ namespace TransitionsPlusDemos
                 BGMSoundManager.Instance.StopBGM();
                 BGMSoundManager.Instance.PlayGameClearBGM();
 
-                GameTimeDisplay.Instance.FinishGame();
+                GameTimeDisplay.Instance.FinishGame(healthManager.isDead);
                 float finishTime = GameTimeDisplay.Instance.GetFinishTime();
                 GameTimeDisplay.Instance.SetFinishTime(finishTime);
             
