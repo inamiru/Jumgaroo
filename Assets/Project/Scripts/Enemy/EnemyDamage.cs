@@ -23,7 +23,7 @@ public class EnemyDamage : MonoBehaviour
                 Debug.LogWarning("Player object is missing required components (PlayerHealthManager or Rigidbody).");
                 return;
             }
-
+            SoundEffectManager.Instance.PlayDamageSound();
             // ダメージ適用
             playerHealth.ApplyDamage(damageAmount, "Enemy");
         }

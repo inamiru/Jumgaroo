@@ -12,6 +12,7 @@ public class SoundEffectManager : MonoBehaviour
     public AudioClip openPanelSE; // Panel opening sound effect
     public AudioClip playerJumpSE; // Player jump sound effect
     public AudioClip mushroomJumpSE;
+    public AudioClip playerDamageSE;
 
     public AudioClip itemgetSE;
     public AudioClip stargetSE;
@@ -66,9 +67,13 @@ public class SoundEffectManager : MonoBehaviour
     {
         PlaySoundEffect(playerJumpSE);
     }
-    public void PlayMushroomJumpSond()
+    public void PlayMushroomJumpSound()
     {
         PlaySoundEffect(mushroomJumpSE);
+    }
+    public void PlayDamageSound()
+    {
+        PlaySoundEffect(playerDamageSE);
     }
 
     public void PlayItemGetSound()
